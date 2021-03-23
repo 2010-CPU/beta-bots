@@ -12,6 +12,7 @@ async function buildTables() {
     console.log("Dropping tables...")
     await client.query(`
       DROP TABLE IF EXISTS products;
+      DROP TABLE IF EXISTS users;
     `)
 
 
@@ -27,6 +28,18 @@ async function buildTables() {
         "inStock" BOOLEAN DEFAULT false,
         category VARCHAR(255) NOT NULL
       );
+    `)
+    await client.query(`
+        CREATE TABLE users(
+          id SERIAL PRIMARY KEY,
+          "firstName" VARCHAR(255) NOT NULL,
+          "lastName" VARCHAR(255) NOT NULL,
+          email VARCHAR(255) UNIQUE NOT NULL,
+          "imageURL" TEXT DEFAULT "placeimg.com/1",
+          username VARCHAR(255) UNIQUE NOT NULL,
+          password VARCHAR(255) UNIQUE NOT NULL,
+          "isAdmin" BOOLEAN UNIQUE NOT NULL DEFAULT false
+        );
     `)
   } catch (error) {
     throw error;
