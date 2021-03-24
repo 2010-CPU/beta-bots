@@ -13,6 +13,7 @@ async function buildTables() {
     await client.query(`
       DROP TABLE IF EXISTS products;
       DROP TABLE IF EXISTS users;
+      DROP TABLE IF EXISTS orders;
     `)
 
 
@@ -41,6 +42,15 @@ async function buildTables() {
           "isAdmin" BOOLEAN UNIQUE NOT NULL DEFAULT false
         );
     `)
+    await client.query(`
+        CREATE TABLE orders(
+          id SERIAL PRIMARY KEY,
+          status TEXT DEFAULT "created",
+          "userId" INTEGER REFERENCES users(id),
+          "datePlaced" DATE
+        );
+    `)
+
   } catch (error) {
     throw error;
   }
