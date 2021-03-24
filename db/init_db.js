@@ -14,6 +14,7 @@ async function buildTables() {
       DROP TABLE IF EXISTS products;
       DROP TABLE IF EXISTS users;
       DROP TABLE IF EXISTS orders;
+      DROP TABLE IF EXISTS order_products
     `)
 
 
@@ -48,6 +49,16 @@ async function buildTables() {
           status TEXT DEFAULT "created",
           "userId" INTEGER REFERENCES users(id),
           "datePlaced" DATE
+        );
+    `)
+
+    await client.query(`
+        CREATE TABLE order_products(
+          id SERIAL PRIMARY KEY,
+          "productId" INTEGER REFERENCES products(id),
+          "orderId" INTEGER REFERENCES orders(id),
+          price INTEGER NOT NULL,
+          quantity INTEGER NOT NULL DEFAULT 0
         );
     `)
 
