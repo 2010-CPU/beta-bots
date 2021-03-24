@@ -11,10 +11,10 @@ async function buildTables() {
     // drop tables in correct order
     console.log("Dropping tables...")
     await client.query(`
+      DROP TABLE IF EXISTS order_products;
+      DROP TABLE IF EXISTS orders;
       DROP TABLE IF EXISTS products;
       DROP TABLE IF EXISTS users;
-      DROP TABLE IF EXISTS orders;
-      DROP TABLE IF EXISTS order_products
     `)
 
 
@@ -26,40 +26,33 @@ async function buildTables() {
         name VARCHAR(255) NOT NULL,
         description TEXT NOT NULL,
         price INTEGER NOT NULL,
-        "imageURL" TEXT DEFAULT "placeimg.com/1",
+        "imageURL" VARCHAR(255) DEFAULT 'placeimg.com/300/300/any',
         "inStock" BOOLEAN DEFAULT false,
         category VARCHAR(255) NOT NULL
       );
-    `)
-    await client.query(`
-        CREATE TABLE users(
-          id SERIAL PRIMARY KEY,
-          "firstName" VARCHAR(255) NOT NULL,
-          "lastName" VARCHAR(255) NOT NULL,
-          email VARCHAR(255) UNIQUE NOT NULL,
-          "imageURL" TEXT DEFAULT "placeimg.com/1",
-          username VARCHAR(255) UNIQUE NOT NULL,
-          password VARCHAR(255) UNIQUE NOT NULL,
-          "isAdmin" BOOLEAN UNIQUE NOT NULL DEFAULT false
-        );
-    `)
-    await client.query(`
-        CREATE TABLE orders(
-          id SERIAL PRIMARY KEY,
-          status TEXT DEFAULT "created",
-          "userId" INTEGER REFERENCES users(id),
-          "datePlaced" DATE
-        );
-    `)
-
-    await client.query(`
-        CREATE TABLE order_products(
-          id SERIAL PRIMARY KEY,
-          "productId" INTEGER REFERENCES products(id),
-          "orderId" INTEGER REFERENCES orders(id),
-          price INTEGER NOT NULL,
-          quantity INTEGER NOT NULL DEFAULT 0
-        );
+      CREATE TABLE users(
+        id SERIAL PRIMARY KEY,
+        "firstName" VARCHAR(255) NOT NULL,
+        "lastName" VARCHAR(255) NOT NULL,
+        email VARCHAR(255) UNIQUE NOT NULL,
+        "imageURL" VARCHAR(255) DEFAULT 'placeimg.com/100/100/people',
+        username VARCHAR(255) UNIQUE NOT NULL,
+        password VARCHAR(255) UNIQUE NOT NULL,
+        "isAdmin" BOOLEAN UNIQUE NOT NULL DEFAULT false
+      );
+      CREATE TABLE orders(
+        id SERIAL PRIMARY KEY,
+        status VARCHAR(255) DEFAULT "created",
+        "userId" INTEGER REFERENCES users(id),
+        "datePlaced" DATE
+      );
+      CREATE TABLE order_products(
+        id SERIAL PRIMARY KEY,
+        "productId" INTEGER REFERENCES products(id),
+        "orderId" INTEGER REFERENCES orders(id),
+        price INTEGER NOT NULL,
+        quantity INTEGER NOT NULL DEFAULT 0
+      );
     `)
 
   } catch (error) {
