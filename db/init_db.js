@@ -26,7 +26,7 @@ async function buildTables() {
         name VARCHAR(255) NOT NULL,
         description TEXT NOT NULL,
         price INTEGER NOT NULL,
-        "imageURL" VARCHAR(255) DEFAULT 'placeimg.com/300/300/any',
+        "imageURL" VARCHAR(255) DEFAULT 'https://placeimg.com/300/300/any',
         "inStock" BOOLEAN DEFAULT false,
         category VARCHAR(255) NOT NULL
       );
@@ -35,14 +35,14 @@ async function buildTables() {
         "firstName" VARCHAR(255) NOT NULL,
         "lastName" VARCHAR(255) NOT NULL,
         email VARCHAR(255) UNIQUE NOT NULL,
-        "imageURL" VARCHAR(255) DEFAULT 'placeimg.com/100/100/people',
+        "imageURL" VARCHAR(255) DEFAULT 'https://placeimg.com/100/100/people',
         username VARCHAR(255) UNIQUE NOT NULL,
         password VARCHAR(255) UNIQUE NOT NULL,
         "isAdmin" BOOLEAN UNIQUE NOT NULL DEFAULT false
       );
       CREATE TABLE orders(
         id SERIAL PRIMARY KEY,
-        status VARCHAR(255) DEFAULT "created",
+        status VARCHAR(255) DEFAULT 'created',
         "userId" INTEGER REFERENCES users(id),
         "datePlaced" DATE
       );
