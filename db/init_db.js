@@ -72,3 +72,8 @@ buildTables()
   .then(populateInitialData)
   .catch(console.error)
   .finally(() => client.end());
+
+module.exports = {
+  buildTables,
+  populateInitialData
+}
