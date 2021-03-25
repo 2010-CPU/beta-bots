@@ -1,6 +1,7 @@
 // code to build and initialize DB goes here
 const {
-  client
+  client,
+  createProduct
   // other db methods 
 } = require('./index');
 
@@ -63,6 +64,14 @@ async function buildTables() {
 async function populateInitialData() {
   try {
     // create useful starting data
+    const dummyProduct = {
+      name: "guitar",
+      price: 1000,
+      description: "This is a funky guitar",
+      category: "strings"
+    }
+    const product = await createProduct(dummyProduct)
+    console.log(product)
   } catch (error) {
     throw error;
   }
