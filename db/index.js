@@ -26,9 +26,25 @@ const createProduct = async (productField) => {
       throw error
   };
 };
+const getProductById = async (id) => {
+  try {
+    const {rows: [product]} = await client.query(`
+      SELECT *
+      FROM products
+      WHERE id = $1;
+    `, [id])
+
+    console.log(product)
+
+    return product
+  } catch (error) {
+    console.log(error)  
+  }
+}
 // export
 module.exports = {
   client,
   createProduct,
   // db methods
+  getProductById,
 }
