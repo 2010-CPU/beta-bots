@@ -5,38 +5,6 @@ const DB_URL = process.env.DATABASE_URL || `postgres://localhost:5432/${ DB_NAME
 const client = new Client(DB_URL);
 
 // database methods
-<<<<<<< HEAD
-const createProduct = async (product) => {
-  
-  const {name, description, price, category} = product
-  
-  if(!name || !description || !price || !category) {
-    throw new Error("Product missing information")
-  }
-
-  const columnsToUpdate = Object.keys(product).map(
-    key => key
-  ).join(', ')
-
-  const safeInsertionString = Object.keys(product).map((key, index) => {
-    return `$${index + 1}`
-  }).join(', ') 
-
-  const valuesToAppend = Object.values(product)
-  try {
-    const {rows: [createdProduct]} = await client.query(`
-      INSERT INTO products(${columnsToUpdate})
-      VALUES (${safeInsertionString})
-      RETURNING *;
-    `, valuesToAppend)
-
-    return createdProduct
-  } catch (error) {
-    throw error
-  }
-}
-
-=======
 const createProduct = async (productField) => {
   const { name, description, price, category } = productField;
   if (!name || !description || !price || !category) {
@@ -88,17 +56,12 @@ const getAllProducts = async () => {
   }
 
 }
->>>>>>> dev
 
 // export
 module.exports = {
   client,
   createProduct,
   // db methods
-<<<<<<< HEAD
-  createProduct
-=======
   getProductById,
   getAllProducts
->>>>>>> dev
 }
