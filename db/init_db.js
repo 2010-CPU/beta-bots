@@ -1,9 +1,15 @@
 // code to build and initialize DB goes here
 const {
   client,
+<<<<<<< HEAD
   // other db methods
   createProduct
 
+=======
+  createProduct,
+  getAllProducts
+  // other db methods 
+>>>>>>> dev
 } = require('./index');
 
 async function buildTables() {
@@ -27,7 +33,7 @@ async function buildTables() {
         id SERIAL PRIMARY KEY,
         name VARCHAR(255) NOT NULL,
         description TEXT NOT NULL,
-        price INTEGER NOT NULL,
+        price FLOAT(2) NOT NULL,
         "imageURL" VARCHAR(255) DEFAULT 'https://placeimg.com/300/300/any',
         "inStock" BOOLEAN DEFAULT false,
         category VARCHAR(255) NOT NULL
@@ -52,7 +58,7 @@ async function buildTables() {
         id SERIAL PRIMARY KEY,
         "productId" INTEGER REFERENCES products(id),
         "orderId" INTEGER REFERENCES orders(id),
-        price INTEGER NOT NULL,
+        price FLOAT(2) NOT NULL,
         quantity INTEGER NOT NULL DEFAULT 0
       );
     `)
@@ -65,6 +71,29 @@ async function buildTables() {
 async function populateInitialData() {
   try {
     // create useful starting data
+    const dummyProduct1 = {
+      name: "guitar",
+      price: 10.50,
+      description: "This is a funky guitar",
+      category: "strings"
+    }
+    const dummyProduct2 = {
+      name: "piano",
+      price: 1000.50,
+      description: "This is a cool piano",
+      category: "tech"
+    }
+    const dummyProduct3 = {
+      name: "drums",
+      price: 1000.55,
+      description: "This is a neat drumset",
+      category: "drums"
+    }
+    const product1 = await createProduct(dummyProduct1)
+    const product2 = await createProduct(dummyProduct2)
+    const product3 = await createProduct(dummyProduct3)
+    const allProducts = await getAllProducts()
+    console.log("Here's all our products!:", allProducts)
   } catch (error) {
     throw error;
   }
