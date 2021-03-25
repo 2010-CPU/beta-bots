@@ -1,5 +1,5 @@
 const { buildTables, populateInitialData } = require('../db/init_db');
-const { client, createReport, getAllProducts, getProductById } = require('../db');
+const { client, createProduct, getAllProducts, getProductById } = require('../db');
 
 const builtProduct = {
     name: "A Product",
@@ -10,7 +10,7 @@ const builtProduct = {
 
 describe('Database', () => {
     beforeAll(async() => {
-        await client.connect();
+        //await client.connect();
         await buildTables();
         await populateInitialData();
     })
