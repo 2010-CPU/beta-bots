@@ -12,8 +12,7 @@ import {
 
 const App = () => {
   const [message, setMessage] = useState('');
-  const [products, setProducts] =useState([])
-  const [token, setToken] =useState('')
+  const [token] =useState('')
  
 
   useEffect(() => {
