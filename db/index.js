@@ -57,7 +57,7 @@ const getAllProducts = async () => {
 
 }
 
-  const productString = Object.keys(productFields).join(",")
+  // const productString = Object.keys(productField).join(",")
   
   // export
 module.exports = {
