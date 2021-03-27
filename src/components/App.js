@@ -34,7 +34,7 @@ const App = () => {
       <h1>Hello, World!</h1>
       <h2>{ message }</h2>
     </div>
-    <Route to="/products">
+    <Route path="/products">
       <ProductList />
     </Route>
     </Router>
