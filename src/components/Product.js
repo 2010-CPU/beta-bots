@@ -4,6 +4,9 @@ import {fetchProductById} from "../api"
 
 const Product = (props) => {
     const {token, product} = props
+
+    
+
     return (
         <div className="product">
             <img src={`${product.imageURL}?${product.id}`}></img>
