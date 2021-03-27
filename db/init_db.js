@@ -1,8 +1,13 @@
 // code to build and initialize DB goes here
 const {
   client,
+<<<<<<< Updated upstream
   createProduct,
   getAllProducts
+=======
+  // other db methods
+  createProduct
+>>>>>>> Stashed changes
   // other db methods 
 } = require('./index');
 
@@ -65,6 +70,7 @@ async function buildTables() {
 async function populateInitialData() {
   try {
     // create useful starting data
+<<<<<<< Updated upstream
     const dummyProduct1 = {
       name: "guitar",
       price: 10.50,
@@ -88,6 +94,16 @@ async function populateInitialData() {
     const product3 = await createProduct(dummyProduct3)
     const allProducts = await getAllProducts()
     console.log("Here's all our products!:", allProducts)
+=======
+    const dummyProduct = {
+      name: "guitar",
+      price: 1000,
+      description: "This is a funky guitar",
+      category: "strings"
+    }
+    const product = await createProduct(dummyProduct)
+    console.log(product)
+>>>>>>> Stashed changes
   } catch (error) {
     throw error;
   }
