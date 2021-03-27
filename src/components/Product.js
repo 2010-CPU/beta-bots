@@ -1,4 +1,4 @@
-
+import React, { useEffect, useState } from 'react';
 const API_URL = `https://localhost:5000`
 
 const Product = () => {
@@ -8,3 +8,4 @@ const Product = () => {
     }
 
 }
+export default Product;
