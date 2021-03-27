@@ -5,10 +5,6 @@ const DB_URL = process.env.DATABASE_URL || `postgres://localhost:5432/${ DB_NAME
 const client = new Client(DB_URL);
 
 // database methods
-<<<<<<< Updated upstream
-=======
-
->>>>>>> Stashed changes
 const createProduct = async (productField) => {
   const { name, description, price, category } = productField;
   if (!name || !description || !price || !category) {
@@ -36,7 +32,6 @@ const getProductById = async (id) => {
       FROM products
       WHERE id = $1;
     `, [id])
-<<<<<<< Updated upstream
 
     return product
   } catch (error) {
@@ -45,18 +40,6 @@ const getProductById = async (id) => {
 }
 
 
-=======
-
-    console.log(product)
-
-    return product
-  } catch (error) {
-    console.log(error)  
-  }
-}
-
-
->>>>>>> Stashed changes
 const getAllProducts = async () => {
 
   try {
