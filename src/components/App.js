@@ -1,8 +1,18 @@
 import React, { useState, useEffect } from 'react';
 
 import {
-  getSomething
+  BrowserRouter as Router,
+  Route,
+  Link,
+} from 'react-router-dom';
+
+import {
+  getSomething,
 } from '../api';
+
+import {
+  ProductList
+} from './'
 
 const App = () => {
   const [message, setMessage] = useState('');
@@ -18,10 +28,16 @@ const App = () => {
   });
 
   return (
+    <Router>
+      <Link to="/products">Products</Link>
     <div className="App">
       <h1>Hello, World!</h1>
       <h2>{ message }</h2>
     </div>
+    <Route path="/products">
+      <ProductList />
+    </Route>
+    </Router>
   );
 }
 
