@@ -12,11 +12,13 @@ import {
 } from '../api';
 
 import {
-  ProductList
+  ProductList,
+  Product
 } from './'
 
 const App = () => {
   const [message, setMessage] = useState('');
+  const [token, setToken] = useState('');
 
   useEffect(() => {
     getSomething()
@@ -32,17 +34,17 @@ const App = () => {
     <Router>
       <Link to="/products">Products</Link>
       <Link to="/">Home</Link>
-        <Route exact to="/products">
-          <ProductList />
-        </Route>
-        <Route exact to="/">
+        <Route exact path="/">
           <div className="App">
             <h1>Hello, World!</h1>
             <h2>{ message }</h2>
           </div>
         </Route>
-        <Route>
-          
+        <Route exact path="/products">
+          <ProductList />
+        </Route>
+        <Route exact path="/products/:productId">
+          <Product token={token} />
         </Route>
     </Router>
   );
