@@ -1,37 +1,33 @@
-import React, {useState, useEffect} from 'react'
-import { fetchAllProducts } from '../api'
+import React, { useEffect, useState } from 'react';
+import {fetchAllProducts} from '../api';
 
-import {Product} from './'
+const ProductList = ({token}) => {
+    const [products, setProducts] = useState([]);
 
-
-const ProductList = (props) => {
-    
-    const {token} = props
-
-    const [products, setProducts] = useState([])
-
-    const fetchAndSetProducts = async () => {
+    const fetchProducts = async () => {
         try {
-            const products = await fetchAllProducts()
-            setProducts(products)
+            const products = await fetchAllProducts();
+            setProducts(products);
         } catch (error) {
-            
+            console.log(error)
         }
     }
 
     useEffect(() => {
-        fetchAndSetProducts()
+        fetchProducts();
     }, [token])
 
-    console.log(products)
 
     return <div className="products-container">
         {
             products.map(product => {
-                return <Product key={product.id} product={product} />
-            })
-        }
-    </div>
+                return <div>Name: {product.name}</div>
+                
+        })
+     }
+        </div>
 }
 
-export default ProductList
+
+
+export default ProductList;

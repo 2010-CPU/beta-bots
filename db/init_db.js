@@ -83,9 +83,27 @@ async function populateInitialData() {
       description: "This is a neat drumset",
       category: "drums"
     }
+    const dummyProduct5 = {
+      name: "ukulele",
+      price: 500,
+      description: "The perfect ukulele for beginners and professionals",
+      category: "strings"
+    }
+
     const product1 = await createProduct(dummyProduct1)
     const product2 = await createProduct(dummyProduct2)
     const product3 = await createProduct(dummyProduct3)
+    const product5 = await createProduct(dummyProduct5)
+    const dummyProduct4 ={
+      name: "cowbell",
+      price: .99,
+      description: "We need more cowbell",
+      category: "percussion"
+    }
+    const product1 = await createProduct(dummyProduct1)
+    const product2 = await createProduct(dummyProduct2)
+    const product3 = await createProduct(dummyProduct3)
+    const product4 = await createProduct(dummyProduct4)
     const allProducts = await getAllProducts()
     console.log("Here's all our products!:", allProducts)
   } catch (error) {

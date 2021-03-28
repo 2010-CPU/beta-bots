@@ -1,24 +1,19 @@
 import React, { useState, useEffect } from 'react';
+import {BrowserRouter as Router, Switch, Route, Link} from 'react-router-dom'
 
 import {
-  BrowserRouter as Router,
-  Route,
-  Link,
-  Switch
-} from 'react-router-dom';
-
-import {
-  getSomething
+  getSomething,
 } from '../api';
 
 import {
-  ProductList,
+  ProductList, 
   Product
-} from './'
+} from './';
 
 const App = () => {
   const [message, setMessage] = useState('');
-  const [token, setToken] = useState('');
+  const [token] =useState('')
+ 
 
   useEffect(() => {
     getSomething()
@@ -31,23 +26,28 @@ const App = () => {
   });
 
   return (
+    
     <Router>
-      <Link to="/products">Products</Link>
-      <Link to="/">Home</Link>
-        <Route exact path="/">
-          <div className="App">
-            <h1>Hello, World!</h1>
-            <h2>{ message }</h2>
-          </div>
-        </Route>
-        <Route exact path="/products">
-          <ProductList />
-        </Route>
-        <Route exact path="/products/:productId">
-          <Product token={token} />
-        </Route>
-    </Router>
-  );
+          <Link to="/">Home</Link>
+          <Link to="/products">Products</Link>
+          <Switch>
+            <Route exact path="/">
+            <div className="App">
+              <h1>Hello, World!</h1>
+              <h2>{ message }</h2>
+            </div>
+            </Route>
+            <Route exact path="/products">
+              <ProductList token={token} />
+            </Route>
+            <Route exact path="/products/:productId">
+              <Product token={token} />
+            </Route>
+        </Switch>
+      </Router>  
+
+      )
 }
+
 
 export default App;
