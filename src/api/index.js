@@ -14,5 +14,6 @@ export async function getSomething() {
 }
 
 export {
-  fetchAllProducts
+  fetchAllProducts,
+  fetchProductById
 } from './products'
