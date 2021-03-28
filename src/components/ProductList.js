@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import {Product} from './'
 import {fetchAllProducts} from '../api';
 
 const ProductList = ({token}) => {
@@ -21,7 +22,7 @@ const ProductList = ({token}) => {
     return <div className="products-container">
         {
             products.map(product => {
-                return <div>Name: {product.name}</div>
+                return <Product key={product.id} product={product}/>
                 
         })
      }

@@ -3,6 +3,7 @@ import axios from 'axios';
 const BASE_URL = '/api';
 
 export const products_url = `${BASE_URL}/products/`
+export const users_url = `${BASE_URL}/users/`
 
 export async function getSomething() {
   try {
@@ -17,3 +18,7 @@ export {
   fetchAllProducts,
   fetchProductById
 } from './products'
+
+export {
+  handleAccountForm
+} from './users'

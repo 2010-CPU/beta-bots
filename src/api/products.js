@@ -15,6 +15,7 @@ const fetchAllProducts = async () => {
 const fetchProductById = async (id) => {
     try {
         const id_url = `${products_url}/${id}`
+        console.log(id_url)
         const response = await axios.get(id_url)
         const {data} = response
         return data.product
