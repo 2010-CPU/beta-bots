@@ -25,6 +25,7 @@ const createProduct = async (productField) => {
       throw error
   };
 };
+
 const getProductById = async (id) => {
   try {
     const {rows: [product]} = await client.query(`
@@ -39,7 +40,6 @@ const getProductById = async (id) => {
   }
 }
 
-
 const getAllProducts = async () => {
 
   try {
@@ -47,23 +47,35 @@ const getAllProducts = async () => {
     SELECT *
     FROM products
     `);
-
     return products;
-    
   } catch (error) {
-
     throw error;
   }
 
 }
+const createUser = async ({firstName, lastName, email, username, password}) => {
+  try {
+    const SALT_COUNT = 10;
+    const hashedPassword = await bcrypt.hash(password, SALT_COUNT)
+    const { rows: [user] } = await client.query(`
+    INSERT INTO users("firstName", "lastName", enail, username, password)
+    VALUES($1, $2, $3, $4, $5)
+    ON CONFLICT ("firstName", username) DO NOTHING
+    RETURNING *;
+    `, [firstName, lastName, email, username, hashedPassword]);
+    delete user.password
+    return user
+  } catch (error) {
+    throw error;
+  }
+}
 
-  // const productString = Object.keys(productField).join(",")
   
   // export
 module.exports = {
   client,
   createProduct,
-  // db methods
   getProductById,
-  getAllProducts
+  getAllProducts,
+  createUser,
 }
