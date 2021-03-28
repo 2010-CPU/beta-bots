@@ -7,12 +7,15 @@ import {
 
 import {
   ProductList, 
-  Product
+  Product,
+  AccountForm,
+  Account
 } from './';
 
 const App = () => {
   const [message, setMessage] = useState('');
-  const [token] = useState('')
+  const [token, setToken] = useState('')
+  const [user, setUser] = useState({})
  
 
   useEffect(() => {
@@ -30,6 +33,7 @@ const App = () => {
     <Router>
           <Link to="/">Home</Link>
           <Link to="/products">Products</Link>
+          {!token ? <Link to="/account/login">Login</Link> : <Link to="/account">Account</Link>}
           <Switch>
             <Route exact path="/">
             <div className="App">
@@ -42,6 +46,15 @@ const App = () => {
             </Route>
             <Route exact path="/products/:productId">
               <Product token={token} />
+            </Route>
+            <Route exact path="/account">
+              <Account user={user} token={token}/>
+            </Route>
+            <Route exact path="/account/register">
+              <AccountForm setToken={setToken} register={true}/>
+            </Route>
+            <Route exact path="/account/login">
+              <AccountForm setToken={setToken} register={false}/>
             </Route>
         </Switch>
       </Router>  

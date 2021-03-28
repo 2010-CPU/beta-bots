@@ -8,35 +8,37 @@ const Product = (props) => {
     const [_product, setProduct] = useState({})
     const fetchSingleProduct = async () => {
         try{
-        const product = await fetchProductById(productId)
-        setProduct(product)
+            const product = await fetchProductById(productId)
+            if(product) {
+                setProduct(product)
+            }
         } catch (error) {
             console.log(error)
         }
     }
   
     useEffect(() => {
-        fetchSingleProduct();
+        if(productId) {
+            fetchSingleProduct();
+        }
     }, [token]);
     
  return (
      product ? <div className='product'>
         <a href ={`products/${product.id}`}>
-        <img src={`${product.imageURL} ? ${product.id}`} />      
-        <div>{product.name}</div>
-        <div>{product.description}</div>
-        <div>{product.price}</div>
-        <div>{product.category}</div>
+        <img src={`${product.imageURL} ? ${product.id}`} alt={product.name}/>      
+        <p>{product.name}</p>
         </a>
-    </div>  : <div className='product'>
-        <a href ={`products/${_product.id}`}>
-        <img src={`${_product.imageURL} ? ${_product.id}`} />      
-        <div>{_product.name}</div>
-        <div>{_product.description}</div>
-        <div>{_product.price}</div>
-        <div>{_product.category}</div>
-        </a>
-        </div>
+        <p>${product.price}</p>
+        <p>{product.category}</p>
+    </div>  : 
+    <div className='product'>
+        <img src={`${_product.imageURL} ? ${_product.id}`} alt={_product.name}/>      
+        <p>{_product.name}</p>
+        <p>{_product.description}</p>
+        <p>${_product.price}</p>
+        <p>{_product.category}</p>
+    </div>
     )
 }
 export default Product;

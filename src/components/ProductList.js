@@ -1,5 +1,8 @@
 import React, { useEffect, useState } from 'react';
+import {Product} from './'
 import {fetchAllProducts} from '../api';
+
+import './style/productlist.css'
 
 const ProductList = ({token}) => {
     const [products, setProducts] = useState([]);
@@ -21,7 +24,7 @@ const ProductList = ({token}) => {
     return <div className="products-container">
         {
             products.map(product => {
-                return <div>Name: {product.name}</div>
+                return <Product key={product.id} product={product}/>
                 
         })
      }
