@@ -20,7 +20,7 @@ const Product = (props) => {
     }, [token]);
     
  return (
-     product ? <div className='product-container'>
+     product ? <div className='product'>
         <a href ={`products/${product.id}`}>
         <img src={`${product.imageURL} ? ${product.id}`} />      
         <div>{product.name}</div>
@@ -28,7 +28,7 @@ const Product = (props) => {
         <div>{product.price}</div>
         <div>{product.category}</div>
         </a>
-    </div>  :
+    </div>  : <div className='product'>
         <a href ={`products/${_product.id}`}>
         <img src={`${_product.imageURL} ? ${_product.id}`} />      
         <div>{_product.name}</div>
@@ -36,6 +36,7 @@ const Product = (props) => {
         <div>{_product.price}</div>
         <div>{_product.category}</div>
         </a>
+        </div>
     )
 }
 export default Product;

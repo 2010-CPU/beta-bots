@@ -2,7 +2,9 @@
 const {
   client,
   createProduct,
-  getAllProducts
+  getAllProducts,
+  createUser,
+  getAllUsers,
   // other db methods 
 } = require('./index');
 
@@ -40,7 +42,7 @@ async function buildTables() {
         "imageURL" VARCHAR(255) DEFAULT 'https://placeimg.com/100/100/people',
         username VARCHAR(255) UNIQUE NOT NULL,
         password VARCHAR(255) UNIQUE NOT NULL,
-        "isAdmin" BOOLEAN UNIQUE NOT NULL DEFAULT false
+        "isAdmin" BOOLEAN NOT NULL DEFAULT false
       );
       CREATE TABLE orders(
         id SERIAL PRIMARY KEY,
@@ -61,10 +63,36 @@ async function buildTables() {
     throw error;
   }
 }
+const populateUsers = async () => {
+  try {
+    console.log("Creating user data......!!!")
+    const dummyUser1 = {
+      firstName: "Bob",
+      lastName: "Dylan",
+      email: "bobbyDyall@gmail.com",
+      username: "bobdylan",
+      password: "bobdylan68"
+    }
+    const dummyUser2 = {
+      firstName: "Cage",
+      lastName: "The-Elephant",
+      email: "aintnorestforthewicked@gmail.com",
+      username: "cage890",
+      password: "elephant"
+    }
+    const user1 = await createUser(dummyUser1)
+    const user2 = await createUser(dummyUser2)
+    const allUsers = await getAllUsers()
+    console.log("Here's our users!!!!!!", allUsers)
+  } catch (error) {
+    throw error
+  }
+} 
 
-async function populateInitialData() {
+const populateProducts = async () => {
   try {
     // create useful starting data
+    console.log("Creating dumming products.....!")
     const dummyProduct1 = {
       name: "guitar",
       price: 10.50,
@@ -83,6 +111,12 @@ async function populateInitialData() {
       description: "This is a neat drumset",
       category: "drums"
     }
+    const dummyProduct4 ={
+      name: "cowbell",
+      price: .99,
+      description: "We need more cowbell",
+      category: "percussion"
+    }
     const dummyProduct5 = {
       name: "ukulele",
       price: 500,
@@ -93,21 +127,22 @@ async function populateInitialData() {
     const product1 = await createProduct(dummyProduct1)
     const product2 = await createProduct(dummyProduct2)
     const product3 = await createProduct(dummyProduct3)
-    const product5 = await createProduct(dummyProduct5)
-    const dummyProduct4 ={
-      name: "cowbell",
-      price: .99,
-      description: "We need more cowbell",
-      category: "percussion"
-    }
-    const product1 = await createProduct(dummyProduct1)
-    const product2 = await createProduct(dummyProduct2)
-    const product3 = await createProduct(dummyProduct3)
     const product4 = await createProduct(dummyProduct4)
+    const product5 = await createProduct(dummyProduct5)
     const allProducts = await getAllProducts()
     console.log("Here's all our products!:", allProducts)
   } catch (error) {
     throw error;
+  }
+}
+
+async function populateInitialData() {
+  try {
+
+    await populateProducts()
+    await populateUsers()
+  } catch(error) {
+    throw error
   }
 }
 
