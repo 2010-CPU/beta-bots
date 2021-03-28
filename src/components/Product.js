@@ -5,7 +5,6 @@ import {fetchProductById} from '../api';
 const Product = (props) => {
     const {token, product} = props
     const { productId } = useParams()
-    console.log(productId)
     const [_product, setProduct] = useState({})
     const fetchSingleProduct = async () => {
         try{
@@ -19,23 +18,25 @@ const Product = (props) => {
     }
   
     useEffect(() => {
-        fetchSingleProduct();
+        if(productId) {
+            fetchSingleProduct();
+        }
     }, [token]);
     
  return (
      product ? <div className='product'>
         <a href ={`products/${product.id}`}>
-        <img src={`${product.imageURL} ? ${product.id}`} />      
+        <img src={`${product.imageURL} ? ${product.id}`} alt={product.name}/>      
         <p>{product.name}</p>
         </a>
-        <p>{product.price}</p>
+        <p>${product.price}</p>
         <p>{product.category}</p>
     </div>  : 
     <div className='product'>
-        <img src={`${_product.imageURL} ? ${_product.id}`} />      
+        <img src={`${_product.imageURL} ? ${_product.id}`} alt={_product.name}/>      
         <p>{_product.name}</p>
         <p>{_product.description}</p>
-        <p>{_product.price}</p>
+        <p>${_product.price}</p>
         <p>{_product.category}</p>
     </div>
     )

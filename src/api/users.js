@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-import {products_url} from './';
+import {products_url, users_url} from './';
 
 const handleAccountForm = async (formType, fields) => {
     const account_url = `${products_url}/${formType}`
@@ -32,12 +32,19 @@ const handleAccountForm = async (formType, fields) => {
 
 const fetchUser = async (token) => {
     try {
-        
+        const response = axios.get(users_url, {
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        })
+        const {data} = response
+        return data
     } catch (error) {
         console.log(error)
     }
 }
 
 export {
-    handleAccountForm
+    handleAccountForm,
+    fetchUser
 }

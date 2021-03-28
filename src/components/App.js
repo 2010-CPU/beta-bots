@@ -8,12 +8,14 @@ import {
 import {
   ProductList, 
   Product,
-  AccountForm
+  AccountForm,
+  Account
 } from './';
 
 const App = () => {
   const [message, setMessage] = useState('');
   const [token, setToken] = useState('')
+  const [user, setUser] = useState({})
  
 
   useEffect(() => {
@@ -39,11 +41,14 @@ const App = () => {
               <h2>{ message }</h2>
             </div>
             </Route>
-            <Route exact path="/product/:productId">
-              <Product token={token} />
-            </Route>
             <Route exact path="/products">
               <ProductList token={token} />
+            </Route>
+            <Route exact path="/products/:productId">
+              <Product token={token} />
+            </Route>
+            <Route exact path="/account">
+              <Account user={user} token={token}/>
             </Route>
             <Route exact path="/account/register">
               <AccountForm setToken={setToken} register={true}/>

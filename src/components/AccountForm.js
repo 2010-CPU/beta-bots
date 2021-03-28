@@ -18,12 +18,17 @@ const AccountForm = (props) => {
     const [lastName, setLastName] = useState("")
     const [image, setImageURL] = useState("")
 
+    const [isDefault, setDefault] = useState(true)
+
     const oppositeLink = register ? "login" : "register"
     const route = register ? "register" : "login"
 
     const handleLogin = async (ev) => {
         ev.preventDefault()
         try {
+            if(isDefault) {
+                setImageURL("")
+            }
             const response = await handleAccountForm(route, {
                 username,
                 password,
@@ -64,10 +69,17 @@ const AccountForm = (props) => {
                         }}></input>
                         <input type="text" placeholder="text" value={email} onChange={(ev) => {
                             setEmail(ev.target.value)
+                        }}></input> 
+                        <label>Default Picture? 
+                        <input type="checkbox" value={isDefault} checked={isDefault} onChange={() => {
+                            setDefault(!isDefault)
                         }}></input>
-                        <input type="text" placeholder="image url" value={image} onChange={(ev) => {
-                            setImageURL(ev.target.value)
-                        }}></input>
+                        </label>
+                        {!isDefault ? 
+                            <input type="text" placeholder="image url" value={image} onChange={(ev) => {
+                                setImageURL(ev.target.value)
+                            }}></input>
+                        : ""}
                     </> : ""
             }
             <button>Submit</button>

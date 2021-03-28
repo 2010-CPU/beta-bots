@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import {Product} from './'
 import {fetchAllProducts} from '../api';
 
+import './style/productlist.css'
+
 const ProductList = ({token}) => {
     const [products, setProducts] = useState([]);
 
