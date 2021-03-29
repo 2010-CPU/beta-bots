@@ -24,11 +24,11 @@ usersRouter.post('/register', async (req, res, next) => {
         const validEmail = emailValidator.validate(email)
         // TODO: find a way to see if an email is taken.
         if (takenUsername) {
-            next ({message: 'A user by that username already exists.'});
+            next({message: 'A user by that username already exists.'});
         } else if (!validEmail) {
-            next ({message: 'Must be a valid email.'});
+            next({message: 'Must be a valid email.'});
         } else if (password.length < 8) {
-            next ({message: 'Password must be a minimum of 8 characters long.'});
+            next({message: 'Password must be a minimum of 8 characters long.'});
         } else {
             const user = await createUser({username, password, firstName, lastName, email})
             if (user) {

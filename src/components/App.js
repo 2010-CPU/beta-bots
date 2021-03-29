@@ -13,7 +13,7 @@ import {
   Account
 } from './';
 
-import {reactLocalStorage} from 'reactjs-localstorage'
+import './style/app.css'
 
 const App = () => {
   const [message, setMessage] = useState('');
@@ -21,14 +21,14 @@ const App = () => {
   const [user, setUser] = useState({})
 
   const handleLogout = () => {
-    reactLocalStorage.remove('grace-token')
+    localStorage.removeItem('grace-token')
     setToken('')
     setUser({})
   }
 
   const fetchAndSetUser = async () => {
     try {
-      const token = reactLocalStorage.get('grace-token')
+      const token = localStorage.getItem('grace-token')
       if(token) {
         const user = await fetchUser(token)
         setToken(token)
@@ -57,6 +57,7 @@ const App = () => {
   return (
     
     <Router>
+      <header>
           <Link to="/">Home</Link>
           <Link to="/products">Products</Link>
           {!token ? <Link to="/account/login">Login</Link> : 
@@ -65,11 +66,16 @@ const App = () => {
               <Link to="/" onClick={handleLogout}>Logout</Link>
             </>
           }
-          <Switch>
+      </header>
+        <Switch>
             <Route exact path="/">
             <div className="App">
               <h1>Hello, World!</h1>
               <h2>{ message }</h2>
+              <br />
+              {
+                user && user.username ? <h2>Welcome, {user.username}!</h2> : null
+              }
             </div>
             </Route>
             <Route exact path="/products">
@@ -88,9 +94,8 @@ const App = () => {
               <AccountForm setToken={setToken} register={false}/>
             </Route>
         </Switch>
-      </Router>  
-
-      )
+    </Router>  
+  )
 }
 
 
