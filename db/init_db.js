@@ -11,6 +11,7 @@ const {
   getAllOrders
   // other db methods 
 } = require('./index');
+const { getOrderById } = require('./orders');
 
 async function buildTables() {
   try {

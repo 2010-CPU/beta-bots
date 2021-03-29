@@ -52,7 +52,7 @@ const getOrderById = async (id) => {
             WHERE orders.id = $1;
         `, [id])
         
-        return formatOrders(order)
+        return formatOrders(order, id)
     } catch (error) {
         throw error
     }
@@ -72,7 +72,7 @@ const getAllOrders = async () => {
             ON products.id = order_products."productId";
         `)
         
-        return formatOrders(order)
+        return Object.values(formatOrders(order, null))
     } catch (error) {
         throw error
     }
@@ -80,7 +80,8 @@ const getAllOrders = async () => {
 
 const getOrdersByUser = async ({id}) => {
     try {
-        
+        const orders = await getAllOrders()
+        return orders.filter(order => order.userId === id)
     } catch (error) {
         throw error
     }
