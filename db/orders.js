@@ -89,7 +89,10 @@ const getOrdersByUser = async ({id}) => {
 
 const getOrdersByProduct = async ({id}) => {
     try {
-        
+        const orders = await getAllOrders()
+        return orders.filter(order => {
+            return order.products.some(product => product.id === id)
+        })
     } catch (error) {
         throw error
     }
@@ -97,7 +100,8 @@ const getOrdersByProduct = async ({id}) => {
 
 const getCartByUser = async ({id}) => {
     try {
-        
+        const orders = await getOrdersByUser({id})
+        return orders.filter(order => order.status === "created")
     } catch (error) {
         throw error
     }
@@ -138,5 +142,8 @@ const createOrder = async (order) => {
 module.exports = {
     createOrder,
     getOrderById,
-    getAllOrders
+    getAllOrders,
+    getCartByUser,
+    getOrdersByProduct,
+    getOrdersByUser
 }
