@@ -7,7 +7,6 @@ const Order = (props) => {
     const { orderId } = useParams();
     const [order, setOrder] = useState({})
    
-
     const fetchSingleOrder = async () => {
         try {
             const order = await fetchOrderById(orderId)
@@ -22,15 +21,24 @@ const Order = (props) => {
     }, [token])
 
     return (
-        order ? <div className='order'>
-            <div></div>
-            <a href = {`orders/${order.id}`}>
+        <>
+        <div className='order'>
+            <div>Order:</div>
             <div>Order Number: {order.id}</div>
             <div>Order Status: {order.status}</div>
-            <div>Date Placed: {order.datePlaced}</div>
-            <div>Customer ID: {order.userId}</div>
-            </a>
-        </div> : <div>There are no current orders</div>
+            <div>Order Placed: {order.datePlaced}</div>
+        </div> 
+        {/* <div className='product'>
+        <a href ={`products/${product.id}`}>
+        <img src={`${product.imageURL} ? ${product.id}`} />      
+        <div>{product.name}</div>
+        <div>{product.description}</div>
+        <div>{product.price}</div>
+        <div>{product.category}</div>
+        </a>
+    </div>  */}
+
+        </>
     )
 }
 

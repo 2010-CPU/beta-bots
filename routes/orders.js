@@ -2,7 +2,7 @@ const ordersRouter = require('express').Router()
 
 const {requireAdmin, requireUser} = require('./utils')
 
-const {getAllOrders, getCartByUser, createOrder} = require('../db')
+const {getAllOrders, getCartByUser, getOrderById, createOrder} = require('../db')
 
 ordersRouter.get('/', requireAdmin ,async (req, res, next) => {
     try {
@@ -32,6 +32,16 @@ ordersRouter.post('/', requireUser, async (req, res, next) => {
         if(order) {
             res.send({order})
         }
+    } catch (error) {
+        next(error)
+    }
+})
+
+ordersRouter.get('/:orderId', requireUser, async (req, res, next) => {
+    const {orderId} = req.params
+    try {
+        const order = await getOrderById(orderId)
+        res.send(order)
     } catch (error) {
         next(error)
     }
