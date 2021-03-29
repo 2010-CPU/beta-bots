@@ -3,6 +3,7 @@ import {BrowserRouter as Router, Switch, Route, Link} from 'react-router-dom'
 
 import {
   getSomething,
+  fetchUser
 } from '../api';
 
 import {
@@ -12,10 +13,35 @@ import {
   Account
 } from './';
 
+import './style/app.css'
+
 const App = () => {
   const [message, setMessage] = useState('');
   const [token, setToken] = useState('')
   const [user, setUser] = useState({})
+
+  const handleLogout = () => {
+    localStorage.removeItem('grace-token')
+    setToken('')
+    setUser({})
+  }
+
+  const fetchAndSetUser = async () => {
+    try {
+      const token = localStorage.getItem('grace-token')
+      if(token) {
+        const user = await fetchUser(token)
+        setToken(token)
+        setUser(user)
+      }
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  useEffect(() => {
+    fetchAndSetUser()
+  }, [token])
  
 
   useEffect(() => {
@@ -31,14 +57,25 @@ const App = () => {
   return (
     
     <Router>
+      <header>
           <Link to="/">Home</Link>
           <Link to="/products">Products</Link>
-          {!token ? <Link to="/account/login">Login</Link> : <Link to="/account">Account</Link>}
-          <Switch>
+          {!token ? <Link to="/account/login">Login</Link> : 
+            <>
+              <Link to="/account">Account</Link>
+              <Link to="/" onClick={handleLogout}>Logout</Link>
+            </>
+          }
+      </header>
+        <Switch>
             <Route exact path="/">
             <div className="App">
               <h1>Hello, World!</h1>
               <h2>{ message }</h2>
+              <br />
+              {
+                user && user.username ? <h2>Welcome, {user.username}!</h2> : null
+              }
             </div>
             </Route>
             <Route exact path="/products">
@@ -57,9 +94,8 @@ const App = () => {
               <AccountForm setToken={setToken} register={false}/>
             </Route>
         </Switch>
-      </Router>  
-
-      )
+    </Router>  
+  )
 }
 
 

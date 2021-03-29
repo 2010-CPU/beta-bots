@@ -1,3 +1,4 @@
+require("dotenv").config()
 const express = require('express');
 const usersRouter = express.Router();
 const jwt = require('jsonwebtoken');
@@ -7,15 +8,14 @@ const emailValidator = require('email-validator');
 const {
     createUser,
     getUserByUsername,
-    getUser
+    getUser,
+    getOrderById,
+    getOrdersByUser
 } = require('../db/')
 
 const {
-    requireUser
+    requireUser, requireAdmin
 } = require('./utils');
-
-
-
 
 usersRouter.post('/register', async (req, res, next) => {
     const {username, password, firstName, lastName, email} = req.body;
@@ -24,11 +24,11 @@ usersRouter.post('/register', async (req, res, next) => {
         const validEmail = emailValidator.validate(email)
         // TODO: find a way to see if an email is taken.
         if (takenUsername) {
-            next ({message: 'A user by that username already exists.'});
+            next({message: 'A user by that username already exists.'});
         } else if (!validEmail) {
-            next ({message: 'Must be a valid email.'});
+            next({message: 'Must be a valid email.'});
         } else if (password.length < 8) {
-            next ({message: 'Password must be a minimum of 8 characters long.'});
+            next({message: 'Password must be a minimum of 8 characters long.'});
         } else {
             const user = await createUser({username, password, firstName, lastName, email})
             if (user) {
@@ -46,7 +46,6 @@ usersRouter.post('/register', async (req, res, next) => {
         next(error);
     }
 })
-
 
 usersRouter.post('/login', async (req, res, next) => {
     const {username, password} = req.body;
@@ -71,8 +70,20 @@ usersRouter.post('/login', async (req, res, next) => {
     }
 })
 
-usersRouter.get('/me', requireUser, async (req, res, next) => {
+usersRouter.get('/me', requireUser, (req, res, next) => {
     res.send(req.user);
+})
+
+usersRouter.get('/:userId/orders', requireAdmin, async (req, res, next) => {
+    try {
+        const {userId} = req.params
+        const orders = await getOrdersByUser({id: userId})
+        if(orders) {
+            res.send({orders})
+        }
+    } catch (error) {
+        next(error)
+    }
 })
 
 

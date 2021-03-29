@@ -6,8 +6,6 @@ const {
   getUserById
 } = require('../db');
 
-
-
 apiRouter.use(async (req, res, next) => {
   const prefix = 'Bearer ';
   const auth = req.header('Authorization');
@@ -27,15 +25,12 @@ apiRouter.use(async (req, res, next) => {
   }
 })
 
-
 apiRouter.use((req, res, next) => {
   if (req.user) {
     console.log('user is set', req.user);
   }
   next();
 })
-
-
 
 apiRouter.get("/", (req, res, next) => {
   res.send({
@@ -48,6 +43,9 @@ apiRouter.use('/products', productsRouter)
 
 const usersRouter = require('./users')
 apiRouter.use('/users', usersRouter);
+
+const ordersRouter = require('./orders')
+apiRouter.use('/orders', ordersRouter)
 
 apiRouter.get("*", (req, res, next) => {
   res.status(404).send({message: '404 not found'});

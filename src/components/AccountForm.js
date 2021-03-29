@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, { useState} from 'react'
 import { Link, useHistory } from 'react-router-dom'
 
 import {handleAccountForm} from '../api'
@@ -37,12 +37,10 @@ const AccountForm = (props) => {
                 lastName,
                 image
             })
-            console.log(response)
-            if(response && response.token ) {
+            if(response && response.token) {
+                localStorage.setItem('grace-token', response.token)
                 setToken(response.token)
                 history.push("/")
-            } else {
-                alert("API down.")
             }
         } catch (error) {
             console.log(error)
@@ -55,7 +53,7 @@ const AccountForm = (props) => {
             <input type="text" placeholder="username" value={username} onChange={(ev) => {
                 setUsername(ev.target.value)
             }}></input>
-            <input type="password" placeholder="password" minLength={8} value={password} onChange={(ev) => {
+            <input type="password" placeholder="password" value={password} onChange={(ev) => {
                 setPassword(ev.target.value)
             }}></input>
             {
@@ -67,7 +65,7 @@ const AccountForm = (props) => {
                         <input type="text" placeholder="last name" value={lastName} onChange={(ev) => {
                             setLastName(ev.target.value)
                         }}></input>
-                        <input type="text" placeholder="text" value={email} onChange={(ev) => {
+                        <input type="text" placeholder="email" value={email} onChange={(ev) => {
                             setEmail(ev.target.value)
                         }}></input> 
                         <label>Default Picture? 

@@ -20,5 +20,6 @@ export {
 } from './products'
 
 export {
-  handleAccountForm
+  handleAccountForm,
+  fetchUser
 } from './users'
