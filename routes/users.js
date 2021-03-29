@@ -1,3 +1,4 @@
+require("dotenv").config()
 const express = require('express');
 const usersRouter = express.Router();
 const jwt = require('jsonwebtoken');
@@ -13,9 +14,6 @@ const {
 const {
     requireUser
 } = require('./utils');
-
-
-
 
 usersRouter.post('/register', async (req, res, next) => {
     const {username, password, firstName, lastName, email} = req.body;
@@ -47,7 +45,6 @@ usersRouter.post('/register', async (req, res, next) => {
     }
 })
 
-
 usersRouter.post('/login', async (req, res, next) => {
     const {username, password} = req.body;
     if (!username || !password) {
@@ -71,7 +68,7 @@ usersRouter.post('/login', async (req, res, next) => {
     }
 })
 
-usersRouter.get('/me', requireUser, async (req, res, next) => {
+usersRouter.get('/me', requireUser, (req, res, next) => {
     res.send(req.user);
 })
 

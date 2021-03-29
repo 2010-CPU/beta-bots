@@ -62,8 +62,6 @@ const getAllUsers = async() => {
         users.email,
         users."imageURL",
         users.username,
-        
-        users.password,
         users."isAdmin"
       FROM users;
     `)

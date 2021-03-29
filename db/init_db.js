@@ -6,6 +6,9 @@ const {
   getAllProducts,
   createUser,
   getAllUsers,
+  createOrder,
+  addProductToOrder,
+  getOrderById
   // other db methods 
 } = require('./index');
 
@@ -49,7 +52,7 @@ async function buildTables() {
         id SERIAL PRIMARY KEY,
         status VARCHAR(255) DEFAULT 'created',
         "userId" INTEGER REFERENCES users(id),
-        "datePlaced" DATE
+        "datePlaced" TIMESTAMP DEFAULT CURRENT_TIMESTAMP
       );
       CREATE TABLE order_products(
         id SERIAL PRIMARY KEY,
@@ -102,7 +105,7 @@ const populateProducts = async () => {
     }
     const dummyProduct2 = {
       name: "piano",
-      price: 1000.50,
+      price: 500.50,
       description: "This is a cool piano",
       category: "tech"
     }
@@ -137,11 +140,62 @@ const populateProducts = async () => {
   }
 }
 
+const populateOrders = async () => {
+  try {
+    console.log("Creating orders...")
+    const order = {
+      userId: 1
+    }
+    const order2 = {
+      userId: 2,
+      status: "completed"
+    }
+    await createOrder(order)
+    await createOrder(order2)
+    console.log("Finished orders!")
+  } catch (error) {
+    throw error;
+  }
+}
+
+const populateOrderProducts = async () => {
+  try {
+    console.log("Creating products to order...")
+    const order_product = {
+      orderId: 1,
+      productId: 3,
+      price: 1
+    }
+    const order_product2 = {
+      orderId: 1,
+      productId: 2,
+      price: 500.55,
+      quantity: 10
+    }
+    const order_product3 = {
+      orderId: 2,
+      productId: 5,
+      price: 40.99,
+      quantity: 3
+    }
+
+    await addProductToOrder(order_product)
+    await addProductToOrder(order_product2)
+    await addProductToOrder(order_product3)
+    console.log("Finished products to order!")
+  } catch (error) {
+    throw error;
+  }
+}
+
 async function populateInitialData() {
   try {
 
     await populateProducts()
     await populateUsers()
+    await populateOrders()
+    await populateOrderProducts()
+    const order = await getOrderById(1)
   } catch(error) {
     throw error
   }
