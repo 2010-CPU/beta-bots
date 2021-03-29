@@ -1,7 +1,9 @@
-import React, {useState} from 'react'
+import React, { useState} from 'react'
 import { Link, useHistory } from 'react-router-dom'
 
 import {handleAccountForm} from '../api'
+
+import {reactLocalStorage} from 'reactjs-localstorage'
 
 import './style/accountform.css'
 
@@ -37,8 +39,8 @@ const AccountForm = (props) => {
                 lastName,
                 image
             })
-            console.log(response)
             if(response && response.token ) {
+                reactLocalStorage.set('grace-token', response.token)
                 setToken(response.token)
                 history.push("/")
             } else {
@@ -55,7 +57,7 @@ const AccountForm = (props) => {
             <input type="text" placeholder="username" value={username} onChange={(ev) => {
                 setUsername(ev.target.value)
             }}></input>
-            <input type="password" placeholder="password" minLength={8} value={password} onChange={(ev) => {
+            <input type="password" placeholder="password" value={password} onChange={(ev) => {
                 setPassword(ev.target.value)
             }}></input>
             {

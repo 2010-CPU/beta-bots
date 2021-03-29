@@ -2,17 +2,34 @@ const client = require('./client')
 const bcrypt = require('bcrypt');
 
 // database methods
-const createUser = async ({firstName, lastName, email, username, password}) => {
+const createUser = async (user) => {
+
+  const {firstName, lastName, email, username, password} = user
+
+  if(!firstName || !lastName || !email || !username || !password) {
+    throw new Error("Must have a first name, last name, email, username, and password when creating a user.")
+  }
+
+  const insertString = Object.keys(user).map(key => `"${key}"`).join(', ')
+  const valuesString = Object.keys(user).map((key, index) => `$${index + 1}`).join(', ')
+
   try {
     const SALT_COUNT = 10;
     const hashedPassword = await bcrypt.hash(password, SALT_COUNT)
-    const { rows: [user] } = await client.query(`
-    INSERT INTO users("firstName", "lastName", email, username, password)
-    VALUES($1, $2, $3, $4, $5)
+
+    user.password = hashedPassword
+    const values = Object.values(user)
+
+    const { rows: [_user] } = await client.query(`
+    INSERT INTO users(${insertString})
+    VALUES(${valuesString})
     RETURNING *;
-    `, [firstName, lastName, email, username, hashedPassword]);
-    delete user.password
-    return user
+    `, values);
+
+    delete _user.password
+
+    return _user
+
   } catch (error) {
     throw error;
   }

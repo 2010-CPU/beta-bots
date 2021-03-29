@@ -3,6 +3,7 @@ import {BrowserRouter as Router, Switch, Route, Link} from 'react-router-dom'
 
 import {
   getSomething,
+  fetchUser
 } from '../api';
 
 import {
@@ -12,10 +13,35 @@ import {
   Account
 } from './';
 
+import {reactLocalStorage} from 'reactjs-localstorage'
+
 const App = () => {
   const [message, setMessage] = useState('');
   const [token, setToken] = useState('')
   const [user, setUser] = useState({})
+
+  const handleLogout = () => {
+    reactLocalStorage.remove('grace-token')
+    setToken('')
+    setUser({})
+  }
+
+  const fetchAndSetUser = async () => {
+    try {
+      const token = reactLocalStorage.get('grace-token')
+      if(token) {
+        const user = await fetchUser(token)
+        setToken(token)
+        setUser(user)
+      }
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  useEffect(() => {
+    fetchAndSetUser()
+  }, [token])
  
 
   useEffect(() => {
@@ -33,7 +59,12 @@ const App = () => {
     <Router>
           <Link to="/">Home</Link>
           <Link to="/products">Products</Link>
-          {!token ? <Link to="/account/login">Login</Link> : <Link to="/account">Account</Link>}
+          {!token ? <Link to="/account/login">Login</Link> : 
+            <>
+              <Link to="/account">Account</Link>
+              <Link to="/" onClick={handleLogout}>Logout</Link>
+            </>
+          }
           <Switch>
             <Route exact path="/">
             <div className="App">

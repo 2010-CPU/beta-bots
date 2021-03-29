@@ -189,9 +189,29 @@ const populateOrderProducts = async () => {
   }
 }
 
+const seedAdminUsers = async () => {
+  const sal = {
+    firstName: 'sal',
+    lastName: 'guerrero',
+    email: 'sal@gmail.com',
+    imageURL: 'https://placeimg.com/100/100/people',
+    username: 'lol',
+    password: 'lol',
+    isAdmin: true
+  }
+  try {
+    const admin = await createUser(sal)
+    const order = await createOrder({userId: admin.id})
+    console.log(admin, order)
+  } catch (error) {
+    throw error
+  }
+}
+
 async function populateInitialData() {
   try {
 
+    await seedAdminUsers()
     await populateProducts()
     await populateUsers()
     await populateOrders()

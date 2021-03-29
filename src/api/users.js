@@ -1,9 +1,9 @@
 import axios from 'axios';
 
-import {products_url, users_url} from './';
+import {users_url} from './';
 
 const handleAccountForm = async (formType, fields) => {
-    const account_url = `${products_url}/${formType}`
+    const account_url = `${users_url}${formType}`
     const {firstName, username, password, lastName, email, image} = fields
     const body = {username, password}
     if(formType === "register") {
@@ -18,7 +18,7 @@ const handleAccountForm = async (formType, fields) => {
         }
     }
     try {
-        const response = axios.post(account_url, body, {
+        const response = await axios.post(account_url, body, {
             headers: {
                 'Content-type': 'application/json'
             }
@@ -32,7 +32,8 @@ const handleAccountForm = async (formType, fields) => {
 
 const fetchUser = async (token) => {
     try {
-        const response = axios.get(users_url, {
+        const me_url = `${users_url}me`
+        const response = await axios.get(me_url, {
             headers: {
                 'Authorization': `Bearer ${token}`
             }
