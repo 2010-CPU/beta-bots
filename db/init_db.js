@@ -8,7 +8,7 @@ const {
   getAllUsers,
   createOrder,
   addProductToOrder,
-  getOrderById
+  getAllOrders
   // other db methods 
 } = require('./index');
 
@@ -195,7 +195,8 @@ async function populateInitialData() {
     await populateUsers()
     await populateOrders()
     await populateOrderProducts()
-    const order = await getOrderById(1)
+    const orders = await getAllOrders()
+    console.log("All current orders:", orders)
   } catch(error) {
     throw error
   }

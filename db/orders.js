@@ -1,6 +1,6 @@
 const client = require('./client')
 
-const formatOrders = (orders) => {
+const formatOrders = (orders, id) => {
     const formattedOrders = orders.reduce((orderAgg, order) => {
         const {id, status, datePlaced, userId, total, quantity, 
             productId, name, description, price, imageURL, inStock, category} = order
@@ -30,8 +30,11 @@ const formatOrders = (orders) => {
         }
         return orderAgg
     }, {})
-    console.log(formattedOrders)
-    console.log(formattedOrders["1"].products)
+    if(id) {
+        return formattedOrders[id]
+    } else {
+        return formattedOrders
+    }
 }
 
 const getOrderById = async (id) => {
@@ -48,8 +51,8 @@ const getOrderById = async (id) => {
             ON products.id = order_products."productId"
             WHERE orders.id = $1;
         `, [id])
-        console.log("ORDER:", order)
-        formatOrders(order)
+        
+        return formatOrders(order)
     } catch (error) {
         throw error
     }
@@ -57,7 +60,19 @@ const getOrderById = async (id) => {
 
 const getAllOrders = async () => {
     try {
+        const {rows: order} = await client.query(`
+            SELECT 
+            orders.id, orders.status, orders."datePlaced", orders."userId",
+            order_products.price AS total, order_products.quantity, order_products."productId",
+            products.name, products.description, products.price, products."imageURL", products."inStock", products.category
+            FROM orders
+            LEFT JOIN order_products
+            ON order_products."orderId" = orders.id
+            LEFT JOIN products
+            ON products.id = order_products."productId";
+        `)
         
+        return formatOrders(order)
     } catch (error) {
         throw error
     }
@@ -121,5 +136,6 @@ const createOrder = async (order) => {
 
 module.exports = {
     createOrder,
-    getOrderById
+    getOrderById,
+    getAllOrders
 }
