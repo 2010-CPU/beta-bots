@@ -8,11 +8,13 @@ const emailValidator = require('email-validator');
 const {
     createUser,
     getUserByUsername,
-    getUser
+    getUser,
+    getOrderById,
+    getOrdersByUser
 } = require('../db/')
 
 const {
-    requireUser
+    requireUser, requireAdmin
 } = require('./utils');
 
 usersRouter.post('/register', async (req, res, next) => {
@@ -70,6 +72,18 @@ usersRouter.post('/login', async (req, res, next) => {
 
 usersRouter.get('/me', requireUser, (req, res, next) => {
     res.send(req.user);
+})
+
+usersRouter.get('/:userId/orders', requireAdmin, async (req, res, next) => {
+    try {
+        const {userId} = req.params
+        const orders = await getOrdersByUser({id: userId})
+        if(orders) {
+            res.send({orders})
+        }
+    } catch (error) {
+        next(error)
+    }
 })
 
 
