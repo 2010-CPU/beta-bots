@@ -10,7 +10,8 @@ import {
   ProductList, 
   Product,
   AccountForm,
-  Account
+  Account,
+  Order,
 } from './';
 
 import './style/app.css'
@@ -60,6 +61,7 @@ const App = () => {
       <header>
           <Link to="/">Home</Link>
           <Link to="/products">Products</Link>
+          <Link to="/orders">Orders</Link>
           {!token ? <Link to="/account/login">Login</Link> : 
             <>
               <Link to="/account">Account</Link>
@@ -76,13 +78,16 @@ const App = () => {
               {
                 user && user.username ? <h2>Welcome, {user.username}!</h2> : null
               }
-            </div>
+            </div> 
             </Route>
             <Route exact path="/products">
               <ProductList token={token} />
             </Route>
             <Route exact path="/products/:productId">
               <Product token={token} />
+            </Route>
+            <Route exact path="/orders/:orderId">
+              <Order token={token}/>
             </Route>
             <Route exact path="/account">
               <Account user={user} token={token}/>

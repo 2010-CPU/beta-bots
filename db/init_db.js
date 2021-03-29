@@ -151,8 +151,13 @@ const populateOrders = async () => {
       userId: 2,
       status: "completed"
     }
+    const order3 = { 
+      userId: 3,
+      status: "in transit"
+    }
     await createOrder(order)
     await createOrder(order2)
+    await createOrder(order3)
     console.log("Finished orders!")
   } catch (error) {
     throw error;
