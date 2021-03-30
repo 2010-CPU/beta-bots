@@ -3,12 +3,12 @@ import { useParams } from 'react-router-dom'
 import { Order } from './'
 
 
-const Cart = () => {
-
+const Cart = (props) => {
+    const {order, cart} = props
     return (
         <div className="shopping-cart">
             <h1>Your Shopping Cart:</h1>
-            <Order />
+            <Order order={cart} cart={true} />
         </div>
     )
 }

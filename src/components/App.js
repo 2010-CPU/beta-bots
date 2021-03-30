@@ -11,7 +11,6 @@ import {
   Product,
   AccountForm,
   Account,
-  Order,
   Cart
 } from './';
 
@@ -87,9 +86,9 @@ const App = () => {
             <Route exact path="/products/:productId">
               <Product token={token} />
             </Route>
-            <Route exact path="/orders/:orderId">
+            {/* <Route exact path="/orders/:orderId">
               <Order token={token}/>
-            </Route>
+            </Route> */}
             <Route exact path="/cart">
               <Cart />
             </Route>

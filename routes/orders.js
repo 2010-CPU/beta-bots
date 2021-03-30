@@ -41,7 +41,7 @@ ordersRouter.get('/:orderId', requireUser, async (req, res, next) => {
     const {orderId} = req.params
     try {
         const order = await getOrderById(orderId)
-        res.send(order)
+        res.send({order})
     } catch (error) {
         next(error)
     }

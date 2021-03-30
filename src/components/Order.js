@@ -5,28 +5,31 @@ import {fetchOrderById} from '../api';
 const Order = (props) => {
     const {token} = props;
     const { orderId } = useParams();
-    const [order, setOrder] = useState({})
+    const [order, setOrder] = useState({products: []})
    
     const fetchSingleOrder = async () => {
         try {
-            const order = await fetchOrderById(orderId)
-            setOrder(order)
+            const _order = await fetchOrderById(orderId, token)
+            console.log("order:",_order)
+            setOrder(_order)
         } catch (error) {
             console.log(error)
         }
     }
 
     useEffect(() => {
-        fetchSingleOrder()
-    }, [token])
+       if (orderId){
+     fetchSingleOrder()
+       }
+    }, [])
 
     return (
-        order ? <div className='order'>
+        <div className='order'>
             <div>Order:</div>
             <div>Order Number: {order.id}</div>
             <div>Order Status: {order.status}</div>
             <div>Order Placed: {order.datePlaced}</div>
-        </div> : <div>There are no currents orders</div>
+        </div>
     /* <div className='product'>
         <a href ={`products/${product.id}`}>
         <img src={`${product.imageURL} ? ${product.id}`} />      
