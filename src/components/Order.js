@@ -21,14 +21,13 @@ const Order = (props) => {
     }, [token])
 
     return (
-        <>
-        <div className='order'>
+        order ? <div className='order'>
             <div>Order:</div>
             <div>Order Number: {order.id}</div>
             <div>Order Status: {order.status}</div>
             <div>Order Placed: {order.datePlaced}</div>
-        </div> 
-        {/* <div className='product'>
+        </div> : <div>There are no currents orders</div>
+    /* <div className='product'>
         <a href ={`products/${product.id}`}>
         <img src={`${product.imageURL} ? ${product.id}`} />      
         <div>{product.name}</div>
@@ -36,9 +35,7 @@ const Order = (props) => {
         <div>{product.price}</div>
         <div>{product.category}</div>
         </a>
-    </div>  */}
-
-        </>
+    </div>  */
     )
 }
 

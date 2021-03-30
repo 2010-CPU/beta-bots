@@ -12,6 +12,7 @@ import {
   AccountForm,
   Account,
   Order,
+  Cart
 } from './';
 
 import './style/app.css'

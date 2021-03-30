@@ -40,6 +40,8 @@ const AccountForm = (props) => {
             if(response && response.token) {
                 localStorage.setItem('grace-token', response.token)
                 setToken(response.token)
+                console.log("username:", username)
+                console.log("password:", password)
                 history.push("/")
             }
         } catch (error) {
