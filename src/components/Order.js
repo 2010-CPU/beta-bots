@@ -18,10 +18,11 @@ const Order = (props) => {
     }
 
     useEffect(() => {
+        console.log('token:', token)
        if (orderId){
      fetchSingleOrder()
        }
-    }, [])
+    }, [token])
 
     return (
         <div className='order'>

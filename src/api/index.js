@@ -26,5 +26,6 @@ export {
 } from './users'
 
 export {
-  fetchOrderById
+  fetchOrderById,
+  fetchCartByUser
 } from './orders'

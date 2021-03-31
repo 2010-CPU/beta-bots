@@ -11,6 +11,7 @@ import {
   Product,
   AccountForm,
   Account,
+  Order,
   Cart
 } from './';
 
@@ -45,15 +46,15 @@ const App = () => {
   }, [token])
  
 
-  useEffect(() => {
-    getSomething()
-      .then(response => {
-        setMessage(response.message);
-      })
-      .catch(error => {
-        setMessage(error.message);
-      });
-  });
+  // useEffect(() => {
+  //   getSomething()
+  //     .then(response => {
+  //       setMessage(response.message);
+  //     })
+  //     .catch(error => {
+  //       setMessage(error.message);
+  //     });
+  // });
 
   return (
     
@@ -61,7 +62,7 @@ const App = () => {
       <header>
           <Link to="/">Home</Link>
           <Link to="/products">Products</Link>
-          {token ? <Link to="/cart">Cart</Link> : ''}
+          {token ? <Link to="/orders/cart">Cart</Link> : ''}
           {!token ? <Link to="/account/login">Login</Link> : 
             <>
               <Link to="/account">Account</Link>
@@ -86,11 +87,11 @@ const App = () => {
             <Route exact path="/products/:productId">
               <Product token={token} />
             </Route>
-            {/* <Route exact path="/orders/:orderId">
-              <Order token={token}/>
-            </Route> */}
-            <Route exact path="/cart">
-              <Cart />
+            <Route exact path="/orders/cart">
+              <Cart token={token} />
+            </Route>
+            <Route exact path="/orders/:orderId">
+              <Order token={token} />
             </Route>
             <Route exact path="/account">
               <Account user={user} token={token}/>
