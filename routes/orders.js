@@ -2,7 +2,13 @@ const ordersRouter = require('express').Router()
 
 const {requireAdmin, requireUser} = require('./utils')
 
-const {getAllOrders, getCartByUser, getOrderById, createOrder} = require('../db')
+const {
+    getAllOrders, 
+    getCartByUser, 
+    getOrderById, 
+    createOrder, 
+    getOrdersByUser
+} = require('../db')
 
 ordersRouter.get('/', requireAdmin ,async (req, res, next) => {
     try {
@@ -17,9 +23,9 @@ ordersRouter.get('/', requireAdmin ,async (req, res, next) => {
 
 ordersRouter.get('/cart', requireUser, async (req, res, next) => {
     try {
-        const cart = await getCartByUser(req.user)
+        const order = await getCartByUser(req.user)
         if(cart) {
-            res.send({cart})
+            res.send({order}) //destructured 9;47 am
         }
     } catch (error) {
         next(error)
@@ -38,14 +44,31 @@ ordersRouter.post('/', requireUser, async (req, res, next) => {
 })
 
 ordersRouter.get('/:orderId', requireUser, async (req, res, next) => {
+    console.log('inside orderId route')
     const {orderId} = req.params
+    console.log("orderId:", orderId)
     try {
         const order = await getOrderById(orderId)
+        if (order) {
+        console.log('order:', order)
         res.send({order})
+        } else {
+            throw new Error (`order ${orderId} not found`)
+        }
     } catch (error) {
         next(error)
     }
 })
-
+ordersRouter.get('/:userId/orders', requireAdmin, async (req, res, next) => {
+    try {
+        const {userId} = req.params
+        const orders = await getOrdersByUser({id: userId})
+        if(orders) {
+            res.send({orders})
+        }
+    } catch (error) {
+        next(error)
+    }
+})
 
 module.exports = ordersRouter;

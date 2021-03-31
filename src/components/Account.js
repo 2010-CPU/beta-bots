@@ -3,6 +3,7 @@ import React from 'react'
 const Account = (props) => {
 
     const {user, token} = props
+   
 
     if(!user.username) {
         return <div className="profile">You must be logged in to view this page.</div>

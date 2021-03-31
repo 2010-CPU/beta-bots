@@ -21,6 +21,8 @@ const App = () => {
   const [message, setMessage] = useState('');
   const [token, setToken] = useState('')
   const [user, setUser] = useState({})
+  const [product, setProduct] = useState([])
+  const [order, setOrder] = useState([])
 
   const handleLogout = () => {
     localStorage.removeItem('grace-token')
@@ -46,15 +48,15 @@ const App = () => {
   }, [token])
  
 
-  // useEffect(() => {
-  //   getSomething()
-  //     .then(response => {
-  //       setMessage(response.message);
-  //     })
-  //     .catch(error => {
-  //       setMessage(error.message);
-  //     });
-  // });
+  useEffect(() => {
+    getSomething()
+      .then(response => {
+        setMessage(response.message);
+      })
+      .catch(error => {
+        setMessage(error.message);
+      });
+  });
 
   return (
     
@@ -91,7 +93,7 @@ const App = () => {
               <Cart token={token} />
             </Route>
             <Route exact path="/orders/:orderId">
-              <Order token={token} />
+              <Order token={token}  />
             </Route>
             <Route exact path="/account">
               <Account user={user} token={token}/>

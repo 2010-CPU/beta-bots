@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {useParams} from 'react-router-dom';
 import {fetchOrderById} from '../api';
+import Product from './Product';
 
 const Order = (props) => {
     const {token} = props;
@@ -8,30 +9,38 @@ const Order = (props) => {
     const [order, setOrder] = useState({products: []})
    
     const fetchSingleOrder = async () => {
+        console.log("fetching order")
         try {
-            const _order = await fetchOrderById(orderId, token)
-            console.log("order:",_order)
-            setOrder(_order)
+            const response = await fetchOrderById(orderId, token)
+            const order = response
+            console.log("order", order)
+            if (order) {
+            setOrder(order)
+            }
         } catch (error) {
             console.log(error)
         }
     }
 
     useEffect(() => {
-        console.log('token:', token)
        if (orderId){
      fetchSingleOrder()
        }
     }, [token])
 
     return (
+            <>
         <div className='order'>
             <div>Order:</div>
             <div>Order Number: {order.id}</div>
             <div>Order Status: {order.status}</div>
             <div>Order Placed: {order.datePlaced}</div>
         </div>
-    /* <div className='product'>
+        {/* <div className='products'>
+            <Product product={product} token={token} />
+        </div> */}
+        </>
+     /* <div className='product'>
         <a href ={`products/${product.id}`}>
         <img src={`${product.imageURL} ? ${product.id}`} />      
         <div>{product.name}</div>
@@ -39,7 +48,7 @@ const Order = (props) => {
         <div>{product.price}</div>
         <div>{product.category}</div>
         </a>
-    </div>  */
+    </div> */
     )
 }
 

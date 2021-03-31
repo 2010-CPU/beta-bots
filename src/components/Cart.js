@@ -3,7 +3,7 @@ import { fetchCartByUser } from '../api/orders';
 import { Order } from './'
 
 const Cart = (props) => {
-    const {token} = props;
+    const {token, orders} = props;
     const [cart, setCart] = useState({})
     const fetchCart = async () => {
         try {
@@ -21,7 +21,7 @@ useEffect(() => {
     return (
         <div className='order'>
          <h1>Your Cart</h1>
-         <Order order={cart} token={token} />
+         <Order orders={orders} token={token}/>
         </div>
     // <div className='product'>
     //      <a href ={`products/${product.id}`}>

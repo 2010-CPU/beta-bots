@@ -45,7 +45,25 @@ const fetchUser = async (token) => {
     }
 }
 
+const fetchOrdersByUserId = async (userId, token) => {
+    try {
+        const me_url = `${users_url}/${userId}/orders`
+        const response = await axios.get(me_url, {
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        })
+        const {data} = response
+        console.log("data:", data)
+        return data;
+    } catch (error) {
+        
+    }
+}
+
+
 export {
     handleAccountForm,
-    fetchUser
+    fetchUser,
+    fetchOrdersByUserId
 }
