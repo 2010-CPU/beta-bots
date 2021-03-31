@@ -4,7 +4,7 @@ const BASE_URL = '/api';
 
 export const products_url = `${BASE_URL}/products`
 export const users_url = `${BASE_URL}/users`
-export const order_url = `${BASE_URL}/orders`
+export const orders_url = `${BASE_URL}/orders`
 
 export async function getSomething() {
   try {
@@ -28,5 +28,5 @@ export {
 
 export {
   fetchOrderById,
-  fetchCartByUser
+  fetchCart
 } from './orders'

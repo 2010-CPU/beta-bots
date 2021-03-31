@@ -1,7 +1,7 @@
 // import React, {useEffect, useState} from 'react';
 // import {useParams} from 'react-router-dom';
 // import {fetchOrderById} from '../api';
-// import Product from './Product';
+
 
 // const Order = (props) => {
 //     const {token} = props;
