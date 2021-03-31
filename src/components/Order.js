@@ -23,8 +23,8 @@ const Order = (props) => {
     }
 
     useEffect(() => {
-       if (orderId){
-     fetchSingleOrder()
+       if (orderId && token){
+            fetchSingleOrder()
        }
     }, [token])
 

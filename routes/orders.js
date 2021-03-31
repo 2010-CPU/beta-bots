@@ -24,7 +24,7 @@ ordersRouter.get('/', requireAdmin ,async (req, res, next) => {
 ordersRouter.get('/cart', requireUser, async (req, res, next) => {
     try {
         const order = await getCartByUser(req.user)
-        if(cart) {
+        if(order) {
             res.send({order}) //destructured 9;47 am
         }
     } catch (error) {
