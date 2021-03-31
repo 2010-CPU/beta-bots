@@ -16,7 +16,9 @@ const Cart = (props) => {
     }
  
 useEffect(() => {
+    if (token){
     fetchCart()
+    }
 }, [token])
     return (
         <div className='order'>
