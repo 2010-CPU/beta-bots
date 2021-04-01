@@ -25,7 +25,8 @@ ordersRouter.get('/cart', requireUser, async (req, res, next) => {
     try {
         const order = await getCartByUser(req.user)
         if (order){
-            res.send({order}) //destructured 9;47 a
+            console.log("order:", order)
+            res.send(order) 
         }
     } catch (error) {
         next(error)

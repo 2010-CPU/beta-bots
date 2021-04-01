@@ -22,7 +22,8 @@ const fetchOrderById = async (id, token) => {
 const fetchCart = async (token) => {
     try {
         const cart_url = `${orders_url}/cart`
-        const response = await axios.get(cart_url, {headers: {
+        const response = await axios.get(cart_url, {
+            headers: {
             'Authorization': `Bearer ${token}`
         }
     });
