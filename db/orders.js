@@ -105,7 +105,7 @@ const getCartByUser = async ({id}) => {
     console.log(id)
     try {
         const orders = await getOrdersByUser({id: Number(id)})
-        return orders.filter(order => order.status === "created")
+        return orders.find(order => order.status === "created")
     } catch (error) {
         throw error
     }

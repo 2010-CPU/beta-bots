@@ -3,7 +3,7 @@ import axios from 'axios';
 import {users_url} from './';
 
 const handleAccountForm = async (formType, fields) => {
-    const account_url = `${users_url}${formType}`
+    const account_url = `${users_url}/${formType}`
     const {firstName, username, password, lastName, email, image} = fields
     const body = {username, password}
     if(formType === "register") {
@@ -32,7 +32,7 @@ const handleAccountForm = async (formType, fields) => {
 
 const fetchUser = async (token) => {
     try {
-        const me_url = `${users_url}me`
+        const me_url = `${users_url}/me`
         const response = await axios.get(me_url, {
             headers: {
                 'Authorization': `Bearer ${token}`
@@ -45,7 +45,24 @@ const fetchUser = async (token) => {
     }
 }
 
+const fetchOrdersByUserId = async (userId, token) => {
+    try {
+        const me_url = `${users_url}/${userId}/orders`
+        const response = await axios.get(me_url, {
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        })
+        const {data} = response
+        return data;
+    } catch (error) {
+        
+    }
+}
+
+
 export {
     handleAccountForm,
-    fetchUser
+    fetchUser,
+    fetchOrdersByUserId
 }
