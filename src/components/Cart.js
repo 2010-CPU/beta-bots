@@ -7,7 +7,7 @@ const Cart = (props) => {
    
     const fetchAndSetCart = async () => {
         try {
-            const order = await fetchCart(token)
+            const {order} = await fetchCart(token)
             if(order){
             setOrder(order)
             }

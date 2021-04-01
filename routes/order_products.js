@@ -10,15 +10,14 @@ orderProductsRouter.post('/:orderId/products', requireUser, async (req, res, nex
     const {productId, price, quantity} = req.body
     try {
         const addProduct = await addProductToOrder(orderId, productId, price, quantity)
-        console.log("addProduct:", addProduct)
         res.send({addProduct})
     } catch (error) {
         
     }
 })
 
-// orderProductsRouter.patch('/order_products/:orderProductId', requireUser, async (req, res, next) => {
+orderProductsRouter.patch('/order_products/:orderProductId', requireUser, async (req, res, next) => {
 
-// })
+})
 
 module.exports = orderProductsRouter;

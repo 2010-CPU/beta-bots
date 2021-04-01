@@ -54,7 +54,6 @@ const fetchOrdersByUserId = async (userId, token) => {
             }
         })
         const {data} = response
-        console.log("data:", data)
         return data;
     } catch (error) {
         

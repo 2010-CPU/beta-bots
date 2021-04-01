@@ -25,8 +25,7 @@ ordersRouter.get('/cart', requireUser, async (req, res, next) => {
     try {
         const order = await getCartByUser(req.user)
         if (order){
-            console.log("order:", order)
-            res.send(order) 
+            res.send({order}) 
         }
     } catch (error) {
         next(error)
@@ -45,13 +44,10 @@ ordersRouter.post('/', requireUser, async (req, res, next) => {
 })
 
 ordersRouter.get('/:orderId', requireUser, async (req, res, next) => {
-    console.log('inside orderId route')
     const {orderId} = req.params
-    console.log("orderId:", orderId)
     try {
         const order = await getOrderById(orderId)
         if (order) {
-        console.log('order:', order)
         res.send({order})
         } else {
             throw new Error (`order ${orderId} not found`)

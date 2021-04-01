@@ -12,7 +12,6 @@ const fetchOrderById = async (id, token) => {
         },
     });
         const {data} = response
-        console.log("data:", data)
         return data.order
     } catch (error) {
         console.log(error)
@@ -28,7 +27,6 @@ const fetchCart = async (token) => {
         }
     });
         const {data} = response
-        console.log("data:", data)
         return data
     } catch (error) {
         console.log(error)

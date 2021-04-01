@@ -12,7 +12,6 @@ const Order = (props) => {
         try {
             const response = await fetchOrderById(orderId, token)
             const order = response
-            console.log("order", order)
             if (order) {
             setOrder(order)
             }

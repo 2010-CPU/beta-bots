@@ -45,19 +45,7 @@ const App = () => {
     fetchAndSetUser()
   }, [token])
  
-
-  // useEffect(() => {
-  //   getSomething()
-  //     .then(response => {
-  //       setMessage(response.message);
-  //     })
-  //     .catch(error => {
-  //       setMessage(error.message);
-  //     });
-  // });
-
-  return (
-    
+  return ( 
     <Router>
       <header>
           <Link to="/">Home</Link>
