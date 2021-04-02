@@ -1,9 +1,10 @@
 const client = require('./client')
 const bcrypt = require('bcrypt');
+const SALT_COUNT = 10;
 
 // database methods
 const createUser = async (user) => {
-
+  console.log("ATTEMPTED CREATED USER:", user)
   const {firstName, lastName, email, username, password} = user
 
   if(!firstName || !lastName || !email || !username || !password) {
@@ -14,7 +15,6 @@ const createUser = async (user) => {
   const valuesString = Object.keys(user).map((key, index) => `$${index + 1}`).join(', ')
 
   try {
-    const SALT_COUNT = 10;
     const hashedPassword = await bcrypt.hash(password, SALT_COUNT)
 
     user.password = hashedPassword

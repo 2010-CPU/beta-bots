@@ -11,7 +11,6 @@ const {
   getAllOrders
   // other db methods 
 } = require('./index');
-const { getOrderById } = require('./orders');
 
 async function buildTables() {
   try {
@@ -153,7 +152,7 @@ const populateOrders = async () => {
     }
     const order3 = { 
       userId: 3,
-      status: "in transit"
+      status: "cancelled"
     }
     await createOrder(order)
     await createOrder(order2)

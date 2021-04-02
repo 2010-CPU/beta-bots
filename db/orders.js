@@ -39,6 +39,14 @@ const formatOrders = (orders, id) => {
 
 const getOrderById = async (id) => {
     try {
+        const {rows: [_order]} = await client.query(`
+          SELECT *
+          FROM orders
+          WHERE id = $1;
+        `, [id])
+        
+        console.log(_order)
+
         const {rows: order} = await client.query(`
             SELECT 
             orders.id, orders.status, orders."datePlaced", orders."userId",
@@ -51,7 +59,7 @@ const getOrderById = async (id) => {
             ON products.id = order_products."productId"
             WHERE orders.id = $1;
         `, [id])
-        
+        console.log(order)
         return formatOrders(order, id)
     } catch (error) {
         throw error
@@ -102,7 +110,6 @@ const getOrdersByProduct = async ({id}) => {
 }
 
 const getCartByUser = async ({id}) => {
-    console.log(id)
     try {
         const orders = await getOrdersByUser({id: Number(id)})
         return orders.find(order => order.status === "created")
@@ -134,8 +141,6 @@ const createOrder = async (order) => {
             VALUES (${valuesString})
             RETURNING *;
         `, values)
-
-        console.log(order)
 
         return order
     } catch (error) {

@@ -13,11 +13,14 @@ const handleAccountForm = async (formType, fields) => {
         body.firstName = firstName
         body.lastName = lastName
         body.email = email
+        console.log(image)
         if(image) {
-            body.image = image
+            console.log("HIT ME")
+            body.imageURL = image
         }
     }
     try {
+        console.log(body)
         const response = await axios.post(account_url, body, {
             headers: {
                 'Content-type': 'application/json'
@@ -32,14 +35,18 @@ const handleAccountForm = async (formType, fields) => {
 
 const fetchUser = async (token) => {
     try {
-        const me_url = `${users_url}/me`
-        const response = await axios.get(me_url, {
-            headers: {
-                'Authorization': `Bearer ${token}`
-            }
-        })
-        const {data} = response
-        return data
+        if(token) {
+            const me_url = `${users_url}/me`
+            const response = await axios.get(me_url, {
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }
+            })
+            const {data} = response
+            return data
+        } else {
+            console.log("Invalid token.")
+        }
     } catch (error) {
         console.log(error)
     }
