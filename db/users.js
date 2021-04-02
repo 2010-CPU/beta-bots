@@ -4,7 +4,6 @@ const SALT_COUNT = 10;
 
 // database methods
 const createUser = async (user) => {
-  console.log("ATTEMPTED CREATED USER:", user)
   const {firstName, lastName, email, username, password} = user
 
   if(!firstName || !lastName || !email || !username || !password) {

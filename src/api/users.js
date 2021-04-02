@@ -13,14 +13,11 @@ const handleAccountForm = async (formType, fields) => {
         body.firstName = firstName
         body.lastName = lastName
         body.email = email
-        console.log(image)
         if(image) {
-            console.log("HIT ME")
             body.imageURL = image
         }
     }
     try {
-        console.log(body)
         const response = await axios.post(account_url, body, {
             headers: {
                 'Content-type': 'application/json'

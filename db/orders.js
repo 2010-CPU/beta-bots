@@ -39,14 +39,6 @@ const formatOrders = (orders, id) => {
 
 const getOrderById = async (id) => {
     try {
-        const {rows: [_order]} = await client.query(`
-          SELECT *
-          FROM orders
-          WHERE id = $1;
-        `, [id])
-        
-        console.log(_order)
-
         const {rows: order} = await client.query(`
             SELECT 
             orders.id, orders.status, orders."datePlaced", orders."userId",
