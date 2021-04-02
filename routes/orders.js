@@ -45,9 +45,10 @@ ordersRouter.post('/', requireUser, async (req, res, next) => {
 
 ordersRouter.get('/:orderId', requireUser, async (req, res, next) => {
     const {orderId} = req.params
+    const { id } = req.user
     try {
         const order = await getOrderById(orderId)
-        if (order) {
+        if (order.userId === id) {
         res.send({order})
         } else {
             throw new Error (`order ${orderId} not found`)
@@ -56,6 +57,7 @@ ordersRouter.get('/:orderId', requireUser, async (req, res, next) => {
         next(error)
     }
 })
+
 ordersRouter.get('/:userId/orders', requireAdmin, async (req, res, next) => {
     try {
         const {userId} = req.params
