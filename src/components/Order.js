@@ -1,19 +1,24 @@
 import React, {useEffect, useState} from 'react';
-import {useParams} from 'react-router-dom';
+import {useParams, useHistory} from 'react-router-dom';
 import {fetchOrderById} from '../api';
 
 
 const Order = (props) => {
-    const {token} = props;
+    const {token, user} = props;
     const { orderId } = useParams();
     const [order, setOrder] = useState({products: []})
+
+    const history = useHistory()
    
     const fetchSingleOrder = async () => {
         try {
-            const response = await fetchOrderById(orderId, token)
-            const order = response
-            if (order) {
-            setOrder(order)
+            const order = await fetchOrderById(orderId, token)
+            if(!ownsOrder || !order) {
+                history.push("/")
+            } else {
+                if (order) {
+                    setOrder(order)
+                }
             }
         } catch (error) {
             console.log(error)
@@ -21,10 +26,16 @@ const Order = (props) => {
     }
 
     useEffect(() => {
-       if (orderId && token){
-     fetchSingleOrder()
-       }
+        if (orderId && token){
+            fetchSingleOrder()
+        }
     }, [token])
+
+    if(!token) {
+        return <div className="order">You must be logged in to view this page.</div>
+    }
+
+    const ownsOrder = order.userId === user.id
 
     return (
         <div className='order'>

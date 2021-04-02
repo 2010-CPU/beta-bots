@@ -1,7 +1,7 @@
 require('dotenv').config();
 const apiRouter = require('express').Router();
 const jwt = require('jsonwebtoken');
-const {JWT_SECRET} = process.env;
+const {JWT_SECRET = "neverTell"} = process.env;
 const {
   getUserById
 } = require('../db');
@@ -22,6 +22,8 @@ apiRouter.use(async (req, res, next) => {
     } catch (error) {
       next(error);
     }
+  } else {
+    next({error: "Authoirzation must have 'Bearer' prefix"})
   }
 })
 
