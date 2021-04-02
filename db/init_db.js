@@ -8,7 +8,10 @@ const {
   getAllUsers,
   createOrder,
   addProductToOrder,
-  getAllOrders
+  getAllOrders,
+  getOrderProductById,
+  updateOrderProduct,
+  destroyOrderProduct
   // other db methods 
 } = require('./index');
 const { getOrderById } = require('./orders');
