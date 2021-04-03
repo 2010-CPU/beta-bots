@@ -1,8 +1,20 @@
 // code to build and initialize DB goes here
+const client = require('./client')
+
 const {
-  client,
   createProduct,
-  getAllProducts
+  getAllProducts,
+  createUser,
+  getAllUsers,
+  createOrder,
+  addProductToOrder,
+  getAllOrders,
+  getOrderProductById,
+  updateOrderProduct,
+  destroyOrderProduct,
+  updateOrder,
+  cancelOrder,
+  completeOrder
   // other db methods 
 } = require('./index');
 
@@ -40,13 +52,13 @@ async function buildTables() {
         "imageURL" VARCHAR(255) DEFAULT 'https://placeimg.com/100/100/people',
         username VARCHAR(255) UNIQUE NOT NULL,
         password VARCHAR(255) UNIQUE NOT NULL,
-        "isAdmin" BOOLEAN UNIQUE NOT NULL DEFAULT false
+        "isAdmin" BOOLEAN NOT NULL DEFAULT false
       );
       CREATE TABLE orders(
         id SERIAL PRIMARY KEY,
         status VARCHAR(255) DEFAULT 'created',
         "userId" INTEGER REFERENCES users(id),
-        "datePlaced" DATE
+        "datePlaced" TIMESTAMP DEFAULT CURRENT_TIMESTAMP
       );
       CREATE TABLE order_products(
         id SERIAL PRIMARY KEY,
@@ -61,10 +73,36 @@ async function buildTables() {
     throw error;
   }
 }
+const populateUsers = async () => {
+  try {
+    console.log("Creating user data......!!!")
+    const dummyUser1 = {
+      firstName: "Bob",
+      lastName: "Dylan",
+      email: "bobbyDyall@gmail.com",
+      username: "bobdylan",
+      password: "bobdylan68"
+    }
+    const dummyUser2 = {
+      firstName: "Cage",
+      lastName: "The-Elephant",
+      email: "aintnorestforthewicked@gmail.com",
+      username: "cage890",
+      password: "elephant"
+    }
+    const user1 = await createUser(dummyUser1)
+    const user2 = await createUser(dummyUser2)
+    const allUsers = await getAllUsers()
+    console.log("Here's our users!!!!!!", allUsers)
+  } catch (error) {
+    throw error
+  }
+} 
 
-async function populateInitialData() {
+const populateProducts = async () => {
   try {
     // create useful starting data
+    console.log("Creating dumming products.....!")
     const dummyProduct1 = {
       name: "guitar",
       price: 10.50,
@@ -73,7 +111,7 @@ async function populateInitialData() {
     }
     const dummyProduct2 = {
       name: "piano",
-      price: 1000.50,
+      price: 500.50,
       description: "This is a cool piano",
       category: "tech"
     }
@@ -83,9 +121,24 @@ async function populateInitialData() {
       description: "This is a neat drumset",
       category: "drums"
     }
+    const dummyProduct4 ={
+      name: "cowbell",
+      price: .99,
+      description: "We need more cowbell",
+      category: "percussion"
+    }
+    const dummyProduct5 = {
+      name: "ukulele",
+      price: 500,
+      description: "The perfect ukulele for beginners and professionals",
+      category: "strings"
+    }
+
     const product1 = await createProduct(dummyProduct1)
     const product2 = await createProduct(dummyProduct2)
     const product3 = await createProduct(dummyProduct3)
+    const product4 = await createProduct(dummyProduct4)
+    const product5 = await createProduct(dummyProduct5)
     const allProducts = await getAllProducts()
     console.log("Here's all our products!:", allProducts)
   } catch (error) {
@@ -93,7 +146,99 @@ async function populateInitialData() {
   }
 }
 
+const populateOrders = async () => {
+  try {
+    console.log("Creating orders...")
+    const order = {
+      userId: 1
+    }
+    const order2 = {
+      userId: 2,
+      status: "completed"
+    }
+    const order3 = { 
+      userId: 3,
+      status: "cancelled"
+    }
+    await createOrder(order)
+    await createOrder(order2)
+    await createOrder(order3)
+    console.log("Finished orders!")
+  } catch (error) {
+    throw error;
+  }
+}
+
+const populateOrderProducts = async () => {
+  try {
+    console.log("Creating products to order...")
+    const order_product = {
+      orderId: 1,
+      productId: 3,
+      price: 1
+    }
+    const order_product2 = {
+      orderId: 1,
+      productId: 2,
+      price: 500.55,
+      quantity: 10
+    }
+    const order_product3 = {
+      orderId: 2,
+      productId: 5,
+      price: 40.99,
+      quantity: 3
+    }
+
+    await addProductToOrder(order_product)
+    await addProductToOrder(order_product2)
+    await addProductToOrder(order_product3)
+    console.log("Finished products to order!")
+  } catch (error) {
+    throw error;
+  }
+}
+
+const seedAdminUsers = async () => {
+  const sal = {
+    firstName: 'sal',
+    lastName: 'guerrero',
+    email: 'sal@gmail.com',
+    imageURL: 'https://placeimg.com/100/100/people',
+    username: 'lol',
+    password: 'lol',
+    isAdmin: true
+  }
+  try {
+    const admin = await createUser(sal)
+    const order = await createOrder({userId: admin.id})
+    console.log(admin, order)
+  } catch (error) {
+    throw error
+  }
+}
+
+async function populateInitialData() {
+  try {
+
+    await seedAdminUsers()
+    await populateProducts()
+    await populateUsers()
+    await populateOrders()
+    await populateOrderProducts()
+    const orders = await getAllOrders()
+    console.log("All current orders:", orders)
+  } catch(error) {
+    throw error
+  }
+}
+
 buildTables()
   .then(populateInitialData)
   .catch(console.error)
   .finally(() => client.end());
+
+module.exports = {
+  buildTables,
+  populateInitialData
+}
