@@ -11,7 +11,10 @@ const {
   getAllOrders,
   getOrderProductById,
   updateOrderProduct,
-  destroyOrderProduct
+  destroyOrderProduct,
+  updateOrder,
+  cancelOrder,
+  completeOrder
   // other db methods 
 } = require('./index');
 

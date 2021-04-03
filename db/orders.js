@@ -149,13 +149,13 @@ const updateOrder = async(orderToUpdate) => {
         return `"${key}" = $${index + 1}`
     }).join(", ");
 
-
     try {
         const {rows: [order]} = await client.query(`
         UPDATE orders
         SET ${changeStrings}
-        WHERE id = ${changeStrings.length +1};
-        `, [...Object.values(orderToUpdate), id]);
+        WHERE id = ${id}
+        RETURNING *;
+        `, [...Object.values(orderToUpdate)]);
 
         return order;
 
@@ -170,7 +170,7 @@ const completeOrder = async (id) => {
     try {
         const {rows: [order]} = await client.query(`
         UPDATE orders
-        SET status = "completed"
+        SET status = 'completed'
         WHERE id = $1;
         `, [id]);
         
@@ -186,7 +186,7 @@ const cancelOrder = async (id) => {
     try {
         const {rows: [order]} = await client.query(`
         UPDATE orders
-        SET status = "cancelled"
+        SET status = 'cancelled'
         WHERE id= $1;
         `, [id]);
 
