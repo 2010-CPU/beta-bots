@@ -228,7 +228,6 @@ async function populateInitialData() {
     await populateOrderProducts()
     const orders = await getAllOrders()
     console.log("All current orders:", orders)
-    await updateOrder({id: 1, status: "completed", userId: 2})
   } catch(error) {
     throw error
   }

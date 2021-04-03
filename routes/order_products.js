@@ -19,7 +19,7 @@ orderProductsRouter.post('/:orderId/products', requireUser, async (req, res, nex
         const addProduct = await addProductToOrder(orderId, productId, price, quantity)
         res.send({addProduct})
     } catch (error) {
-        console.log(error)
+        next({error})
     }
 })
 
@@ -37,10 +37,10 @@ orderProductsRouter.patch('/order_products/:orderProductId', requireUser, async 
         res.send(updatedOrderProduct)
         }
     } else {
-        throw new Error("Only the user can update their order")
+        next({error: "Only users can update their products"})
         }
     } catch (error) {
-        console.log(error)
+        next({error})
     }
 })
 
@@ -55,10 +55,10 @@ orderProductsRouter.delete('/order_products/:orderProductId', requireUser, async
         const deletedOrderProduct = destroyOrderProduct(orderProductId)
         res.send(deletedOrderProduct)
         } else {
-            throw new Error ('Only account users can delete their order products')
+            next({error: "Only users can delete their products"})
         }
     } catch (error) {
-        console.log(error)
+        next({error})
     }
 
 })
