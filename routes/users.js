@@ -2,7 +2,7 @@ require("dotenv").config()
 const express = require('express');
 const usersRouter = express.Router();
 const jwt = require('jsonwebtoken');
-const {JWT_SECRET} = process.env;
+const {JWT_SECRET = "neverTell"} = process.env;
 const emailValidator = require('email-validator');
 
 const {
@@ -18,7 +18,7 @@ const {
 } = require('./utils');
 
 usersRouter.post('/register', async (req, res, next) => {
-    const {username, password, firstName, lastName, email} = req.body;
+    const {username, password, email} = req.body;
     try {
         const takenUsername = await getUserByUsername(username);
         const validEmail = emailValidator.validate(email)
@@ -30,7 +30,7 @@ usersRouter.post('/register', async (req, res, next) => {
         } else if (password.length < 8) {
             next({message: 'Password must be a minimum of 8 characters long.'});
         } else {
-            const user = await createUser({username, password, firstName, lastName, email})
+            const user = await createUser(req.body)
             if (user) {
                 const payload = {
                     id: user.id,
@@ -77,9 +77,13 @@ usersRouter.get('/me', requireUser, (req, res, next) => {
 usersRouter.get('/:userId/orders', requireAdmin, async (req, res, next) => {
     try {
         const {userId} = req.params
-        const orders = await getOrdersByUser({id: userId})
-        if(orders) {
-            res.send({orders})
+        if(Number(userId)){
+            const orders = await getOrdersByUser({id: Number(userId)})
+            if(orders) {
+                res.send({orders})
+            }
+        } else {
+            next({error: "User Id must be a number."})
         }
     } catch (error) {
         next(error)

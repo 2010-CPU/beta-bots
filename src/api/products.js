@@ -23,6 +23,7 @@ const fetchProductById = async (id) => {
     }
 }
 
+
 export {
     fetchAllProducts,
     fetchProductById
