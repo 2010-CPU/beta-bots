@@ -54,7 +54,7 @@ apiRouter.get("*", (req, res, next) => {
 })
 
 apiRouter.use((error, req, res, next) => {
-  res.status(500).send({error});
+  res.status(500).send(error);
 })
 
 module.exports = apiRouter;

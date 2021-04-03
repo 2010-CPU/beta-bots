@@ -24,8 +24,7 @@ const addProductToOrder = async (order_product) => {
             VALUES(${valuesString})
             RETURNING *;
         `, values)
-
-        console.log(order_product)
+       
     } catch (error) {
         throw error
     }
@@ -33,27 +32,31 @@ const addProductToOrder = async (order_product) => {
 
 const getOrderProductById = async (id) => {
     try {
-        const { rows: [ order_products ] } = await client.query (`
+        const { rows: [ order_product ] } = await client.query (`
             SELECT *
             FROM order_products
             WHERE id = $1;
         `, [id])
 
-        return order_products;
+        return order_product;
     } catch (error) {
         throw error
     }
 }
 
-const updateOrderProduct = async ({id, price, quantity}) => {
+const updateOrderProduct = async ({id, ...fields}) => {
+
+    const setString = Object.keys(fields).map ((columnName, index) => {
+        return `"${columnName}" = $${index + 2}`
+    }).join(", ")
     
     try {                 
             const { rows: [ order_product ] } = await client.query(`
                 UPDATE order_products
-                SET price = $1, quantity = $2
-                WHERE id = $3
+                SET ${setString}
+                WHERE id = $1
                 RETURNING *; 
-                `, [price, quantity, id]
+                `, [id, ...Object.values(fields)]
             )
             
             return order_product         

@@ -18,7 +18,17 @@ const {
 } = require('./utils');
 
 usersRouter.post('/register', async (req, res, next) => {
-    const {username, password, email} = req.body;
+    const {username, password, email, firstName, lastName, imageURL} = req.body;
+    const userObj = {
+        username,
+        password, 
+        email,
+        firstName, 
+        lastName
+    }
+    if (imageURL) {
+        userObj.imageURL = imageURL
+    }
     try {
         const takenUsername = await getUserByUsername(username);
         const validEmail = emailValidator.validate(email)
@@ -30,7 +40,7 @@ usersRouter.post('/register', async (req, res, next) => {
         } else if (password.length < 8) {
             next({message: 'Password must be a minimum of 8 characters long.'});
         } else {
-            const user = await createUser(req.body)
+            const user = await createUser(userObj)
             if (user) {
                 const payload = {
                     id: user.id,

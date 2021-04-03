@@ -51,7 +51,7 @@ const getOrderById = async (id) => {
             ON products.id = order_products."productId"
             WHERE orders.id = $1;
         `, [id])
-        console.log(order)
+        
         return formatOrders(order, id)
     } catch (error) {
         throw error
@@ -146,16 +146,16 @@ const updateOrder = async(orderToUpdate) => {
     delete orderToUpdate.id;
     const setString = Object.keys(orderToUpdate);
     const changeStrings = setString.map((key, index) => {
-        return `"${key}" = $${index + 1}`
+        return `"${key}" = $${index + 2}`
     }).join(", ");
 
     try {
         const {rows: [order]} = await client.query(`
         UPDATE orders
         SET ${changeStrings}
-        WHERE id = ${id}
+        WHERE id = $1
         RETURNING *;
-        `, [...Object.values(orderToUpdate)]);
+        `, [id, ...Object.values(orderToUpdate)]);
 
         return order;
 

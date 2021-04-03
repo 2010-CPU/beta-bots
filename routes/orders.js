@@ -9,7 +9,6 @@ const {
     createOrder, 
     getOrdersByUser
 } = require('../db')
-const { user } = require('../db/client')
 
 ordersRouter.get('/', requireAdmin ,async (req, res, next) => {
     try {
@@ -49,11 +48,11 @@ ordersRouter.get('/:orderId', requireUser, async (req, res, next) => {
     const { id } = req.user
     try {
         const order = await getOrderById(orderId)
-        console.log("Order:", order)
+       
         if (order.userId === id || req.user.isAdmin) {
             res.send({order})
         } else {
-            throw new Error (`order ${orderId} not found`)
+            next({error: "Must be logged in, or Admin to see order"})
         }
     } catch (error) {
         next(error)
