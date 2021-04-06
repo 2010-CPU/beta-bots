@@ -49,6 +49,9 @@ apiRouter.use('/users', usersRouter);
 const ordersRouter = require('./orders')
 apiRouter.use('/orders', ordersRouter)
 
+const checkoutRouter = require('./checkout')
+apiRouter.use('/cart/checkout', checkoutRouter)
+
 apiRouter.get("*", (req, res, next) => {
   res.status(404).send({message: '404 not found'});
 })
