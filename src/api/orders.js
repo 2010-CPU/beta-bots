@@ -48,8 +48,6 @@ const completeOrder = async (token, orderId, updateFields) => {
             }
         })
 
-        console.log(response)
-
     } catch (error) {
         console.log(error)
     }
@@ -63,7 +61,6 @@ const cancelOrder = async (orderId, token) => {
                 'Authorization': `Bearer ${token}`
             }
         })
-        console.log(response)
     } catch (error) {
         console.log(error)
     }

@@ -23,13 +23,12 @@ const Cart = (props) => {
         history.push('/cart/checkout')
     }
  
-useEffect(() => {
-    if (token){
+    useEffect(() => {
+        if (token){
         fetchAndSetCart()
-    }
-}, [token])
+        }
+    }, [token])
 
-    console.log(order.products.length > 0)
     return (
         <div className="cart">
             <h1>My Cart</h1>
