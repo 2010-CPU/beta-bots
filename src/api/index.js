@@ -28,5 +28,7 @@ export {
 
 export {
   fetchOrderById,
-  fetchCart
+  fetchCart,
+  completeOrder,
+  cancelOrder
 } from './orders'

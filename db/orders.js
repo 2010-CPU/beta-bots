@@ -21,12 +21,14 @@ const formatOrders = (orders, id) => {
                status,
                datePlaced,
                userId,
-               products: productId ? [product] : []
+               products: productId ? [product] : [],
+               orderTotal: total
            }
         } else {
             if(productId) {
                 orderAgg[id].products.push(product)
             }
+            orderAgg[id].orderTotal += product.price
         }
         return orderAgg
     }, {})
@@ -187,7 +189,8 @@ const cancelOrder = async (id) => {
         const {rows: [order]} = await client.query(`
         UPDATE orders
         SET status = 'cancelled'
-        WHERE id= $1;
+        WHERE id= $1
+        RETURNING *;
         `, [id]);
 
         return order;
