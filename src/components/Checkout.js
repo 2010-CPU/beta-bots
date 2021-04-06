@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from 'react'
 import {useHistory} from 'react-router-dom'
-import {completeOrder, fetchCart, cancelOrder} from '../api'
+import {completeOrder, fetchCart, cancelOrder, checkoutRequest} from '../api'
+import StripeCheckout from 'react-stripe-checkout'
 
 import './style/checkout.css'
 
@@ -11,6 +12,7 @@ const Checkout = (props) => {
     const [cart, setCart] = useState({products: []})
 
     const history = useHistory()
+    const stripeKey = 'pk_test_51IbtfnKGAVud5ybh068WIDHdg0laPEWS2EPE2ZmOsluLgsTnyTL5gOz7egGriuBsaaXvn6etd4QqbqJ6BZwIjnyu00wGGBbjev'
 
     const fetchAndSetCart = async () => {
         try {
@@ -23,9 +25,10 @@ const Checkout = (props) => {
         }
     }
 
-    const handleComplete = async () => {
+    const handleComplete = async (card) => {
         try {
-            completeOrder(token, cart.id, {status: 'completed'})
+            await checkoutRequest(token, cart, card)
+            await completeOrder(token, cart.id, {status: 'completed'})
             alert("Your order has been completed!")
             history.push('/')
         } catch (error) {
@@ -70,7 +73,19 @@ const Checkout = (props) => {
             }
             <h2>Total: ${cart.orderTotal}</h2>
             <button onClick={handleCancel}>Cancel Order</button>
-            <button onClick={handleComplete}>Complete Order</button>
+            <StripeCheckout 
+                token = {handleComplete}
+                stripeKey = {stripeKey}
+                name = "beta-bots"
+                description = "shop"
+                ComponentClass = "div"
+                panelLabel = "give us yo money"
+                amount = {cart.orderTotal * 100}
+                currency = "USD"
+                locale = "en"
+                billingAddress = {false}
+                zipCode = {false} 
+            />
             <p>OrderId: {cart.id}</p>
             <p>Status: {cart.status}</p>
             <p>Date: {cart.datePlaced}</p>
