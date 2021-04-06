@@ -11,8 +11,10 @@ import {
   AccountForm,
   Account,
   Order,
-  Cart
+  Cart,
+  Checkout
 } from './';
+
 
 import './style/app.css'
 
@@ -77,6 +79,9 @@ const App = () => {
             </Route>
             <Route exact path="/cart">
               <Cart token={token} />
+            </Route>
+            <Route exact path="/cart/checkout">
+              <Checkout token={token} user={user}/>
             </Route>
             <Route exact path="/orders/:orderId">
               <Order user={user} token={token}/>

@@ -7,7 +7,10 @@ const {
     getCartByUser, 
     getOrderById, 
     createOrder, 
-    getOrdersByUser
+    getOrdersByUser,
+    cancelOrder,
+    completeOrder,
+    updateOrder
 } = require('../db')
 
 ordersRouter.get('/', requireAdmin ,async (req, res, next) => {
@@ -25,7 +28,7 @@ ordersRouter.get('/cart', requireUser, async (req, res, next) => {
     try {
         const order = await getCartByUser(req.user)
         if (order){
-            res.send({order}) 
+            res.send({order})
         }
     } catch (error) {
         next(error)
@@ -68,6 +71,56 @@ ordersRouter.get('/:userId/orders', requireAdmin, async (req, res, next) => {
         }
     } catch (error) {
         next(error)
+    }
+})
+
+ordersRouter.patch('/:orderId', requireUser, async (req, res, next) => {
+    try {
+        const {orderId} = req.params
+        const {status, userId} = req.body        
+        req.body.id = Number(orderId)
+        const objToUpdate = {
+            status,
+            userId,
+            orderId: req.body.id
+        } 
+        const testOrder = await getOrderById(req.body.id)       
+        if(testOrder.userId === req.user.id || req.user.isAdmin) {
+            if(status === "completed") {
+                const completedOrder = await completeOrder(req.body.id)
+                res.send({completedOrder})
+            } else {
+                const order = await updateOrder(objToUpdate)
+                if(order) {
+                    res.send({order})
+                } else {
+                    next({error: "Order ID was wrong"})
+                }
+            }
+        } else {
+            next({error: "You are not authorized to do that."})
+        }
+    } catch (error) {
+        next({error})
+    }
+})
+
+ordersRouter.delete('/:orderId', requireUser, async (req, res, next) => {
+    try {
+        const {orderId} = req.params
+        const testOrder = await getOrderById(Number(orderId))       
+        if(testOrder.userId === req.user.id || req.user.isAdmin) {
+            const order = await cancelOrder(Number(orderId))
+            if(order) {
+                res.send({order})
+            } else {
+                next({error: "Order ID was wrong"})
+            }
+        } else {
+            next({error: "You are not authorized to do that."})
+        }
+    } catch (error) {
+        next({error})
     }
 })
 
