@@ -23,7 +23,14 @@ const Product = (props) => {
             fetchSingleProduct();
         }
     }, [token]);
-    
+
+    const handleAdd = () => {
+
+    }
+    const handleRemove = () => {
+
+    }
+
  return (
     //  product ? 
     //  <div className='product'>
@@ -41,6 +48,7 @@ const Product = (props) => {
         <p>{product.description}</p>
         <p>${product.price}</p>
         <p>{product.category}</p>
+        <button onClick={handleAdd}>Add to Cart</button>
     </div>
     )
 }
