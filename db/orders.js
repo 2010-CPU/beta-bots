@@ -22,7 +22,7 @@ const formatOrders = (orders, id) => {
                datePlaced,
                userId,
                products: productId ? [product] : [],
-               orderTotal: total
+               orderTotal: product.total
            }
         } else {
             if(productId) {
