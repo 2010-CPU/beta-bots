@@ -27,8 +27,9 @@ const formatOrders = (orders, id) => {
         } else {
             if(productId) {
                 orderAgg[id].products.push(product)
+                orderAgg[id].orderTotal += product.price
+                orderAgg[id].orderTotal = Number(orderAgg[id].orderTotal.toFixed(2))
             }
-            orderAgg[id].orderTotal += product.price
         }
         return orderAgg
     }, {})
