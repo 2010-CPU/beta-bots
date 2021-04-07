@@ -1,7 +1,6 @@
 const orderProductsRouter = require('express').Router()
 
 const { 
-    addProductToOrder, 
     getOrderProductById,
     getOrderById, 
     getUserById,
@@ -12,16 +11,7 @@ const {
 const {requireAdmin, requireUser} = require('./utils')
 
 
-orderProductsRouter.post('/:orderId/products', requireUser, async (req, res, next) => {
-    const {orderId} = req.params
-    const {productId, price, quantity} = req.body
-    try {
-        const addProduct = await addProductToOrder(orderId, productId, price, quantity)
-        res.send({addProduct})
-    } catch (error) {
-        next({error})
-    }
-})
+
 
 orderProductsRouter.patch('/order_products/:orderProductId', requireUser, async (req, res, next) => {
     const { orderProductId } = req.params;
