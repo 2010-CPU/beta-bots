@@ -124,11 +124,13 @@ ordersRouter.delete('/:orderId', requireUser, async (req, res, next) => {
         next({error})
     }
 })
+
 ordersRouter.post('/:orderId/products', requireUser, async (req, res, next) => {
     const {orderId} = req.params
     const {productId, price} = req.body
     try {
         const product = await addProductToOrder({orderId, productId, price, quantity: 1})
+        console.log("product router:", product)
         res.send({product})
     } catch (error) {
         next({error})

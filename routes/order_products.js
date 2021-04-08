@@ -12,8 +12,7 @@ const {requireAdmin, requireUser} = require('./utils')
 
 
 
-
-orderProductsRouter.patch('/order_products/:orderProductId', requireUser, async (req, res, next) => {
+orderProductsRouter.patch('/:orderProductId', requireUser, async (req, res, next) => {
     const { orderProductId } = req.params;
     const { price, quantity } = req.body 
 
@@ -34,16 +33,15 @@ orderProductsRouter.patch('/order_products/:orderProductId', requireUser, async 
     }
 })
 
-orderProductsRouter.delete('/order_products/:orderProductId', requireUser, async (req, res, next) => {
+orderProductsRouter.delete('/:orderProductId', requireUser, async (req, res, next) => {
     const { orderProductId } = req.params  
     try {
         const orderProduct = await getOrderProductById(orderProductId)
         const order = await getOrderById(orderProduct.orderId)
-        const user = await  getOrdersByUser(order.userId)
 
         if ( req.user.id === order.userId ) {
         const deletedOrderProduct = destroyOrderProduct(orderProductId)
-        res.send(deletedOrderProduct)
+        res.send({deletedOrderProduct})
         } else {
             next({error: "Only users can delete their products"})
         }

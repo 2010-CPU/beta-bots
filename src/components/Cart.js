@@ -1,8 +1,25 @@
 import React, {useEffect, useState} from 'react';
-import {useHistory} from 'react-router-dom'
-import { fetchCart } from '../api/orders';
+import {useHistory, useParams} from 'react-router-dom'
+import { fetchCart, deleteProductFromOrder } from '../api';
 
+const RemoveFromCart = (props) => {
+    const {product, token, fetchAndSetCart} = props
+    const { orderProductId} = product
+    const handleDelete = async () => {
+        try {
+            const deletedProduct = await deleteProductFromOrder(orderProductId, token)
+            fetchAndSetCart()
+        } catch (error) {
+            console.log(error)
+        }
+    }
+    return (
+        <button onClick={handleDelete}>Remove from Cart</button>
+    )
+
+}
 const Cart = (props) => {
+    const {orderId} = useParams
     const {token} = props
     const [order, setOrder] = useState({products: []})
     
@@ -10,7 +27,8 @@ const Cart = (props) => {
 
     const fetchAndSetCart = async () => {
         try {
-            const order = await fetchCart(token)
+            const order = await fetchCart(token, orderId)
+            console.log('order:', order)
             if(order){
                 setOrder(order)
             }
@@ -47,6 +65,7 @@ const Cart = (props) => {
                          <p>Status: {order.status}</p>
                          <p>UserId: {order.userId}</p>
                          <p>Created: {order.datePlaced}</p>
+                         <RemoveFromCart token={token} product={product} fetchAndSetCart={fetchAndSetCart}/>
                         </div>
                     )
                 })
@@ -55,5 +74,6 @@ const Cart = (props) => {
         </div>
     )
  }
+
 
 export default Cart;

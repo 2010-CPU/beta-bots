@@ -3,7 +3,7 @@ const client = require('./client')
 const formatOrders = (orders, id) => {
     const formattedOrders = orders.reduce((orderAgg, order) => {
         const {id, status, datePlaced, userId, total, quantity, 
-            productId, name, description, price, imageURL, inStock, category} = order
+            productId, name, description, price, imageURL, inStock, category, orderProductId} = order
         const product = {
             id: productId,
             name,
@@ -12,6 +12,7 @@ const formatOrders = (orders, id) => {
             imageURL,
             inStock,
             category,
+            orderProductId,
             quantity,
             total
         }
@@ -45,7 +46,7 @@ const getOrderById = async (id) => {
         const {rows: order} = await client.query(`
             SELECT 
             orders.id, orders.status, orders."datePlaced", orders."userId",
-            order_products.price AS total, order_products.quantity, order_products."productId",
+            order_products.price AS total, order_products.quantity, order_products."productId", order_products.id AS "orderProductId",
             products.name, products.description, products.price, products."imageURL", products."inStock", products.category
             FROM orders
             LEFT JOIN order_products
@@ -66,7 +67,7 @@ const getAllOrders = async () => {
         const {rows: order} = await client.query(`
             SELECT 
             orders.id, orders.status, orders."datePlaced", orders."userId",
-            order_products.price AS total, order_products.quantity, order_products."productId",
+            order_products.price AS total, order_products.quantity, order_products."productId", order_products.id AS "orderProductId",
             products.name, products.description, products.price, products."imageURL", products."inStock", products.category
             FROM orders
             LEFT JOIN order_products
