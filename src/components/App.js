@@ -2,12 +2,14 @@ import React, { useState, useEffect } from 'react';
 import {BrowserRouter as Router, Switch, Route, Link} from 'react-router-dom'
 
 import {
-  fetchUser
+  fetchUser,
+  fetchCart
 } from '../api';
 
 import {
   ProductList, 
   Product,
+  Products,
   AccountForm,
   Account,
   Order,
@@ -23,6 +25,8 @@ const App = () => {
   const [token, setToken] = useState('')
   const [user, setUser] = useState({})
   const [order, setOrder] = useState({products: []})
+  const [cart, setCart] = useState({products: []})
+  const [product, setProducts] = useState({})
 
   const handleLogout = () => {
     localStorage.removeItem('grace-token')
@@ -42,9 +46,19 @@ const App = () => {
       console.log(error)
     }
   }
-
+  const fetchAndSetCart = async () => {
+    try {
+        const order = await fetchCart(token)
+        if(order) {
+            setCart(order)
+        }
+    } catch (error) {
+        console.log(error)
+    }
+}
   useEffect(() => {
-    fetchAndSetUser()
+    fetchAndSetUser();
+    // fetchAndSetCart()
   }, [token])
  
   return ( 
@@ -72,13 +86,13 @@ const App = () => {
             </div> 
             </Route>
             <Route exact path="/products">
-              <ProductList token={token} />
+              <ProductList token={token} cart={cart} setCart={setCart}/>
             </Route>
             <Route exact path="/products/:productId">
-              <Product token={token} />
+              <Product key={product.id} token={token} product={product} setCart={setCart} cart={cart}/>
             </Route>
             <Route exact path="/cart">
-              <Cart token={token} />
+              <Cart token={token} fetchAndSetCart={fetchAndSetCart}/>
             </Route>
             <Route exact path="/cart/checkout">
               <Checkout token={token} user={user}/>

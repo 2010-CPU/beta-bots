@@ -66,10 +66,27 @@ const cancelOrder = async (orderId, token) => {
     }
 }
 
+const addProductToOrder = async(orderId, productId, price, token) => { 
+    try {
+            const response = await axios.post(`${orders_url}/${orderId}/products`, {productId, price}, {
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+                },
+            });
+            const {data} = response
+            return data.product
+        
+    } catch (error) {
+        console.log(error)
+    }
+}
+
 export {
     fetchOrderById,
     fetchCart,
     completeOrder,
-    cancelOrder
+    cancelOrder,
+    addProductToOrder
 }
 

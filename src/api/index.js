@@ -6,6 +6,7 @@ export const products_url = `${BASE_URL}/products`
 export const users_url = `${BASE_URL}/users`
 export const orders_url = `${BASE_URL}/orders`
 export const checkout_url = `${BASE_URL}/cart/checkout`
+export const orderProducts_url = `${BASE_URL}/order_products`
 
 export async function getSomething() {
   try {
@@ -31,9 +32,15 @@ export {
   fetchOrderById,
   fetchCart,
   completeOrder,
-  cancelOrder
+  cancelOrder,
+  addProductToOrder
 } from './orders'
 
 export {
   checkoutRequest
 } from './checkout'
+
+export {
+  deleteProductFromOrder,
+  updateOrderProduct
+} from './order_products'

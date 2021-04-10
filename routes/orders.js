@@ -10,7 +10,8 @@ const {
     getOrdersByUser,
     cancelOrder,
     completeOrder,
-    updateOrder
+    updateOrder,
+    addProductToOrder
 } = require('../db')
 
 ordersRouter.get('/', requireAdmin ,async (req, res, next) => {
@@ -119,6 +120,17 @@ ordersRouter.delete('/:orderId', requireUser, async (req, res, next) => {
         } else {
             next({error: "You are not authorized to do that."})
         }
+    } catch (error) {
+        next({error})
+    }
+})
+
+ordersRouter.post('/:orderId/products', requireUser, async (req, res, next) => {
+    const {orderId} = req.params
+    const {productId, price} = req.body
+    try {
+        const product = await addProductToOrder({orderId, productId, price, quantity: 1})
+        res.send({product})
     } catch (error) {
         next({error})
     }

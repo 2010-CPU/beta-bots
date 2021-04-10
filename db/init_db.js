@@ -228,7 +228,7 @@ async function populateInitialData() {
     await populateOrders()
     await populateOrderProducts()
     const orders = await getAllOrders()
-    console.log("All current orders:", orders)
+   
   } catch(error) {
     throw error
   }

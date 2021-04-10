@@ -24,7 +24,7 @@ const addProductToOrder = async (order_product) => {
             VALUES(${valuesString})
             RETURNING *;
         `, values)
-       
+       return order_product
     } catch (error) {
         throw error
     }
