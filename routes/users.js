@@ -105,7 +105,7 @@ usersRouter.get('/', requireAdmin, async (req, res, next) => {
 
     try {
         const allUsers = await getAllUsers();
-        if (allUsers {
+        if (allUsers) {
             res.send({allUsers})
         }
     }catch (error) {
