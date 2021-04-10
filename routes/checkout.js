@@ -8,13 +8,12 @@ const checkoutRouter = require("express").Router()
 checkoutRouter.post("/", requireUser, async (req, res, next) => {
     try {
         const {order, card} =  req.body
-        const amount = (order.orderTotal * 100)
+        const amount = Number((order.orderTotal * 100).toFixed(2))
         const charge = await stripe.charges.create({
             amount, 
             currency: "usd",
             source: card.id
         })
-
         if (charge) {
             res.send({id: charge.id})
         } else {

@@ -175,18 +175,19 @@ const populateOrderProducts = async () => {
     const order_product = {
       orderId: 1,
       productId: 3,
-      price: 1
+      price: 1000.55,
+      quantity: 1
     }
     const order_product2 = {
       orderId: 1,
       productId: 2,
-      price: 500.55,
-      quantity: 10
+      price: 1501.5,
+      quantity: 3
     }
     const order_product3 = {
       orderId: 2,
       productId: 5,
-      price: 40.99,
+      price: 1500.0,
       quantity: 3
     }
 

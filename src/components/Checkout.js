@@ -27,10 +27,14 @@ const Checkout = (props) => {
 
     const handleComplete = async (card) => {
         try {
-            await checkoutRequest(token, cart, card)
-            await completeOrder(token, cart.id, {status: 'completed'})
-            alert("Your order has been completed!")
-            history.push('/')
+            const response = await checkoutRequest(token, cart, card)
+            if(response.id) {
+                await completeOrder(token, cart.id, {status: 'completed'})
+                history.push('/')
+                alert("Your order has been completed!")
+            } else {
+                alert("Issue with payment system.")
+            }
         } catch (error) {
             console.log(error)
         }
@@ -65,8 +69,9 @@ const Checkout = (props) => {
                         <div key={product.id} className="checkout-product">
                             <img src={`${product.imageURL}?${product.id}`} alt={product.name}></img>
                             <p>Name: {product.name}</p>
-                            <p>${product.price}</p>
+                            <p>Unit Price: ${product.price}</p>
                             <p>Quantity: {product.quantity}</p>
+                            <h3>Subtotal: {product.total}</h3>
                         </div>
                     )
                 })
