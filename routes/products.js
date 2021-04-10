@@ -1,5 +1,5 @@
 const productsRouter = require('express').Router()
-const {getAllProducts, getProductById, createProduct, updateProduct} = require('../db')
+const {getAllProducts, getProductById, createProduct, updateProduct, getOrdersByProduct} = require('../db')
 const {requireAdmin} = require('./utils')
 
 productsRouter.get('/', async (req, res, next) => {
@@ -67,6 +67,18 @@ productsRouter.patch('/:productId', requireAdmin, async (req, res, next) => {
             res.send({product})
         }else {
             next({error: 'unable to create product'})
+        }
+    } catch (error) {
+        next({error})
+    }
+})
+
+productsRouter.get('/:productId/orders', requireAdmin, async (req, res, next) => {
+    try {
+        const {productId} = req.params;
+        const allOrders = await getOrdersByProduct({id: Number(productId)})
+        if (allOrders) {
+            res.send({allOrders})
         }
     } catch (error) {
         next({error})
