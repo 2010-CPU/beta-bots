@@ -10,7 +10,8 @@ const {
     getUserByUsername,
     getUser,
     getOrderById,
-    getOrdersByUser
+    getOrdersByUser,
+    getAllUsers
 } = require('../db/')
 
 const {
@@ -97,6 +98,18 @@ usersRouter.get('/:userId/orders', requireAdmin, async (req, res, next) => {
         }
     } catch (error) {
         next(error)
+    }
+})
+
+usersRouter.get('/', requireAdmin, async (req, res, next) => {
+
+    try {
+        const allUsers = await getAllUsers();
+        if (allUsers {
+            res.send({allUsers})
+        }
+    }catch (error) {
+        next ({error})
     }
 })
 
