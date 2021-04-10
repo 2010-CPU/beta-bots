@@ -44,5 +44,4 @@ const ProductList = ({token}) => {
 }
 
 
-
 export default ProductList;
