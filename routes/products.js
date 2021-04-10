@@ -44,4 +44,18 @@ productsRouter.post('/', requireAdmin, async (req, res, next) => {
     }
 })
 
+productsRouter.delete('/:productId', requireAdmin, async (req, res, next) => {
+    try {
+        const {productId} = req.params;
+        const destroyProduct = await destroyProduct(Number(productId))
+        if (destroyProduct) {
+            res.send({destroyProduct})
+        }else {
+            next({error: 'product not found'})
+        }
+    } catch (error) {
+        next({error})
+    }
+})
+
 module.exports = productsRouter;
