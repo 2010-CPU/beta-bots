@@ -10,7 +10,9 @@ const {
     getUserByUsername,
     getUser,
     getOrderById,
-    getOrdersByUser
+    getOrdersByUser,
+    getAllUsers,
+    updateUser
 } = require('../db/')
 
 const {
@@ -97,6 +99,31 @@ usersRouter.get('/:userId/orders', requireAdmin, async (req, res, next) => {
         }
     } catch (error) {
         next(error)
+    }
+})
+
+usersRouter.get('/', requireAdmin, async (req, res, next) => {
+
+    try {
+        const allUsers = await getAllUsers();
+        if (allUsers) {
+            res.send({allUsers})
+        }
+    }catch (error) {
+        next ({error})
+    }
+})
+
+usersRouter.patch('/:userId', requireAdmin, async (req, res, next) => {
+    try {
+        const {userId} = req.params;
+        const {firstName, lastName, email, isAdmin} = req.body;
+        const user = await updateUser ({id: userId, firstName, lastName, email, isAdmin})
+        if (user) {
+            res.send({user})
+        }
+    } catch (error) {
+        next({error})
     }
 })
 
