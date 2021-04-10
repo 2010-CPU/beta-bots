@@ -16,7 +16,6 @@ productsRouter.get('/:productId', async (req, res, next) => {
         const product = await getProductById(productId)
         if (product) {
             res.send({product})
-            console.log("product:", product)
         } else {
             next({error: "Product doesn't exist!"})
         }

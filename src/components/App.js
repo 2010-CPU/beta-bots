@@ -92,7 +92,7 @@ const App = () => {
               <Product key={product.id} token={token} product={product} setCart={setCart} cart={cart}/>
             </Route>
             <Route exact path="/cart">
-              <Cart token={token} />
+              <Cart token={token} fetchAndSetCart={fetchAndSetCart}/>
             </Route>
             <Route exact path="/cart/checkout">
               <Checkout token={token} user={user}/>

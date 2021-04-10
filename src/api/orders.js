@@ -75,7 +75,6 @@ const addProductToOrder = async(orderId, productId, price, token) => {
                 },
             });
             const {data} = response
-            console.log(data)
             return data.product
         
     } catch (error) {

@@ -22,8 +22,8 @@ const updateOrderProduct = async (token, orderProductId, updateFields) => {
         }
         const response = await axios.patch(`${orderProducts_url}/${orderProductId}`, body, {
             headers: {
-                'Content-type': 'application/json',
-                'Authorization': `Bearer ${token}`
+                'Authorization': `Bearer ${token}`,
+                'Content-type': 'application/json'
             }
         })
         const {data} = response
@@ -32,26 +32,7 @@ const updateOrderProduct = async (token, orderProductId, updateFields) => {
         console.log(error)
     }
 }
-// const updateOrderProduct = async(token, orderProductId, updateFields) => {
-//     try {
-//         const {price, quantity} = updateFields
-//         const body = {
-//             price: updateFields.price,
-//             quantity: updateFields.quantity
-//         }
-//         const response = await axios.patch(`${orderProducts_url}/${orderProductId}`, body, {
-//         headers: {
-//             'Authorization': `Bearer ${token}`,
-//             'Content-Type' : 'application/json'
-//         }
-//     })
-//     const {data} = response 
-//     console.log('data:', data);
-//     return data
-//     } catch (error) {
-//         throw error
-//     }
-// }
+
 export {
     deleteProductFromOrder,
     updateOrderProduct

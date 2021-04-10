@@ -70,8 +70,8 @@ const destroyProduct = async (id) => {
 const updateProduct = async(productToUpdate) => {
   const { id } = productToUpdate;
   delete productToUpdate.id;
-  const setString = Obeject.keys(productToUpdate).map(
-    (key, index) => `"${ key } = $${ index + 2 }`
+  const setString = Object.keys(productToUpdate).map(
+    (key, index) => `"${ key }" = $${ index + 2 }`
   ).join(', ');
 
   try {

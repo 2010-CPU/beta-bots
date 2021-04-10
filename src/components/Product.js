@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom'
 import {useHistory} from 'react-router-dom'
-import {fetchProductById, addProductToOrder, fetchCart} from '../api';
+import {fetchProductById, addProductToOrder, fetchCart, updateOrderProduct} from '../api';
    
 const Product = (props) => {
     const {token} = props
@@ -26,7 +26,6 @@ const Product = (props) => {
     const fetchAndSetCart = async () => {
         try {
             const order = await fetchCart(token)
-            console.log('cart/order:', order)
             if(order) {
                 setCart(order)
             }
@@ -43,49 +42,21 @@ const Product = (props) => {
         }
     }, [token, productId]);
 
-    // const handleAdd = async () => {
-    //    try {
-    //        // loop through cart.products to check if product.id is in cart.products// if so update quantity + 1  
-    //        // orderProduct price = quantity + 1 * product.price
-    //        // else 
-    //        cart.products.forEach(async(cartProduct) => {
-               
-    //         if (cartProduct.name === product.name) {
-    //        const addProduct = cartProduct.quantity = cartProduct.quantity + 1;
-    //         console.log('quantity', cartProduct.quantity)
-    //         console.log('addProduct', addProduct)
-    //      } else {
-    //              if (product && cart.id){
-    //        const addProduct = await addProductToOrder(cart.id, product.id, product.price, token) 
-    //        console.log('addProduct:', addProduct)
-    //        history.push('/cart')
-    //     }
-    // }
-    // })
-    
-    //    } catch (error) {
-    //        throw error
-    //    }
-    // }
     const handleAdd = async () => {
         try {
-        // cart.products.find(async(cartProduct) => {
-        //     if (cart.id.name === product.name) {
-        //        const addProduct = { 
-        //         ...cartProduct,   
-        //         quantity : cartProduct.quantity + 1
-        //        }
-        //        await addProductToOrder(cart.id, product.id, product.price, token) 
-        //        fetchAndSetCart()
-        //     }
-       
-        
-            if (product && cart.id){
-            const addProduct = await addProductToOrder(cart.id, product.id, product.price, token) 
-            console.log('addProduct:', addProduct)
-            history.push('/cart')
+            if(cart.id){
+                const productInCart = cart.products.find(cartProduct => {
+                return cartProduct.id === product.id
+            })
+            if (productInCart && productInCart.id){
+                const {orderProductId, price, total, quantity} = productInCart
+                const updatedTotal = Number(total + price).toFixed(2)
+                await updateOrderProduct(token, orderProductId, {price: updatedTotal, quantity: quantity + 1})
+            } else {
+                const addProduct = await addProductToOrder(cart.id, product.id, product.price, token) 
+                fetchAndSetCart()
+            }
         }
-    // })
         } catch (error) {
             console.log(error)
         }
@@ -102,7 +73,5 @@ const Product = (props) => {
     </div>
     )
  }
-
-
 
 export default Product;

@@ -2,53 +2,27 @@ import React, {useEffect, useState} from 'react';
 import {useHistory, useParams} from 'react-router-dom'
 import { fetchCart, deleteProductFromOrder, updateOrderProduct } from '../api';
 
-// const updateQuantity = (props) => {
-//     const {token, product, fetchAndSetCart} = props
-//     const {orderProductId, quantity, price} = product
-//     const [updateQuantity, setQuantity] = useState(quantity)
-//     const handleUpdate = async () => {
-//         try {
-//             const updatedOrderProduct = await updateOrderProduct(orderProductId, token, {
-//                 pr
-//                 product.updateQuantity
-//             })
-//             console.log(updatedOrderProduct)
-//             fetchAndSetCart()
-//         } catch (error) {
-//             console.log(error)
-//         }
-//     }
-//     return (
-//         <form className="product-quantity">
-//             <label for="quantity">Quantity</label>
-//             <input type="number" value={updateQuantity} onChange={(e) => setQuantity(e.target.value)} min="1" max="10"/>
-//             <input type="submit" value="Submit"/>
-//         </form>
-//     )
-// }
 const UpdateCart = (props) => {
     const {fetchAndSetCart, product, token} = props
     const {orderProductId, quantity, price} = product
     const [updateQuantity, setUpdateQuantity] = useState(quantity)
-    const handleEdit = async (ev) => {
+    const handleUpdate = async (ev) => {
         ev.preventDefault()
         try {
-            const updatedPrice = price * updateQuantity
-            const updatedProduct = await updateOrderProduct(orderProductId, token, {
-                price: updatedPrice,
+            const updatedTotal = Number(updateQuantity * price).toFixed(2)
+            const updatedProduct = await updateOrderProduct(token, orderProductId, {
+                price: updatedTotal,
                 quantity: updateQuantity
             })
-            console.log(updatedProduct)
             fetchAndSetCart()
         } catch (error) {
             console.log(error)
         }
     }
-
     return (
-        <form onSubmit={handleEdit}>
-            <label>Quantity:
-            <input type="number" placeholder="amount" value={updateQuantity} onChange={(ev) => {
+        <form onSubmit={handleUpdate}>
+            <label>Quantity
+            <input type="number" placeholder="amount" min="1" max="5" value={updateQuantity} onChange={(ev) => {
                 setUpdateQuantity(ev.target.value)
             }}></input>
             </label>
@@ -80,7 +54,6 @@ const Cart = (props) => {
     const fetchAndSetCart = async () => {
         try {
             const order = await fetchCart(token, orderId)
-            console.log('order:', order)
             if(order){
             setOrder(order)
             }
@@ -111,9 +84,7 @@ const Cart = (props) => {
                         <p>Price: ${product.price}</p>
                         <p>Quantity: {product.quantity}</p>
                         <p>Total: ${product.total}</p>
-                        <label>In Stock:
-                        <input type="checkbox" value={true} checked={product.inStock} readOnly></input>
-                        </label>
+                        <p>In Stock: {product.inStock? 'Yes' : 'Out of Stock'}</p>
                          <p>Status: {order.status}</p>
                          <p>UserId: {order.userId}</p>
                          <p>Created: {order.datePlaced}</p>
