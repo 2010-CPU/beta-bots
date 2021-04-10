@@ -1,5 +1,5 @@
 const productsRouter = require('express').Router()
-const {getAllProducts, getProductById, createProduct} = require('../db')
+const {getAllProducts, getProductById, createProduct, updateProduct} = require('../db')
 const {requireAdmin} = require('./utils')
 
 productsRouter.get('/', async (req, res, next) => {
@@ -52,6 +52,21 @@ productsRouter.delete('/:productId', requireAdmin, async (req, res, next) => {
             res.send({destroyProduct})
         }else {
             next({error: 'product not found'})
+        }
+    } catch (error) {
+        next({error})
+    }
+})
+
+productsRouter.patch('/:productId', requireAdmin, async (req, res, next) => {
+    try {
+        const {productId} = req.params;
+        const {name, description, price, category} = req.body;
+        const product = await createProduct({id: Number(productId), name, description, price, category})
+        if (product) {
+            res.send({product})
+        }else {
+            next({error: 'unable to create product'})
         }
     } catch (error) {
         next({error})
