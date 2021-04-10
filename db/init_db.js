@@ -17,8 +17,6 @@ const {
   completeOrder
   // other db methods 
 } = require('./index');
-const { updateProduct, destroyProduct } = require('./products');
-const { updateUser } = require('./users');
 
 async function buildTables() {
   try {

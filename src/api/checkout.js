@@ -11,6 +11,7 @@ const checkoutRequest = async (token, order, card) => {
             }
         })
         const {data} = response;
+        return data
     } catch (error) {
         console.log(error);
     }
