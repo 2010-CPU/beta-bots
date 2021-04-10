@@ -2,9 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom'
 import {useHistory} from 'react-router-dom'
 import {fetchProductById, addProductToOrder, fetchCart} from '../api';
-
-// orderID references orders(id)
-//productId references products(id)
+   
 const Product = (props) => {
     const {token} = props
     const { productId } = useParams()
@@ -14,10 +12,9 @@ const Product = (props) => {
 
     
     const fetchSingleProduct = async () => {
-        console.log("I'm a single product")
         try{
             const product = await fetchProductById(productId)
-            console.log('product:', product)
+
             if(product) {
                 setProduct(product)
             }
@@ -46,16 +43,52 @@ const Product = (props) => {
         }
     }, [token, productId]);
 
+    // const handleAdd = async () => {
+    //    try {
+    //        // loop through cart.products to check if product.id is in cart.products// if so update quantity + 1  
+    //        // orderProduct price = quantity + 1 * product.price
+    //        // else 
+    //        cart.products.forEach(async(cartProduct) => {
+               
+    //         if (cartProduct.name === product.name) {
+    //        const addProduct = cartProduct.quantity = cartProduct.quantity + 1;
+    //         console.log('quantity', cartProduct.quantity)
+    //         console.log('addProduct', addProduct)
+    //      } else {
+    //              if (product && cart.id){
+    //        const addProduct = await addProductToOrder(cart.id, product.id, product.price, token) 
+    //        console.log('addProduct:', addProduct)
+    //        history.push('/cart')
+    //     }
+    // }
+    // })
+    
+    //    } catch (error) {
+    //        throw error
+    //    }
+    // }
     const handleAdd = async () => {
-       try {
-           if (product && cart.id){
-           const addProduct = await addProductToOrder(cart.id, product.id, product.price, token) 
-           console.log('addProduct:', addProduct)
-           history.push('/cart')
+        try {
+        // cart.products.find(async(cartProduct) => {
+        //     if (cart.id.name === product.name) {
+        //        const addProduct = { 
+        //         ...cartProduct,   
+        //         quantity : cartProduct.quantity + 1
+        //        }
+        //        await addProductToOrder(cart.id, product.id, product.price, token) 
+        //        fetchAndSetCart()
+        //     }
+       
+        
+            if (product && cart.id){
+            const addProduct = await addProductToOrder(cart.id, product.id, product.price, token) 
+            console.log('addProduct:', addProduct)
+            history.push('/cart')
         }
-       } catch (error) {
-           throw error
-       }
+    // })
+        } catch (error) {
+            console.log(error)
+        }
     }
 
  return ( 

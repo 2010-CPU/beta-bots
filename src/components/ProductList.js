@@ -4,7 +4,7 @@ import {fetchAllProducts} from '../api';
 import './style/productlist.css'
 const Products = ({product}) => {
     const {imageURL, name, price, category, id} = product
-console.log("im products!!")
+
     return (
     <div className='product'>
         <a href ={`products/${id}`}>

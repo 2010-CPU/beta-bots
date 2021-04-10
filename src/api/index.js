@@ -41,5 +41,6 @@ export {
 } from './checkout'
 
 export {
-  deleteProductFromOrder
+  deleteProductFromOrder,
+  updateOrderProduct
 } from './order_products'
