@@ -11,7 +11,8 @@ const {
     getUser,
     getOrderById,
     getOrdersByUser,
-    getAllUsers
+    getAllUsers,
+    updateUser
 } = require('../db/')
 
 const {
@@ -110,6 +111,19 @@ usersRouter.get('/', requireAdmin, async (req, res, next) => {
         }
     }catch (error) {
         next ({error})
+    }
+})
+
+usersRouter.patch('/:userId', requireAdmin, async (req, res, next) => {
+    try {
+        const {userId} = req.params;
+        const {firstName, lastName, email, isAdmin} = req.body;
+        const user = await updateUser ({id: userId, firstName, lastName, email, isAdmin})
+        if (user) {
+            res.send({user})
+        }
+    } catch (error) {
+        next({error})
     }
 })
 
