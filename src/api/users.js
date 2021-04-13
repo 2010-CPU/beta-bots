@@ -30,6 +30,7 @@ const handleAccountForm = async (formType, fields) => {
     }
 }
 
+
 const fetchUser = async (token) => {
     try {
         if(token) {
@@ -60,13 +61,72 @@ const fetchOrdersByUserId = async (userId, token) => {
         const {data} = response
         return data;
     } catch (error) {
+        console.log(error);
+    }
+}
+
+
+
+const fetchAllUsers = async (token) => {
+    console.log('TOKEN!!!', token)
+    
+    try {
+                   
+    const response = await axios.get(users_url, {
+        headers: {
+            'Authorization': `Bearer ${token}`
+        }
+    })
+    const {data} = response;
+    return data.allUsers;
         
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+
+const fetchUserById = async (token, userId) => {
+    try {
+        const id_url = `${users_url}/${userId}`
+        const response = await axios.get(id_url, {
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        })
+
+        const {data} = response;
+        return data.user;
+
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+const updateUser = async (token, updateFields, userId) => {
+    try {
+        const update_url = `${users_url}/${userId}`;
+        const response = await axios.patch(update_url, updateFields, {
+            headers: {
+                'Authorization': `Bearer ${token}`,
+                'Content-Type': 'application/json'
+            }
+        })
+        
+        const {data} = response;
+        return data.user
+
+    } catch (error) {
+        console.log(error);
     }
 }
 
 
 export {
     handleAccountForm,
+    fetchAllUsers,
     fetchUser,
-    fetchOrdersByUserId
+    fetchOrdersByUserId,
+    fetchUserById,
+    updateUser
 }

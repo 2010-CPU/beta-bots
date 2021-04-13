@@ -14,7 +14,10 @@ import {
   Account,
   Order,
   Cart,
-  Checkout
+  Checkout,
+  UsersList,
+  SingleUser,
+  CreateProduct
 } from './';
 
 
@@ -69,6 +72,7 @@ const App = () => {
           {token ? <Link to="/cart">Cart</Link> : ''}
           {!token ? <Link to="/account/login">Login</Link> : 
             <>
+              <Link to="/admin">Admin</Link>
               <Link to="/account">Account</Link>
               <Link to="/" onClick={handleLogout}>Logout</Link>
             </>
@@ -102,6 +106,14 @@ const App = () => {
             </Route>
             <Route exact path="/account">
               <Account user={user} token={token}/>
+            </Route>
+            <Route exact path="/admin">
+              {/* <Admin /> */}
+              <UsersList token={token} user={user}/>
+              <CreateProduct />
+            </Route>
+            <Route exact path="/users/:userId">
+              <SingleUser token={token}/>
             </Route>
             <Route exact path="/account/register">
               <AccountForm setToken={setToken} register={true}/>
