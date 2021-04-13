@@ -34,7 +34,7 @@ const EditUser = (props) => {
 
 console.log('user', user)
     return (
-       showEditForm ? <div className="edit-user">
+       showEditForm && !user.isAdmin ? <div className="edit-user">
             <form onSubmit={handleSubmit}>
             <input type="text" value={newFirstName} onChange={(ev) => {
                 setFirstName(ev.target.value)
@@ -76,8 +76,6 @@ const fetchAndSetUser = async () => {
             fetchAndSetUser();
         }
     }, [token])
-
-    console.log('USER!!', user)
 
     if (!token) {
         return <div>You must be logged in to view this page!</div>

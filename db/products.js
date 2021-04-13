@@ -5,10 +5,16 @@ const createProduct = async (productField) => {
     if (!name || !description || !price || !category) {
       throw new Error ("Product is missing information!")
     }
-    const insertString = Object.keys(productField).join(", ")
+
+    productField.price = Number(price)
+
+    const insertString = Object.keys(productField).map(columnName => `"${columnName}"`).join(", ")
+    console.log(insertString)
     const sqlInsert = Object.keys(productField).map((key, index) => {
       return `$${index + 1}`
     }).join(", ")
+    console.log(sqlInsert)
+    console.log(Object.values(productField))
     try {
         const { rows: [product] } = await client.query(`
             INSERT INTO products(${insertString})
@@ -50,17 +56,13 @@ const getAllProducts = async () => {
 }
 const destroyProduct = async (id) => {
   try {
-    await client.query(`
-    DELETE FROM order_products
-    WHERE id = $1
-    `, [id])
 
     const { rows: [product] } = await client.query(`
     DELETE FROM products
-    WHERE id=$1
+    WHERE id = $1
     RETURNING *
     `, [id])
-
+    console.log(product)
     return product
   } catch (error) {
     throw error

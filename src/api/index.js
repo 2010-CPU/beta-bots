@@ -19,7 +19,9 @@ export async function getSomething() {
 
 export {
   fetchAllProducts,
-  fetchProductById
+  fetchProductById,
+  createProduct,
+  destroyProduct
 } from './products'
 
 export {
@@ -36,7 +38,8 @@ export {
   fetchCart,
   completeOrder,
   cancelOrder,
-  addProductToOrder
+  addProductToOrder,
+  createOrder
 } from './orders'
 
 export {

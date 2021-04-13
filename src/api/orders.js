@@ -66,6 +66,22 @@ const cancelOrder = async (orderId, token) => {
     }
 }
 
+const createOrder = async (userId, token) => {
+    try {
+        const response = await axios.post(orders_url, {userId, status: 'created'}, {
+            headers: {
+                'Authorization': `Bearer ${token}`,
+                'Content-type': 'application/json'
+            }
+        })
+
+        const {data} = response
+        return data.order
+    } catch (error) {
+        console.log(error)
+    }
+}
+
 const addProductToOrder = async(orderId, productId, price, token) => { 
     try {
             const response = await axios.post(`${orders_url}/${orderId}/products`, {productId, price}, {
@@ -87,6 +103,7 @@ export {
     fetchCart,
     completeOrder,
     cancelOrder,
-    addProductToOrder
+    addProductToOrder,
+    createOrder
 }
 

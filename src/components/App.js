@@ -90,11 +90,14 @@ const App = () => {
             </div> 
             </Route>
             <Route exact path="/products">
-              <ProductList token={token} cart={cart} setCart={setCart}/>
+              <ProductList token={token} cart={cart} setCart={setCart} user={user}/>
+            </Route>
+            <Route exact path="/products/create">
+              <CreateProduct token={token} user={user}/>
             </Route>
             <Route exact path="/products/:productId">
-              <Product key={product.id} token={token} product={product} setCart={setCart} cart={cart}/>
-            </Route>
+              <Product key={product.id} token={token} product={product} setCart={setCart} cart={cart} user={user}/>
+            </Route>            
             <Route exact path="/cart">
               <Cart token={token} fetchAndSetCart={fetchAndSetCart}/>
             </Route>
@@ -110,7 +113,6 @@ const App = () => {
             <Route exact path="/admin">
               {/* <Admin /> */}
               <UsersList token={token} user={user}/>
-              <CreateProduct />
             </Route>
             <Route exact path="/users/:userId">
               <SingleUser token={token}/>
