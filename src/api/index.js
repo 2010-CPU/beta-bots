@@ -25,7 +25,10 @@ export {
 export {
   handleAccountForm,
   fetchUser,
-  fetchOrdersByUserId
+  fetchOrdersByUserId,
+  fetchAllUsers,
+  fetchUserById,
+  updateUser
 } from './users'
 
 export {
