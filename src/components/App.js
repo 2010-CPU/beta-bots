@@ -86,7 +86,7 @@ const App = () => {
         <Switch>
             <Route exact path="/">
             <div className="App">
-              <img id="guitar" src="we.gif"></img>
+              <img id="guitar" src="We.gif"></img>
               <h2>{ message }</h2>
               <br />
               {/* {
