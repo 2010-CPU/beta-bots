@@ -49,11 +49,11 @@ footer {
  padding: 20px;
  display: flex;
  margin-bottom: 30px;
+ padding-left: 50px;
 }
 
 footer h2 {
     text-align: left;
-    padding-bottom: 20px;
 }
 
 footer p {
@@ -79,14 +79,11 @@ footer p {
     padding-bottom: 20px;
     width: 100%;
 }
-.footer-links, .footer-links-2 {
-    margin: 20px;
-}
 
 
 .footer-links li, .footer-links-2 li {
     list-style-type: none;
-    font-size: 12px;
+    font-size: 10px;
     text-transform: uppercase;
     color: white;
     padding: 10px;
@@ -101,7 +98,7 @@ footer p {
 .darker-logo {
     float: right;
     margin-left: 200px;
-    margin-top: 50px;
+    margin-top: 10px;
 }
 
 #divider {
@@ -129,8 +126,12 @@ footer p {
     height: 300px;
 }
 
-.review {
-    color: #A38A61;
-    font-family: arial;
-    padding-bottom: 30px;
+
+#review {
+    padding-bottom: 50px;
+    color:  #A38A61;
+}
+
+#connect-with-us {
+    color:  #A38A61;
 }

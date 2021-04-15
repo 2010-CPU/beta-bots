@@ -74,7 +74,7 @@ const App = () => {
  
   return ( 
     <Router>
-      <img id="logo" src="Beta_Bots_Music_Shop_Logo.png"></img>
+      <img id="logo" src="/Beta_Bots_Music_Shop_Logo.png"></img>
       <header>
           <Link to="/">Home</Link>
           <Link to="/products">Products</Link>
@@ -105,7 +105,7 @@ const App = () => {
             <div><img id="divider" src="divider.png"></img></div>
           }
           {
-            <h2 className="review">OUR LOYAL CUSTOMERS</h2>
+            <h2 id="review">OUR LOYAL CUSTOMERS</h2>
           }
 
           {
@@ -119,7 +119,7 @@ const App = () => {
           {
             <footer>
               <div className="social">
-              <h2>CONNECT WITH US</h2>
+              <h2 id="connect-with-us">CONNECT WITH US</h2>
               <img src="instagram.png"></img>
               <img src="twitter.png"></img>
               <img src="facebook-circular-logo.png"></img>
@@ -134,7 +134,6 @@ const App = () => {
               <li><a href="">Terms &#38; Conditions </a></li>
               <li><a href="">Return and Exchange</a></li>
               <li><a href="">Shipping and Delivery</a></li>
-              <li><a href="">Store Policy</a></li>
               </ul>
               </div>
               <div className="footer-links-2">
@@ -142,7 +141,6 @@ const App = () => {
               <li><a href="">Careers</a></li>
               <li><a href="">Product Support</a></li>
               <li><a href="">Product Registration</a></li>
-              <li><a href="">News</a></li>
                 </ul>
               </div>
               <div className="darker-logo">
