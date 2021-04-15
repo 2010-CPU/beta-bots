@@ -23,8 +23,49 @@ const fetchProductById = async (id) => {
     }
 }
 
+const createProduct = async (token, product) => {
+    try {
+        const {price} = product
+        product.price = Number(price).toFixed(2)
+        if(Number(product.price)) {
+            const response = await axios.post(products_url,product, {
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                    'Content-Type': 'application/json'
+                }
+            })
+        } else {
+            console.log("Price not correct")
+            return
+        }
+
+        const {data} = response
+        return data.product
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+const destroyProduct = async (token, productId) => {
+    try {
+        const destroy_url = `${products_url}/${productId}`
+        const response = await axios.delete(destroy_url, {
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        })
+
+        const {data} = response
+        return data.destroyedProduct;
+    } catch (error) {
+        console.log(error)
+    }
+}
+
 
 export {
     fetchAllProducts,
-    fetchProductById
+    fetchProductById,
+    createProduct,
+    destroyProduct
 }

@@ -13,7 +13,9 @@ const {
     getOrdersByUser,
     getAllUsers,
     updateUser,
-    getUserById
+    getUserById,
+    forcePasswordReset,
+    handledPasswordReset
 } = require('../db/')
 
 const {
@@ -87,7 +89,7 @@ usersRouter.get('/me', requireUser, (req, res, next) => {
     res.send(req.user);
 })
 
-usersRouter.get('/:userId/orders', requireAdmin, async (req, res, next) => {
+usersRouter.get('/:userId/orders', requireUser, async (req, res, next) => {
     try {
         const {userId} = req.params
         if(Number(userId)){
@@ -143,5 +145,40 @@ usersRouter.get('/:userId', requireAdmin, async (req, res, next) => {
     }
 })
 
+usersRouter.post('/', requireAdmin, async (req, res, next) => {
+    try {
+        const user = await createUser(req.body)
+        if(user) {
+            console.log(user)
+            res.send({user})
+        }
+    } catch (error) {
+        next({error})
+    }
+})
+
+usersRouter.patch('/resetpassword/:userId', requireAdmin, async (req, res, next) => {
+    try {
+        const {userId} = req.params
+        const user = await forcePasswordReset(userId)
+        if(user) {
+            res.send({user})
+        }
+    } catch (error) {
+        next({error})
+    }
+})
+
+usersRouter.patch('/confirmedpassword/:userId', requireUser, async (req, res, next) => {
+    try {
+        const {userId} = req.params
+        const user = await handledPasswordReset(userId)
+        if(user) {
+            res.send({user})
+        }
+    } catch (error) {
+        next({error})
+    }
+})
 
 module.exports = usersRouter;
