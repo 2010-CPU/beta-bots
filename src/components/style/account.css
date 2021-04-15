@@ -1,0 +1,10 @@
+li, ol {
+    margin: 15px;
+}
+
+.account-container {
+    padding-top: 200px;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+}

@@ -1,7 +1,6 @@
 const orderProductsRouter = require('express').Router()
 
 const { 
-    addProductToOrder, 
     getOrderProductById,
     getOrderById, 
     getUserById,
@@ -11,49 +10,33 @@ const {
 
 const {requireAdmin, requireUser} = require('./utils')
 
-
-orderProductsRouter.post('/:orderId/products', requireUser, async (req, res, next) => {
-    const {orderId} = req.params
-    const {productId, price, quantity} = req.body
+orderProductsRouter.patch('/:orderProductId', requireUser, async (req, res, next) => {
     try {
-        const addProduct = await addProductToOrder(orderId, productId, price, quantity)
-        res.send({addProduct})
-    } catch (error) {
-        next({error})
-    }
-})
-
-orderProductsRouter.patch('/order_products/:orderProductId', requireUser, async (req, res, next) => {
-    const { orderProductId } = req.params;
-    const { price, quantity } = req.body 
-
-    try {
-        const orderProduct = await getOrderProductById(id);
-        const order = await getOrderById(orderProduct.orderId)
-        const user = await getUserById(order.userId)
-    if (req.user.id === order.userId) {
-        const updatedOrderProduct = await updateOrderProduct({id: Number(orderProductId), price, quantity})
-        if(updatedOrderProduct) {
-        res.send(updatedOrderProduct)
-        }
-    } else {
-        next({error: "Only users can update their products"})
+        const {orderProductId} = req.params
+        const {price, quantity} = req.body
+        const orderProduct = await getOrderProductById(orderProductId)
+        const usersOrderProduct = await getOrderById(orderProduct.orderId)
+        if(usersOrderProduct || req.user.isAdmin) {
+            const order_product = await updateOrderProduct({id: orderProductId, price, quantity})
+            if(order_product) {
+                res.send({order_product})
+            }
+        } else {
+            next({message: "You are not the owner of this order."})
         }
     } catch (error) {
-        next({error})
+        next(error)
     }
 })
-
-orderProductsRouter.delete('/order_products/:orderProductId', requireUser, async (req, res, next) => {
+orderProductsRouter.delete('/:orderProductId', requireUser, async (req, res, next) => {
     const { orderProductId } = req.params  
     try {
         const orderProduct = await getOrderProductById(orderProductId)
         const order = await getOrderById(orderProduct.orderId)
-        const user = await  getOrdersByUser(order.userId)
 
         if ( req.user.id === order.userId ) {
         const deletedOrderProduct = destroyOrderProduct(orderProductId)
-        res.send(deletedOrderProduct)
+        res.send({deletedOrderProduct})
         } else {
             next({error: "Only users can delete their products"})
         }
