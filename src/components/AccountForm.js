@@ -2,7 +2,7 @@ import React, { useState} from 'react'
 import { Link, useHistory } from 'react-router-dom'
 
 import {handleAccountForm} from '../api'
-
+// import './style/app.css'
 import './style/accountform.css'
 
 const AccountForm = (props) => {
@@ -48,8 +48,15 @@ const AccountForm = (props) => {
     }
 
     return (
+        <>
+        <header className="header">
+            <div></div>
+            <div></div>
+        </header>
+        <div className="account-form-container">
     <div className="account-form">
-        <form onSubmit={handleLogin}>
+        <form className="submit-form" onSubmit={handleLogin}>
+        <h2 className="title">Login</h2>
             <input type="text" placeholder="username" className="input" value={username} onChange={(ev) => {
                 setUsername(ev.target.value)
             }}></input>
@@ -81,9 +88,12 @@ const AccountForm = (props) => {
                     </> : ""
             }
             <button className="account-btn">Submit</button>
+        <Link className="opposite-link" to={`${oppositeLink}`}>Click me to {oppositeLink}</Link>
         </form>
-        <Link to={`${oppositeLink}`}>Click me to {oppositeLink}</Link>
-    </div>)
+    </div>
+    </div>
+    </>
+    )
 }
 
 export default AccountForm;

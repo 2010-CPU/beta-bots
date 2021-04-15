@@ -17,7 +17,6 @@ const {
   completeOrder
   // other db methods 
 } = require('./index');
-// const { getAllProducts } = require('./products');
 
 async function buildTables() {
   try {

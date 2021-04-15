@@ -1,5 +1,5 @@
 const productsRouter = require('express').Router()
-const {getAllProducts, getProductById, createProduct, updateProduct, getOrdersByProduct} = require('../db')
+const {getAllProducts, getProductById, createProduct, updateProduct, getOrdersByProduct, destroyProduct} = require('../db')
 const {requireAdmin} = require('./utils')
 
 productsRouter.get('/', async (req, res, next) => {
