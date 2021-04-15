@@ -30,7 +30,8 @@ export {
   fetchOrdersByUserId,
   fetchAllUsers,
   fetchUserById,
-  updateUser
+  updateUser,
+  adminCreateUser
 } from './users'
 
 export {
@@ -39,7 +40,8 @@ export {
   completeOrder,
   cancelOrder,
   addProductToOrder,
-  createOrder
+  createOrder,
+  getOrdersByUser
 } from './orders'
 
 export {

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import {BrowserRouter as Router, Switch, Route, Link} from 'react-router-dom'
+import {BrowserRouter as Router, Switch, Route, Link, useHistory} from 'react-router-dom'
 
 import {
   fetchUser,
@@ -17,8 +17,10 @@ import {
   Checkout,
   UsersList,
   SingleUser,
-  CreateProduct
+  CreateProduct,
+  CreateUser
 } from './';
+import ResetPassword from './ResetPassword';
 
 
 import './style/app.css'
@@ -30,6 +32,8 @@ const App = () => {
   const [order, setOrder] = useState({products: []})
   const [cart, setCart] = useState({products: []})
   const [product, setProducts] = useState({})
+
+  const history = useHistory()
 
   const handleLogout = () => {
     localStorage.removeItem('grace-token')
@@ -63,6 +67,10 @@ const App = () => {
     fetchAndSetUser();
     // fetchAndSetCart()
   }, [token])
+
+  if(user && user.resetPassword) {
+    history.push('/account/resetpassword')
+  }
  
   return ( 
     <Router>
@@ -153,7 +161,7 @@ const App = () => {
               <Product key={product.id} token={token} product={product} setCart={setCart} cart={cart} user={user}/>
             </Route>            
             <Route exact path="/cart">
-              <Cart token={token} fetchAndSetCart={fetchAndSetCart}/>
+              <Cart token={token} fetchAndSetCart={fetchAndSetCart} user={user}/>
             </Route>
             <Route exact path="/cart/checkout">
               <Checkout token={token} user={user}/>
@@ -168,6 +176,9 @@ const App = () => {
               {/* <Admin /> */}
               <UsersList token={token} user={user}/>
             </Route>
+            <Route exact path="/users/create">
+              <CreateUser token={token} admin={user}/>
+            </Route>
             <Route exact path="/users/:userId">
               <SingleUser token={token}/>
             </Route>
@@ -176,6 +187,9 @@ const App = () => {
             </Route>
             <Route exact path="/account/login">
               <AccountForm setToken={setToken} register={false}/>
+            </Route>
+            <Route exact path="/account/resetpassword">
+              <ResetPassword token={token} user={user}/>
             </Route>
         </Switch>
     </Router>  

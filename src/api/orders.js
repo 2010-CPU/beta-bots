@@ -98,12 +98,29 @@ const addProductToOrder = async(orderId, productId, price, token) => {
     }
 }
 
+const getOrdersByUser = async (token, userId) => {
+    try {
+        const order_user_url = `${orders_url}/${userId}/orders`
+        const response = await axios.get(order_user_url, {
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        })
+
+        const {data} = response
+        return data.orders
+    } catch (error) {
+        console.log(error)
+    }
+}
+
 export {
     fetchOrderById,
     fetchCart,
     completeOrder,
     cancelOrder,
     addProductToOrder,
-    createOrder
+    createOrder,
+    getOrdersByUser
 }
 

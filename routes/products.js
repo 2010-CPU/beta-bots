@@ -1,5 +1,6 @@
 const productsRouter = require('express').Router()
 const {getAllProducts, getProductById, createProduct, updateProduct, getOrdersByProduct} = require('../db')
+const {destroyProduct} = require('../db/products.js')
 const {requireAdmin} = require('./utils')
 
 productsRouter.get('/', async (req, res, next) => {
@@ -48,9 +49,9 @@ productsRouter.delete('/:productId', requireAdmin, async (req, res, next) => {
     try {
         const {productId} = req.params;
         console.log(productId)
-        const destroyProduct = await destroyProduct(Number(productId))
-        if (destroyProduct) {
-            res.send({destroyProduct})
+        const destroyedProduct = await destroyProduct(productId)
+        if (destroyedProduct) {
+            res.send({destroyedProduct})
         }
     } catch (error) {
         next({error})

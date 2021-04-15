@@ -41,6 +41,10 @@ const ProductList = ({token, user}) => {
     }, [token])
 
 
+    if(user && user.resetPassword) {
+        history.push('/account/resetpassword')
+    }
+
     return(
         <> 
         {user && user.isAdmin ? <button onClick={sendToCreateProduct}>Create Product</button> : null}

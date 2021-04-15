@@ -27,8 +27,7 @@ const createProduct = async (token, product) => {
     try {
         const {price} = product
         product.price = Number(price).toFixed(2)
-        console.log(product)
-        if(product.price) {
+        if(Number(product.price)) {
             const response = await axios.post(products_url,product, {
                 headers: {
                     'Authorization': `Bearer ${token}`,
@@ -57,7 +56,7 @@ const destroyProduct = async (token, productId) => {
         })
 
         const {data} = response
-        return data;
+        return data.destroyedProduct;
     } catch (error) {
         console.log(error)
     }

@@ -6,7 +6,7 @@ import {destroyProduct} from '../api';
 const DeleteProduct = (props) => {
 
     const {product, token} = props
-    console.log(product)
+
     const {id} = product
 
     const history = useHistory()

@@ -71,6 +71,10 @@ const Product = (props) => {
         }
     }
 
+    if(user && user.resetPassword) {
+        history.push('/account/resetpassword')
+    }
+
  return ( 
     <div className='product' key={product.id}>
         <img src={`${product.imageURL} ? ${product.id}`} alt={product.name}/>      

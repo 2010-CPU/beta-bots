@@ -29,9 +29,11 @@ const CreateProduct = (props) => {
                 imageURL
             }
             const product = await createProduct(token, createdProduct)
-            if(product.id) {
+            if(product && product.id) {
                 alert('Created Product')
                 history.push('/')
+            } else {
+                alert('Incorrect Data When Creating Product')
             }
         } catch (error) {
             console.log(error)
