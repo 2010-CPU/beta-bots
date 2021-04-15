@@ -9,12 +9,7 @@ const {
   createOrder,
   addProductToOrder,
   getAllOrders,
-  getOrderProductById,
-  updateOrderProduct,
-  destroyOrderProduct,
-  updateOrder,
-  cancelOrder,
-  completeOrder
+  destroyProduct
   // other db methods 
 } = require('./index');
 // const { getAllProducts } = require('./products');
@@ -53,7 +48,8 @@ async function buildTables() {
         "imageURL" VARCHAR(255) DEFAULT 'https://placeimg.com/100/100/people',
         username VARCHAR(255) UNIQUE NOT NULL,
         password VARCHAR(255) UNIQUE NOT NULL,
-        "isAdmin" BOOLEAN NOT NULL DEFAULT false
+        "isAdmin" BOOLEAN NOT NULL DEFAULT false,
+        "passwordReset" BOOLEAN NOT NULL DEFAULT false
       );
       CREATE TABLE orders(
         id SERIAL PRIMARY KEY,

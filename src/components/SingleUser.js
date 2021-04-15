@@ -32,9 +32,12 @@ const EditUser = (props) => {
         }
     }
 
-console.log('user', user)
+    if(!token || !user.isAdmin) {
+        return <div>You must be logged in to view this page.</div>
+    }
+
     return (
-       showEditForm ? <div className="edit-user">
+       showEditForm && !user.isAdmin ? <div className="edit-user">
             <form onSubmit={handleSubmit}>
             <input type="text" value={newFirstName} onChange={(ev) => {
                 setFirstName(ev.target.value)
@@ -48,9 +51,11 @@ console.log('user', user)
             <input type="text" value={newImageURL} onChange={(ev) => {
                 setImageURL(ev.target.value)
             }}></input>
+            <label>Set Admin:  
             <input type="checkbox" checked={updateAdmin} onChange={() => {
                 setAdmin(!updateAdmin)
             }}></input>  
+            </label>
             <button>Edit User</button>
             </form>         
         </div> : <button onClick={() => {
@@ -77,8 +82,6 @@ const fetchAndSetUser = async () => {
         }
     }, [token])
 
-    console.log('USER!!', user)
-
     if (!token) {
         return <div>You must be logged in to view this page!</div>
     }
@@ -89,8 +92,9 @@ const fetchAndSetUser = async () => {
             <p>Name: {user.firstName} {user.lastName}</p>
             <p>Username: {user.username}</p>
             <p>Email: {user.email}</p>
-            <p>Admin? {user.isAdmin ? 'Yes' : 'No'}</p>
-
+            <label>Admin: 
+            <input type="checkbox" readOnly checked={user.isAdmin}></input>
+            </label>
             {
                 user && user.id ? <EditUser token={token} user={user} fetchAndSetUser={fetchAndSetUser}/> : ''
             }
