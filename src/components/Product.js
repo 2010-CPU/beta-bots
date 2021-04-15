@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom'
 import {useHistory} from 'react-router-dom'
-import {fetchProductById, addProductToOrder, fetchCart, updateOrderProduct} from '../api';
+import {fetchProductById, addProductToOrder, fetchCart, updateOrderProduct, createOrder} from '../api';
+
+import {DeleteProduct} from './'
    
 const Product = (props) => {
-    const {token} = props
+    const {token, user} = props
     const { productId } = useParams()
     const [product, setProduct] = useState([])
     const [cart, setCart] = useState({products: []})
@@ -46,20 +48,31 @@ const Product = (props) => {
         try {
             if(cart.id){
                 const productInCart = cart.products.find(cartProduct => {
-                return cartProduct.id === product.id
-            })
-            if (productInCart && productInCart.id){
-                const {orderProductId, price, total, quantity} = productInCart
-                const updatedTotal = Number(total + price).toFixed(2)
-                await updateOrderProduct(token, orderProductId, {price: updatedTotal, quantity: quantity + 1})
+                    return cartProduct.id === product.id
+                })
+                if (productInCart && productInCart.id){
+                    const {orderProductId, price, total, quantity} = productInCart
+                    const updatedTotal = Number(total + price).toFixed(2)
+                    await updateOrderProduct(token, orderProductId, {price: updatedTotal, quantity: quantity + 1})
+                } else {
+                    const addProduct = await addProductToOrder(cart.id, product.id, product.price, token) 
+                    fetchAndSetCart()
+                }
             } else {
-                const addProduct = await addProductToOrder(cart.id, product.id, product.price, token) 
-                fetchAndSetCart()
+                //Create order
+                const order = await createOrder(user.id, token)
+                await fetchAndSetCart()
+                const addProduct = await addProductToOrder(cart.id, product.id, product.price, token)
+                await fetchAndSetCart()
+                console.log('Added to cart as well')
             }
-        }
         } catch (error) {
             console.log(error)
         }
+    }
+
+    if(user && user.resetPassword) {
+        history.push('/account/resetpassword')
     }
 
  return ( 
@@ -70,6 +83,9 @@ const Product = (props) => {
         <p>${product.price}</p>
         <p>{product.category}</p>
         <button onClick={handleAdd}>Add to Cart</button>
+        {
+            user && user.isAdmin ? <DeleteProduct token={token} user={user} product={product}/> : null
+        }
     </div>
     )
  }

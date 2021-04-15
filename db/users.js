@@ -119,8 +119,36 @@ const updateUser = async(userToUpdate) => {
     } catch (error) {
       throw error
     }
+}
 
+const forcePasswordReset = async (userId) => {
+  try {
+    const {rows: [user]} = await client.query(`
+      UPDATE users
+      SET "passwordReset" = true
+      WHERE id = $1
+      RETURNING *;
+    `, [userId])
 
+    return user
+  } catch (error) {
+    throw error
+  }
+}
+
+const handledPasswordReset = async (userId) => {
+  try {
+    const {rows: [user]} = await client.query(`
+      UPDATE users
+      SET "passwordReset" = false
+      WHERE id = $1
+      RETURNING *;
+    `, [userId])
+
+    return user
+  } catch (error) {
+    throw error
+  }
 }
 
 module.exports = {
@@ -129,5 +157,7 @@ module.exports = {
     getUserById,
     getUserByUsername,
     createUser,
-    updateUser
+    updateUser,
+    forcePasswordReset,
+    handledPasswordReset
 }

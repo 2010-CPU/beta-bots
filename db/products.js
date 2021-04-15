@@ -9,6 +9,7 @@ const createProduct = async (productField) => {
     const sqlInsert = Object.keys(productField).map((key, index) => {
       return `$${index + 1}`
     }).join(", ")
+    
     try {
         const { rows: [product] } = await client.query(`
             INSERT INTO products(${insertString})
@@ -48,19 +49,21 @@ const getAllProducts = async () => {
     }
   
 }
+
 const destroyProduct = async (id) => {
   try {
-    await client.query(`
-    DELETE FROM order_products
-    WHERE id = $1
+
+    const {rows: [order_product]} = await client.query(`
+      DELETE FROM order_products
+      WHERE "productId" = $1;
     `, [id])
 
     const { rows: [product] } = await client.query(`
     DELETE FROM products
-    WHERE id=$1
-    RETURNING *
+    WHERE id = $1
+    RETURNING *;
     `, [id])
-
+    
     return product
   } catch (error) {
     throw error
@@ -93,6 +96,6 @@ module.exports = {
     getAllProducts,
     getProductById,
     createProduct,
-    destroyProduct, 
+    destroyProduct,
     updateProduct
-}
+};

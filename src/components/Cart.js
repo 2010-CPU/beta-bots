@@ -48,7 +48,7 @@ const RemoveFromCart = (props) => {
 }
 const Cart = (props) => {
     const {orderId} = useParams
-    const {token, product} = props
+    const {token, product, user} = props
     const [order, setOrder] = useState({products: []})
     const history = useHistory()
 
@@ -72,6 +72,10 @@ const Cart = (props) => {
         fetchAndSetCart()
         }
     }, [token])
+
+    if(user && user.resetPassword) {
+        history.push('/account/resetpassword')
+    }
 
     return (
         <div className="cart">
