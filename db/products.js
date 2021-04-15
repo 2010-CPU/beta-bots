@@ -5,11 +5,7 @@ const createProduct = async (productField) => {
     if (!name || !description || !price || !category) {
       throw new Error ("Product is missing information!")
     }
-
-    productField.price = Number(price)
-
-    const insertString = Object.keys(productField).map(columnName => `"${columnName}"`).join(", ")
-    console.log(insertString)
+    const insertString = Object.keys(productField).map(key => `"${key}"`).join(", ")
     const sqlInsert = Object.keys(productField).map((key, index) => {
       return `$${index + 1}`
     }).join(", ")
