@@ -68,7 +68,6 @@ const fetchOrdersByUserId = async (userId, token) => {
 
 
 const fetchAllUsers = async (token) => {
-    console.log('TOKEN!!!', token)
     
     try {
                    
@@ -121,6 +120,39 @@ const updateUser = async (token, updateFields, userId) => {
     }
 }
 
+const adminCreateUser = async (token, userInfo) => {
+    try {
+        const response = await axios.post(users_url, userInfo, {
+            headers: {
+                'Authorization': `Bearer ${token}`,
+                'Content-Type': 'application/json'
+            }
+        })
+
+        const {data} = response
+        return data.user
+        
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+const triggerPassReset = async (userId, token) => {
+    try {
+       const reset_pass_url = `${users_url}/resetpass/${userId}`
+       const response = await axios.patch(reset_pass_url, {}, {
+           headers: {
+               'Authorization': `Bearer ${token}`,
+               'Content-Type': 'application/json'
+           }
+       })
+
+       const {data} = response
+       return data.user
+    } catch (error) {
+        console.log(error)
+    }
+}
 
 export {
     handleAccountForm,
@@ -128,5 +160,7 @@ export {
     fetchUser,
     fetchOrdersByUserId,
     fetchUserById,
-    updateUser
+    updateUser,
+    adminCreateUser,
+    triggerPassReset
 }

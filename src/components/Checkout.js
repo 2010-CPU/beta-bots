@@ -56,6 +56,10 @@ const Checkout = (props) => {
         }
     }, [token])
 
+    if(user && user.resetPassword) {
+        history.push('/account/resetpassword')
+    }
+
     if(!token || !cart.id) {
         return <div>You must be logged in to view checkout.</div>
     }

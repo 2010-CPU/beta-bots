@@ -10,5 +10,7 @@ export { default as Checkout } from './Checkout.js';
 export { default as UsersList } from './UsersList.js';
 export { default as SingleUser } from './SingleUser.js';
 export { default as AddUserForm } from './AddUserForm.js';
-// export { default as Admin } from './Admin.js';
+export { default as DeleteProduct } from './DeleteProduct.js';
 export { default as CreateProduct } from './CreateProduct.js';
+export { default as CreateUser } from './CreateUser.js';
+export { default as ResetPassword } from './ResetPassword.js';
