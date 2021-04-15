@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { fetchAllUsers } from '../api';
+import './style/userslist.css'
 
 const UsersList = (props) => {
     const {token} = props
@@ -25,16 +26,20 @@ const UsersList = (props) => {
     const hasUserList = users && users.length > 0
 
     return (
-        <div>
+        <div className="user-container">
+            <img src="user.png"></img>
+            <h2>Users</h2>
             {
                 hasUserList ? users.map(user => {
                     return (
 
-                        <div>
+                        <div className="user">
+
                             <p>Id: {user.id}</p>
                             <p>Name: {user.firstName} {user.lastName}</p>
                             <p>Username: <a href={`users/${user.id}`}>{user.username}</a></p>
                             <p>Email: {user.email}</p>
+                            <p>Admin? { user.isAdmin === true ? 'Yes' : 'No' }</p>
                             <hr />
 
                         </div>
