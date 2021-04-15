@@ -50,22 +50,22 @@ const AccountForm = (props) => {
     return (
     <div className="account-form">
         <form onSubmit={handleLogin}>
-            <input type="text" placeholder="username" value={username} onChange={(ev) => {
+            <input type="text" placeholder="username" className="input" value={username} onChange={(ev) => {
                 setUsername(ev.target.value)
             }}></input>
-            <input type="password" placeholder="password" value={password} onChange={(ev) => {
+            <input type="password" placeholder="password" className="input" value={password} onChange={(ev) => {
                 setPassword(ev.target.value)
             }}></input>
             {
                 register ? 
                     <>
-                        <input type="text" placeholder="first name" value={firstName} onChange={(ev) => {
+                        <input type="text" placeholder="first name" className="input" value={firstName} onChange={(ev) => {
                             setFirstName(ev.target.value)
                         }}></input>
-                        <input type="text" placeholder="last name" value={lastName} onChange={(ev) => {
+                        <input type="text" placeholder="last name" className="input" value={lastName} onChange={(ev) => {
                             setLastName(ev.target.value)
                         }}></input>
-                        <input type="text" placeholder="email" value={email} onChange={(ev) => {
+                        <input type="text" placeholder="email" className="input" value={email} onChange={(ev) => {
                             setEmail(ev.target.value)
                         }}></input> 
                         <label>Default Picture? 
@@ -80,7 +80,7 @@ const AccountForm = (props) => {
                         : ""}
                     </> : ""
             }
-            <button>Submit</button>
+            <button className="account-btn">Submit</button>
         </form>
         <Link to={`${oppositeLink}`}>Click me to {oppositeLink}</Link>
     </div>)
