@@ -60,7 +60,7 @@ const Product = (props) => {
                 }
             } else {
                 //Create order
-                const order = await createOrder(userId, token)
+                const order = await createOrder(user.id, token)
                 await fetchAndSetCart()
                 const addProduct = await addProductToOrder(cart.id, product.id, product.price, token)
                 await fetchAndSetCart()
