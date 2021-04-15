@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {useHistory, useParams} from 'react-router-dom'
 import { fetchCart, deleteProductFromOrder, updateOrderProduct } from '../api';
+import './style/cart.css';
 
 const UpdateCart = (props) => {
     const {fetchAndSetCart, product, token} = props
@@ -22,11 +23,11 @@ const UpdateCart = (props) => {
     return (
         <form onSubmit={handleUpdate}>
             <label>Quantity
-            <input type="number" placeholder="amount" min="1" max="5" value={updateQuantity} onChange={(ev) => {
+            <input className="quantity-box" type="number" placeholder="amount" min="1" max="5" value={updateQuantity} onChange={(ev) => {
                 setUpdateQuantity(ev.target.value)
             }}></input>
             </label>
-            <button>Update Quantity</button>
+            <button className="update-cart">Update Quantity</button>
         </form>
     )
 }
@@ -42,7 +43,7 @@ const RemoveFromCart = (props) => {
         }
     }
     return (
-    <button onClick={handleDelete}>Remove from Cart</button>
+    <button onClick={handleDelete} className="remove-from-cart">Remove from Cart</button>
     )
 }
 const Cart = (props) => {
@@ -79,8 +80,8 @@ const Cart = (props) => {
                 order.products.map((product) => {
                 return (
                     <div className="order-product" key={product.id}>
-                        <img src={`${product.imageURL} ? ${product.id}`} alt={product.name}/>   
-                        <p>Product: {product.name}</p>
+                        <h3> {product.name}</h3>
+                        <img src={`${product.imageURL} ? ${product.id}`} alt={product.name}/>                       
                         <p>Price: ${product.price}</p>
                         <p>Quantity: {product.quantity}</p>
                         <p>Total: ${product.total}</p>
@@ -88,13 +89,13 @@ const Cart = (props) => {
                          <p>Status: {order.status}</p>
                          <p>UserId: {order.userId}</p>
                          <p>Created: {order.datePlaced}</p>
-                         <UpdateCart product={product} token={token} fetchAndSetCart={fetchAndSetCart} />
+                         <UpdateCart product={product} token={token} fetchAndSetCart={fetchAndSetCart}/>
                          <RemoveFromCart token={token} product={product} fetchAndSetCart={fetchAndSetCart}/>
                         </div>
                     )
                 })
             }
-            <button onClick={handleCheckout} disabled={!order.products.length > 0 }>Checkout</button>
+            <button onClick={handleCheckout} disabled={!order.products.length > 0 } className="cart-checkout">Checkout</button>
         </div>
     )
  }
