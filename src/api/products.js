@@ -27,17 +27,17 @@ const createProduct = async (token, product) => {
     try {
         const {price} = product
         product.price = Number(price).toFixed(2)
-        if(Number(product.price)) {
-            const response = await axios.post(products_url,product, {
-                headers: {
-                    'Authorization': `Bearer ${token}`,
-                    'Content-Type': 'application/json'
-                }
-            })
-        } else {
+        if(!Number(product.price)) {
             console.log("Price not correct")
             return
         }
+
+        const response = await axios.post(products_url,product, {
+            headers: {
+                'Authorization': `Bearer ${token}`,
+                'Content-Type': 'application/json'
+            }
+        })
 
         const {data} = response
         return data.product
