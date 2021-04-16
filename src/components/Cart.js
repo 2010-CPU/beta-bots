@@ -21,7 +21,7 @@ const UpdateCart = (props) => {
         }
     }
     return (
-        <form onSubmit={handleUpdate}>
+        <form className="quantity-form" onSubmit={handleUpdate}>
             <label>Quantity
             <input className="quantity-box" type="number" placeholder="amount" min="1" max="5" value={updateQuantity} onChange={(ev) => {
                 setUpdateQuantity(ev.target.value)
@@ -79,20 +79,20 @@ const Cart = (props) => {
 
     return (
         <div className="cart">
-            <h1>My Cart</h1>
+            <h1 className="my-cart">My Cart</h1>
             {
                 order.products.map((product) => {
                 return (
                     <div className="order-product" key={product.id}>
-                        <h3> {product.name}</h3>
+                        <h3 className="product-name"> {product.name}</h3>
                         <img src={`${product.imageURL} ? ${product.id}`} alt={product.name}/>                       
-                        <p>Price: ${product.price}</p>
-                        <p>Quantity: {product.quantity}</p>
-                        <p>Total: ${product.total}</p>
-                        <p>In Stock: {product.inStock? 'Yes' : 'Out of Stock'}</p>
-                         <p>Status: {order.status}</p>
-                         <p>UserId: {order.userId}</p>
-                         <p>Created: {order.datePlaced}</p>
+                        <p className="price">Price: ${product.price}</p>
+                        <p className="quantity">Quantity: {product.quantity}</p>
+                        <p className="total">Total: ${product.total}</p>
+                        <p className="in-stock">In Stock: {product.inStock? 'Yes' : 'Out of Stock'}</p>
+                         <p className="status">Status: {order.status}</p>
+                         <p className="userid">UserId: {order.userId}</p>
+                         <p className="created">Created: {order.datePlaced}</p>
                          <UpdateCart product={product} token={token} fetchAndSetCart={fetchAndSetCart}/>
                          <RemoveFromCart token={token} product={product} fetchAndSetCart={fetchAndSetCart}/>
                         </div>
