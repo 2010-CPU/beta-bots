@@ -56,7 +56,7 @@ const UsersList = (props) => {
                 }) : null
             }
             </div>
-            <img id="dark-piano" src="/dark-piano.jpeg"></img>
+            
         </div>
 
     )

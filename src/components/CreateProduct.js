@@ -48,7 +48,8 @@ const CreateProduct = (props) => {
 
     return (
         <div className="create-product">
-            <h2 className="create-product-header">Create Product</h2>
+            {/* <h2 className="create-product-header">Create Product</h2> */}
+            <img id="create-product-image" src="/create_product.png"></img>
             <form onSubmit={handleSubmit}>
                 <input type="text" value={name} required={true} placeholder="Product Name:" onChange={(ev) => {
                     setName(ev.target.value)
@@ -76,7 +77,7 @@ const CreateProduct = (props) => {
                     setImageURL(ev.target.value)
                 }}></input>
                    <br />
-                <button>Submit Product</button>
+                <button id="create-product-button">Submit Product</button>
             </form>
             </div>
     )

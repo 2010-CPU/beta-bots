@@ -144,7 +144,7 @@ const App = () => {
                 </ul>
               </div>
               <div className="darker-logo">
-                <img src="darker-logo.png"></img>
+                <img src="/darker-logo.png"></img>
               </div>
             </footer>
           }
