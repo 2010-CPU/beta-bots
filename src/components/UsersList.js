@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import {useHistory} from 'react-router-dom'
 import { fetchAllUsers } from '../api';
+import './style/userslist.css'
 
 const UsersList = (props) => {
     const {token, user} = props
@@ -32,27 +33,32 @@ const UsersList = (props) => {
     const hasUserList = users && users.length > 0
 
     return (
+        <div className="user-container">
+            <div><img className="admin-image" src="/ADMIN.png"></img></div>
+            <div className="create-user-button-container"><button onClick={sendToCreateUser}>Create User</button></div>
         <div>
-            <button onClick={sendToCreateUser}>Create User</button>
             {
                 hasUserList ? users.map(user => {
                     return (
 
-                        <div key={user.id}>
+                        <div className="user" key={user.Id}>
+                            <h3 className="user-name">{user.firstName} {user.lastName}</h3>
                             <p>Id: {user.id}</p>
-                            <p>Name: {user.firstName} {user.lastName}</p>
                             <p>Username: <a href={`users/${user.id}`}>{user.username}</a></p>
-                            <p>Email: {user.email}</p>
-                            <button>Trigger Password Reset</button>
-                            <hr />
+                            <p id="email-input">Email: {user.email}</p>
+                            <button className="trigger">Trigger Password Reset</button>
+
+                            
 
                         </div>
 
                     )
                 }) : null
             }
-            {/* <Link to="/users/add">Add User</Link> */}
+            </div>
+            
         </div>
+
     )
 
 }
