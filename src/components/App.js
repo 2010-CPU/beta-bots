@@ -66,7 +66,7 @@ const App = () => {
  
   return ( 
     <Router>
-      <img id="logo" src="Beta_Bots_Music_Shop_Logo.png"></img>
+      <img id="logo" src="/Beta_Bots_Music_Shop_Logo.png"></img>
       <header>
           <Link to="/">Home</Link>
           <Link to="/products">Products</Link>
@@ -86,7 +86,7 @@ const App = () => {
         <Switch>
             <Route exact path="/">
             <div className="App">
-              <img id="guitar" src="We.gif"></img>
+              <img id="guitar" src="/We.gif"></img>
               <h2>{ message }</h2>
               <br />
               {/* {
