@@ -178,7 +178,7 @@ const App = () => {
               <CreateUser token={token} admin={user}/>
             </Route>
             <Route exact path="/users/:userId">
-              <SingleUser token={token}/>
+              <SingleUser token={token} admin={user}/>
             </Route>
             <Route exact path="/account/register">
               <AccountForm setToken={setToken} register={true}/>

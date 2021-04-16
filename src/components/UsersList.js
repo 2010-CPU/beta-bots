@@ -40,18 +40,13 @@ const UsersList = (props) => {
             {
                 hasUserList ? users.map(user => {
                     return (
-
                         <div className="user" key={user.Id}>
                             <h3 className="user-name">{user.firstName} {user.lastName}</h3>
                             <p>Id: {user.id}</p>
                             <p>Username: <a href={`users/${user.id}`}>{user.username}</a></p>
                             <p id="email-input">Email: {user.email}</p>
-                            <button className="trigger">Trigger Password Reset</button>
-
-                            
-
+                            { user && !user.isAdmin ? <button className="trigger">Trigger Password Reset</button> : null}
                         </div>
-
                     )
                 }) : null
             }

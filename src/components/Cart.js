@@ -91,13 +91,13 @@ const Cart = (props) => {
                         <p>In Stock: {product.inStock? 'Yes' : 'Out of Stock'}</p>
                          <p>Status: {order.status}</p>
                          <p>UserId: {order.userId}</p>
-                         <p>Created: {order.datePlaced}</p>
                          <UpdateCart product={product} token={token} fetchAndSetCart={fetchAndSetCart} />
                          <RemoveFromCart token={token} product={product} fetchAndSetCart={fetchAndSetCart}/>
                         </div>
                     )
                 })
             }
+            <p>Created: {order.datePlaced}</p>
             <button onClick={handleCheckout} disabled={!order.products.length > 0 }>Checkout</button>
         </div>
     )

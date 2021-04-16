@@ -37,13 +37,17 @@ const AccountForm = (props) => {
                 lastName,
                 image
             })
+            console.log("message?", response)
             if(response && response.token) {
                 localStorage.setItem('grace-token', response.token)
                 setToken(response.token)
                 history.push("/")
+            } else {
+                console.log(response)
+                alert(response.message)
             }
         } catch (error) {
-            console.log(error)
+            alert(error.message)
         }
     }
 

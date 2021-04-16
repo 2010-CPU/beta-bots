@@ -5,7 +5,7 @@ import { useParams } from 'react-router-dom';
 import './style/singleuser.css'
 
 const EditUser = (props) => {
-    const {user, token, fetchAndSetUser} = props;
+    const {user, token, fetchAndSetUser, admin} = props;
 
     const {firstName, lastName, email, isAdmin, imageURL, id} = user; 
     const [newFirstName, setFirstName] = useState(firstName);
@@ -34,7 +34,7 @@ const EditUser = (props) => {
         }
     }
 
-    if(!token || !user.isAdmin) {
+    if(!token || admin && !admin.isAdmin) {
         return <div>You must be logged in to view this page.</div>
     }
 
@@ -66,7 +66,7 @@ const EditUser = (props) => {
     )
 }
 
-const SingleUser = ({token}) => {
+const SingleUser = ({token, admin}) => {
 const [user, setUser] = useState({});
 const { userId } = useParams();
 const fetchAndSetUser = async () => {
@@ -84,7 +84,7 @@ const fetchAndSetUser = async () => {
         }
     }, [token])
 
-    if (!token) {
+    if (!token || admin && !admin.isAdmin) {
         return <div>You must be logged in to view this page!</div>
     }
 
@@ -98,7 +98,7 @@ const fetchAndSetUser = async () => {
             <input type="checkbox" readOnly checked={user.isAdmin}></input>
             </label>
             {
-                user && user.id ? <EditUser token={token} user={user} fetchAndSetUser={fetchAndSetUser}/> : ''
+                user && user.id ? <EditUser token={token} user={user} admin={admin} fetchAndSetUser={fetchAndSetUser}/> : ''
             }
 
         </div>

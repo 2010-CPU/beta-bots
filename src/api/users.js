@@ -26,7 +26,7 @@ const handleAccountForm = async (formType, fields) => {
         const {data} = response
         return data
     } catch (error) {
-        console.log(error)
+        return error
     }
 }
 
