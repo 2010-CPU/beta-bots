@@ -1,4 +1,121 @@
+.account-form-container {
+        background-image: url('https://images.unsplash.com/photo-1495651779359-881fde1808a6?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80');
+        display: flex;
+        justify-content: center;
+        font-family: 'Special Elite', cursive; 
+        background-position: center;
+        background-repeat: no-repeat;
+        position: relative;
+        width: 100%;
+        height: 75vh;
+        
+}
+.account-form {
+        width: 30vw;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        margin-top: 1rem;
+        margin-bottom: 1rem;
+        opacity: 0.8;
+        border-radius: 15%;
+}
 
+.submit-form{
+        display: flex;
+        flex-direction: column;
+        border-radius: 15%;
+}
 
-/* box-shadow: -5px -5px 10px rgba(255, 255, 255, 0.5),
-        5px 5px 15px rgba(0, 0, 0, 0.5) */
+.submit-form .title {
+        margin-bottom: 2rem;
+        font-size: 2.5rem;
+}
+
+.submit-form input {
+        display: flex;
+        justify-content: center; 
+        justify-items: center;
+        align-items: center;
+        height: 2rem;
+        margin: auto;
+        width: 80%;
+        margin-bottom: .5rem;
+        border-radius: 10px;
+        text-align: center;
+        background: linear-gradient(#eee, #333);
+        background-clip: text;
+        color: transparent;
+}
+.default {
+        margin: auto;
+        font-size: small;       
+}
+
+form .opposite-link {
+        display: flex;
+        justify-content: center;
+        margin: 15px;
+        font-size: 1.2rem;
+}
+.glow-on-hover {
+        margin: auto;
+        width: 50%;
+        height: 30px;
+        border: none;
+        outline: none;
+        color: #fff;
+        background: #111;
+        cursor: pointer;
+        position: relative;
+        z-index: 0;
+        border-radius: 10px;
+    }
+    
+    .glow-on-hover:before {
+        content: '';
+        background: linear-gradient(45deg, #ff0000, #ff7300, #fffb00, #48ff00, #00ffd5, #002bff, #7a00ff, #ff00c8, #ff0000);
+        position: absolute;
+        top: -2px;
+        left:-2px;
+        background-size: 400%;
+        z-index: -1;
+        filter: blur(5px);
+        width: calc(100% + 4px);
+        height: calc(100% + 4px);
+        animation: glowing 20s linear infinite;
+        opacity: 0;
+        transition: opacity .3s ease-in-out;
+        border-radius: 10px;
+    }
+
+    .glow-on-hover:active {
+        color: #000
+    }
+    
+    .glow-on-hover:active:after {
+        background: transparent;
+    }
+    
+    .glow-on-hover:hover:before {
+        opacity: 1;
+    }
+    
+    .glow-on-hover:after {
+        z-index: -1;
+        content: '';
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        background: #111;
+        left: 0;
+        top: 0;
+        border-radius: 10px;
+    }
+    
+    @keyframes glowing {
+        0% { background-position: 0 0; }
+        50% { background-position: 400% 0; }
+        100% { background-position: 0 0; }
+    }
+

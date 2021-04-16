@@ -7,6 +7,8 @@ header {
     float: right;
     padding-top: 30px;
     padding-right: 20px;
+    display: inline;
+    
 }
 
 .welcome {
@@ -23,6 +25,7 @@ header a {
     font-size: 12px;
     text-decoration: none;
     margin: 20px;
+    position: sticky;
 }
 
 a:hover {
@@ -34,6 +37,7 @@ a:hover {
 
 #logo {
     float: left;
+ 
 }
 
 #guitar {
