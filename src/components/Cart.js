@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {useHistory, useParams} from 'react-router-dom'
 import { fetchCart, deleteProductFromOrder, updateOrderProduct } from '../api';
-
+import './style/cart.css'
 const UpdateCart = (props) => {
     const {fetchAndSetCart, product, token} = props
     const {orderProductId, quantity, price} = product
