@@ -1,0 +1,42 @@
+.create-product {
+    padding-top: 400px;
+    padding-top: 130px;
+    text-align: center;
+    width: 100%;
+    margin: auto;
+}
+
+.create-product input {
+    margin: 10px;
+    height: 30px;
+    border: none;
+    width: 300px;
+    outline: none;
+    border-bottom: 1px solid #A38A61;
+}
+
+#create-product-image {
+    width: 500px;
+    height: 85px;
+}
+
+
+#create-product-button {
+    margin-top: 30px;
+    border: none;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: #A18961;
+    padding: 10px;
+    text-transform: uppercase;
+    width: 200px;
+    border-radius: 15px;
+}
+
+
+#create-product-button:hover {
+    cursor: url(https://cur.cursors-4u.net/symbols/sym-1/sym57.cur), auto !important;
+    background-color: black;
+    border: 1px solid #A18961;
+}

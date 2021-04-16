@@ -2,6 +2,8 @@ import React, {useState, useEffect} from 'react';
 import { fetchUserById, updateUser } from '../api';
 import { useParams } from 'react-router-dom';
 
+import './style/singleuser.css'
+
 const EditUser = (props) => {
     const {user, token, fetchAndSetUser} = props;
 
