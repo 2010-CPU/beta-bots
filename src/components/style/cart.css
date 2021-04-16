@@ -23,7 +23,12 @@
 }
 
 .price, .quantity, .total, .in-stock, .status, .userid, .created {
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    font-weight: bold;
+    font-style: italic;
     background-color: transparent;
+    color: #A38A61;
+    text-shadow: 1px 1px white;
     padding: 3px;
 }
 
