@@ -1,0 +1,95 @@
+* {
+    font-family: arial;
+}
+
+
+.user {
+    text-transform: uppercase;
+    font-size: 12px;
+    border-bottom: 2px solid rgba(255, 255, 255, 0.502);
+}
+
+.user p {
+    padding: 8px;
+}
+
+.user-container {
+    padding-top: 150px;
+    margin: auto;
+    width: 75%;
+    padding-left: 20px;
+    padding-bottom: 200px;
+}
+
+.users-header {
+    text-align: left;
+    background-color: #A18961;
+    font-family: arial;
+    padding: 2px;
+}
+
+.trigger {
+    display: flex;
+    margin-left: auto;  
+    padding: 5px;
+    border: none;
+    margin-bottom: 10px;
+    padding: 10px;
+    text-transform: uppercase;
+    width: 200px;
+    border-radius: 15px;
+    font-size: 12px;
+}
+
+.trigger:hover {
+    cursor: url(https://cur.cursors-4u.net/symbols/sym-1/sym57.cur), auto !important;
+    color: lightgrey;
+    text-decoration: underline;
+    font-size: 12.3px;
+}
+
+.admin-image {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 500px;
+    height: 100px;
+}
+
+
+.user-name {
+    color: #A18961;
+    height: 30px;
+    font-size: 20px;
+    margin: 10px;
+    margin-left: 0;
+}
+
+.create-user-button-container {
+    border: none;
+
+}
+
+.create-user-button-container button{
+    border: none;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: #A18961;
+    padding: 10px;
+    text-transform: uppercase;
+    width: 200px;
+    border-radius: 15px;
+
+}
+
+.create-user-button-container button:hover {
+    cursor: url(https://cur.cursors-4u.net/symbols/sym-1/sym57.cur), auto !important;
+    background-color: black;
+    border: 1px solid #A18961;
+}
+
+#dark-piano {
+    width: 100%;
+    height: 500px;
+}
