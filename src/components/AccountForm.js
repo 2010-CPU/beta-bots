@@ -25,7 +25,6 @@ const AccountForm = (props) => {
 
     const handleLogin = async (ev) => {
         ev.preventDefault()
-        console.log("Reached")
         try {
             if(isDefault) {
                 setImageURL("")

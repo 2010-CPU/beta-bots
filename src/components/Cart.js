@@ -87,8 +87,6 @@ const Cart = (props) => {
         )
     }
 
-    console.log(order && order.product && order.product.length === 0)
-
     return (
         <div className="cart">
             <h1 className="my-cart">My Cart</h1>

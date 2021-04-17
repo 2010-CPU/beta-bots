@@ -11,7 +11,6 @@ const TriggerPassResetButton = (props) => {
     const triggerPasswordReset = async () => {
         try {
             const response = await triggerPassReset(id, token)
-            console.log(response)
             alert("You have triggered a password reset.")
         } catch (error) {
             console.log(error)

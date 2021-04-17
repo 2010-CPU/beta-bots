@@ -139,7 +139,6 @@ const adminCreateUser = async (token, userInfo) => {
 
 const triggerPassReset = async (userId, token) => {
     try {
-        console.log(token, userId)
        const reset_pass_url = `${users_url}/resetpassword`
        const response = await axios.patch(reset_pass_url, {userId}, {
            headers: {

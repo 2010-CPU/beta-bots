@@ -185,7 +185,6 @@ usersRouter.post('/', requireAdmin, async (req, res, next) => {
     try {
         const user = await createUser(req.body)
         if(user) {
-            console.log(user)
             res.send({user})
         }
     } catch (error) {
