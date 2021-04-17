@@ -70,11 +70,7 @@ const Product = (props) => {
                 const order = await createOrder(user.id, token)
                 const addProduct = await addProductToOrder(order.id, product.id, product.price, token)
                 await fetchAndSetCart()
-<<<<<<< HEAD
                 history.push("/cart")
-=======
-                alert("Added item to cart.")
->>>>>>> dev
             }
         } catch (error) {
             console.log(error)
