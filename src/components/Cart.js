@@ -15,6 +15,7 @@ const UpdateCart = (props) => {
                 price: updatedTotal,
                 quantity: updateQuantity
             })
+            alert("Updated quantity to cart.")
             fetchAndSetCart()
         } catch (error) {
             console.log(error)
@@ -37,7 +38,8 @@ const RemoveFromCart = (props) => {
     const handleDelete = async () => {
         try {
             const deletedProduct = await deleteProductFromOrder(orderProductId, token)
-            fetchAndSetCart()
+            alert("Removed item from cart.")
+            fetchAndSetCart()            
         } catch (error) {
             console.log(error)
         }
@@ -73,8 +75,16 @@ const Cart = (props) => {
         }
     }, [token])
 
-    if(user && user.resetPassword) {
+    if(user && user.passwordReset) {
         history.push('/account/resetpassword')
+    }
+
+    if(!order || order.products && order.products.length === 0) {
+        return (
+            <div className="empty-cart">
+                Your cart is empty!
+            </div>
+        )
     }
 
     return (
@@ -92,13 +102,13 @@ const Cart = (props) => {
                         <p className="in-stock">In Stock: {product.inStock? 'Yes' : 'Out of Stock'}</p>
                          <p className="status">Status: {order.status}</p>
                          <p className="userid">UserId: {order.userId}</p>
-                         <p className="created">Created: {order.datePlaced}</p>
                          <UpdateCart product={product} token={token} fetchAndSetCart={fetchAndSetCart}/>
                          <RemoveFromCart token={token} product={product} fetchAndSetCart={fetchAndSetCart}/>
                         </div>
                     )
                 })
             }
+            {order && order.status ? <p className="created">Created: {order.datePlaced}</p> : null}
             <button onClick={handleCheckout} disabled={!order.products.length > 0 } className="cart-checkout">Checkout</button>
         </div>
     )

@@ -26,7 +26,7 @@ const handleAccountForm = async (formType, fields) => {
         const {data} = response
         return data
     } catch (error) {
-        console.log(error)
+        return error
     }
 }
 
@@ -139,16 +139,32 @@ const adminCreateUser = async (token, userInfo) => {
 
 const triggerPassReset = async (userId, token) => {
     try {
-       const reset_pass_url = `${users_url}/resetpass/${userId}`
-       const response = await axios.patch(reset_pass_url, {}, {
+       const reset_pass_url = `${users_url}/resetpassword`
+       const response = await axios.patch(reset_pass_url, {userId}, {
            headers: {
                'Authorization': `Bearer ${token}`,
                'Content-Type': 'application/json'
            }
        })
-
        const {data} = response
        return data.user
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+const confirmPasswordReset = async (userId, token, password) => {
+    try {
+        const confirm_pass_url = `${users_url}/confirmedpassword`
+        const response = await axios.patch(confirm_pass_url, {userId, password}, {
+            headers: {
+                'Authorization': `Bearer ${token}`,
+                'Content-type': 'application/json'
+            }
+        })
+
+        const {data} = response
+        return data.user
     } catch (error) {
         console.log(error)
     }
@@ -162,5 +178,6 @@ export {
     fetchUserById,
     updateUser,
     adminCreateUser,
-    triggerPassReset
+    triggerPassReset,
+    confirmPasswordReset
 }

@@ -11,6 +11,7 @@ const Account = (props) => {
     const {user, token} = props
 
     const [orders, setOrders] = useState([])
+    const [displayHistory, setDisplayHistory] = useState(true)
 
     const history = useHistory()
     
@@ -23,13 +24,19 @@ const Account = (props) => {
         }
     }
 
+    const handleHistoryDisplay = () => {
+        if(orders && orders.length > 0) {
+            setDisplayHistory(!displayHistory)
+        }
+    }
+
     useEffect(() => {
         if(token) {
             fetchAndSetHistory()
         }
     }, [token, user])
 
-    if(user && user.resetPassword) {
+    if(user && user.passwordReset) {
         history.push('/account/resetpassword')
     }
 
@@ -39,30 +46,36 @@ const Account = (props) => {
 
     const {username, firstName, lastName, imageURL, email, isAdmin} = user
 
+    const styleDisplay = {
+        visibility: displayHistory ? "visible" : "hidden"
+    }
+
     return (
-        <div className="account-container">
+        <div className="account-page">
+            <div className="background-image">
+            <img id="divider" src="divider.png"></img>
+            <h2>MY PROFILE</h2>
+            <div className="account-container">
             <div className="profile">
+                <p>{firstName} {lastName} ({username})</p>
                 <img src={imageURL} alt={username}></img>
-                <p>Full Name: {firstName} {lastName}</p>
                 <p>Email: {email}</p>
-                <p>Username: {username}</p>
                 <label>Admin: 
                 <input type="checkbox" checked={isAdmin} readOnly></input>
                 </label>
             </div>
-            <br/>
-            <h3>Order History</h3>
-            <br/>
-            <div className="order-history">
+            <div className="history-container">
+            <h3 className="order-history-header" onClick={handleHistoryDisplay}>Order History {displayHistory ? ">" : "<"}</h3>
+            <div className="order-history" style={styleDisplay}>
                 {
-                    orders.map((order) => {
+                    orders && orders.length > 0 ? orders.map((order) => {
                         return (
-                            <div className="Order" key={order.id}>
+                            <div className="order" key={order.id}>
                                 <p>Order Id: {order.id}</p>
                                 <p>Order Status: {order.status}</p>
-                                <p>Order placed: {order.datePlaced}</p>
-                                {order.orderTotal > 0 ? <p>Order.total: ${order.orderTotal}</p> : null}
-                                {order.products.length > 0 ? <p>Products Orders: {order.products.length}</p> : null}
+                                <p>Order Placed: {order.datePlaced}</p>
+                                {order.orderTotal > 0 ? <h4>Order Total: ${order.orderTotal}</h4> : null}
+                                {order.products.length > 0 ? <p>Products Types: {order.products.length}</p> : null}
                                 <ol className='product-history'>
                                 {
                                     
@@ -70,17 +83,22 @@ const Account = (props) => {
                                         return (
                                             <li key={product.id} className="product-in-hist">
                                                 <a href={`/products/${product.id}`}>{product.name}</a>
+                                                <br></br>
+                                                {product.quantity > 1 ? `Ordered: ${product.quantity}` : null}
                                             </li>
                                         )
                                     }) : null
                                 }
                                 </ol>
-                                <br/>
+                                <hr></hr>
                             </div>
                         )
-                    })
+                    }) : null
                 }
             </div>
+            </div>
+        </div>
+        </div>
         </div>
     )
 }

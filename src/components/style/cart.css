@@ -3,7 +3,6 @@
     background-size: contain;
     margin: auto;
     width: 50%;
-    padding: 6rem;
 }
 
 .my-cart {
@@ -103,4 +102,8 @@
     cursor: url(https://cur.cursors-4u.net/symbols/sym-1/sym57.cur), auto !important;
     background-color: black;
     border: 1px solid #A18961;
+}
+
+.empty-cart {
+    text-align: center;
 }

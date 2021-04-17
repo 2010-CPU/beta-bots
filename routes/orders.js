@@ -63,7 +63,7 @@ ordersRouter.get('/:orderId', requireUser, async (req, res, next) => {
     }
 })
 
-ordersRouter.get('/:userId/orders', requireAdmin, async (req, res, next) => {
+ordersRouter.get('/:userId/orders', requireUser, async (req, res, next) => {
     try {
         const {userId} = req.params
         const orders = await getOrdersByUser({id: userId})
