@@ -52,19 +52,23 @@ const Product = (props) => {
                 })
                 if (productInCart && productInCart.id){
                     const {orderProductId, price, total, quantity} = productInCart
+                    if(quantity + 1 > 5) {
+                        alert("You can't order more than 5 of a single product.")
+                        return
+                    }
                     const updatedTotal = Number(total + price).toFixed(2)
                     await updateOrderProduct(token, orderProductId, {price: updatedTotal, quantity: quantity + 1})
-                    alert("Your cart has been updated!")
+                    alert(`Increased quantity to ${quantity + 1}`)
+                    fetchAndSetCart()
                 } else {
                     const addProduct = await addProductToOrder(cart.id, product.id, product.price, token) 
                     fetchAndSetCart()
-                    history.push("/cart")
+                    alert("Added item to cart.")
                 }
             } else {
                 //Create order
                 const order = await createOrder(user.id, token)
-                await fetchAndSetCart()
-                const addProduct = await addProductToOrder(cart.id, product.id, product.price, token)
+                const addProduct = await addProductToOrder(order.id, product.id, product.price, token)
                 await fetchAndSetCart()
                 history.push("/cart")
                 console.log('Added to cart as well')
@@ -74,7 +78,7 @@ const Product = (props) => {
         }
     }
 
-    if(user && user.resetPassword) {
+    if(user && user.passwordReset) {
         history.push('/account/resetpassword')
     }
 

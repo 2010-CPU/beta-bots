@@ -1,0 +1,85 @@
+.single-user {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding-bottom: 200px;
+}
+
+.edit-user > form {
+    padding: 25px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: auto;
+}
+
+.edit-user {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.single-user > img {
+    border-radius: 80%;
+    padding: 5px;
+    height: 250px;
+    width: 250px;
+}
+
+.single-user > p {
+    padding: 5px;
+}
+
+form > .form-edit-button {
+    margin-top: 30px;
+    border: none;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: #A18961;
+    padding: 10px;
+    text-transform: uppercase;
+    width: 100px;
+    border-radius: 15px;
+}
+
+.show-edit-button, .cancel-button {
+    border: none;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: #A18961;
+    padding: 10px;
+    text-transform: uppercase;
+    width: 100px;
+    border-radius: 15px;
+    margin-top: 10px;
+}
+
+
+.show-edit-button:hover, .cancel-button:hover, .form-edit-button:hover {
+    cursor: url(https://cur.cursors-4u.net/symbols/sym-1/sym57.cur), auto !important;
+    background-color: black;
+    border: 1px solid #A18961;
+}
+
+form > input {
+    margin: 5px;
+    padding: 10px;
+    width: 350px;
+    border: none;
+    outline: none;
+    border-bottom: 1px solid #A38A61;
+}
+
+.single-user-page {
+    text-align: center;
+}
+
+h3 {
+    padding: 20px;
+    color: #A18961;
+    text-transform: uppercase;
+}

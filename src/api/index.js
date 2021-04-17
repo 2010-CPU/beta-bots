@@ -31,7 +31,9 @@ export {
   fetchAllUsers,
   fetchUserById,
   updateUser,
-  adminCreateUser
+  adminCreateUser,
+  confirmPasswordReset,
+  triggerPassReset
 } from './users'
 
 export {

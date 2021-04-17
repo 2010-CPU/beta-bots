@@ -44,7 +44,7 @@ async function buildTables() {
         "firstName" VARCHAR(255) NOT NULL,
         "lastName" VARCHAR(255) NOT NULL,
         email VARCHAR(255) UNIQUE NOT NULL,
-        "imageURL" VARCHAR(255) DEFAULT 'https://placeimg.com/100/100/people',
+        "imageURL" VARCHAR(255) DEFAULT 'https://placeimg.com/250/250/people',
         username VARCHAR(255) UNIQUE NOT NULL,
         password VARCHAR(255) UNIQUE NOT NULL,
         "isAdmin" BOOLEAN NOT NULL DEFAULT false,
@@ -264,28 +264,6 @@ const populateOrders = async () => {
 const populateOrderProducts = async () => {
   try {
     console.log("Creating products to order...")
-    const order_product = {
-      orderId: 1,
-      productId: 3,
-      price: 1000.55,
-      quantity: 1
-    }
-    const order_product2 = {
-      orderId: 1,
-      productId: 2,
-      price: 1501.5,
-      quantity: 3
-    }
-    // const order_product3 = {
-    //   orderId: 2,
-    //   productId: 5,
-    //   price: 1500.0,
-    //   quantity: 3
-    // }
-
-    await addProductToOrder(order_product)
-    await addProductToOrder(order_product2)
-    // await addProductToOrder(order_product3)
     console.log("Finished products to order!")
   } catch (error) {
     throw error;
@@ -296,15 +274,13 @@ const seedAdminUsers = async () => {
     firstName: 'sal',
     lastName: 'guerrero',
     email: 'sal@gmail.com',
-    imageURL: 'https://placeimg.com/100/100/people',
     username: 'lol',
     password: 'lol',
     isAdmin: true
   }
   try {
     const admin = await createUser(sal)
-    const order = await createOrder({userId: admin.id})
-    console.log(admin, order)
+    console.log(admin)
   } catch (error) {
     throw error
   }

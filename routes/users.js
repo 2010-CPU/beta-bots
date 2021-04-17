@@ -4,6 +4,8 @@ const usersRouter = express.Router();
 const jwt = require('jsonwebtoken');
 const {JWT_SECRET = "neverTell"} = process.env;
 const emailValidator = require('email-validator');
+const bcrypt = require('bcrypt');
+const SALT_COUNT = 10;
 
 const {
     createUser,
@@ -117,6 +119,40 @@ usersRouter.get('/', requireAdmin, async (req, res, next) => {
     }
 })
 
+usersRouter.patch('/resetpassword', requireAdmin, async (req, res, next) => {
+    try {
+        const {userId} = req.body
+        const user = await forcePasswordReset(userId)
+        if(user) {
+            res.send({user})
+        } else {
+            next({message: "Error forcing password reset."})
+        }
+    } catch (error) {
+        next({error})
+    }
+})
+
+usersRouter.patch('/confirmedpassword', requireUser, async (req, res, next) => {
+    try {
+        const {userId, password} = req.body
+        const testUser = await getUserById(userId)
+        if(req.user.id === testUser.id) {
+            const hashedPassword = await bcrypt.hash(password, SALT_COUNT)
+            const user = await handledPasswordReset(userId, hashedPassword)
+            if(user) {
+                res.send({user})
+            } else {
+                next({message: "User doesn't exist."})
+            }
+        } else {
+            next({message: "You are not the user in the database."})
+        }
+    } catch (error) {
+        next({error})
+    }
+})
+
 usersRouter.patch('/:userId', requireAdmin, async (req, res, next) => {
     try {
         const {userId} = req.params;
@@ -148,31 +184,6 @@ usersRouter.get('/:userId', requireAdmin, async (req, res, next) => {
 usersRouter.post('/', requireAdmin, async (req, res, next) => {
     try {
         const user = await createUser(req.body)
-        if(user) {
-            console.log(user)
-            res.send({user})
-        }
-    } catch (error) {
-        next({error})
-    }
-})
-
-usersRouter.patch('/resetpassword/:userId', requireAdmin, async (req, res, next) => {
-    try {
-        const {userId} = req.params
-        const user = await forcePasswordReset(userId)
-        if(user) {
-            res.send({user})
-        }
-    } catch (error) {
-        next({error})
-    }
-})
-
-usersRouter.patch('/confirmedpassword/:userId', requireUser, async (req, res, next) => {
-    try {
-        const {userId} = req.params
-        const user = await handledPasswordReset(userId)
         if(user) {
             res.send({user})
         }

@@ -56,7 +56,7 @@ const Checkout = (props) => {
         }
     }, [token])
 
-    if(user && user.resetPassword) {
+    if(user && user.passwordReset) {
         history.push('/account/resetpassword')
     }
 
@@ -65,24 +65,27 @@ const Checkout = (props) => {
     }
 
     return (
-        <div className="checkout">
-            <h2>Welcome to checkout, {user.firstName}!</h2>
+
+        <div className="checkout-container">
+
             {
                 cart.products.map((product) => {
                     return (
                         <div key={product.id} className="checkout-product">
-                            <img src={`${product.imageURL}?${product.id}`} alt={product.name}></img>
-                            <p>Name: {product.name}</p>
-                            <p>Unit Price: ${product.price}</p>
-                            <p>Quantity: {product.quantity}</p>
-                            <h3>Subtotal: {product.total}</h3>
+                            <h2 id="header-name-product">{product.name}</h2>
+                            <img id="prod-image" src={`${product.imageURL}?${product.id}`} alt={product.name}></img>
+                            <p id="unit-price">Unit Price: ${product.price}</p>
+                            <p id="unit-quantity">Quantity: {product.quantity}</p>
+                            <h3 id="subtotal">Subtotal: ${product.total}</h3>
                         </div>
                     )
                 })
             }
-            <h2>Total: ${cart.orderTotal}</h2>
-            <button onClick={handleCancel}>Cancel Order</button>
-            <StripeCheckout 
+            <div class="stripe-container">
+            <h2 id="your-cart">{user.firstName}'s CART <img id="shopping-cart" src="/shopping-cart.png"></img></h2>
+            <p id="cart-info">Cart info: Order Id: {cart.id} | Status: {cart.status} | Date: {cart.datePlaced}</p>
+            <h2 id="total-price"><u>Total: ${cart.orderTotal}</u></h2>
+            <StripeCheckout
                 token = {handleComplete}
                 stripeKey = {stripeKey}
                 name = "beta-bots"
@@ -93,11 +96,10 @@ const Checkout = (props) => {
                 currency = "USD"
                 locale = "en"
                 billingAddress = {false}
-                zipCode = {false} 
-            />
-            <p>OrderId: {cart.id}</p>
-            <p>Status: {cart.status}</p>
-            <p>Date: {cart.datePlaced}</p>
+                zipCode = {false} > <button id="stripe-button">Pay With Card</button> 
+            </StripeCheckout>
+            <button id="cancel-button" onClick={handleCancel}>Cancel Order</button>
+            </div>
         </div>
     )
 }

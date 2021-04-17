@@ -54,31 +54,37 @@ const CreateProduct = (props) => {
                 <input type="text" value={name} required={true} placeholder="Product Name:" onChange={(ev) => {
                     setName(ev.target.value)
                 }}></input>
-                <br />
-                <input type="text" value={price} required={true} placeholder="Product Price:" onChange={(ev) => {
+                <input id="price-input" type="text" value={price} required={true} placeholder="Product Price:" onChange={(ev) => {
                     setPrice(ev.target.value)
                 }}></input>
                 <br />
-                <textarea type="text" value={description} required={true} placeholder="Description:" onChange={(ev) => {
+                <textarea id="description-textarea" type="text" value={description} required={true} placeholder="Description:" onChange={(ev) => {
                     setDescription(ev.target.value)
                 }}></textarea>
                 <br />
-                <label>In Stock? 
+                {/* <label>In Stock?
                 <input type="checkbox" checked={inStock} value={inStock} onChange={(ev) => {
                     setInStock(ev.target.value)
                 }}></input>
-                </label>
+                </label> */}
                 <br />
-                <input type="text" value={category} required={true} placeholder="Category:" onChange={(ev) => {
+                <input id="category-input" type="text" value={category} required={true} placeholder="Category:" onChange={(ev) => {
                     setCategory(ev.target.value)
                 }}></input>
-                   <br />
-                <input type="text" value={imageURL} required={true} placeholder="Image URL:" onChange={(ev) => {
+                
+                <input id="image-input" type="text" value={imageURL} required={true} placeholder="Image URL:" onChange={(ev) => {
                     setImageURL(ev.target.value)
                 }}></input>
                    <br />
+                   <label id="cb-label">In Stock?</label>
+                <input id="in-stock-cb" type="checkbox" checked={inStock} value={inStock} onChange={(ev) => {
+                    setInStock(!inStock)
+                }}></input>
+                {/* </label> */}
+                <br />
                 <button id="create-product-button">Submit Product</button>
             </form>
+            <img id="dark-bg" src="/dark-bg-for-cp.jpeg"></img>
             </div>
     )
 
