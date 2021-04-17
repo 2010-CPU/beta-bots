@@ -136,14 +136,14 @@ const forcePasswordReset = async (userId) => {
   }
 }
 
-const handledPasswordReset = async (userId) => {
+const handledPasswordReset = async (userId, password) => {
   try {
     const {rows: [user]} = await client.query(`
       UPDATE users
-      SET "passwordReset" = false
+      SET "passwordReset" = FALSE, password = $2
       WHERE id = $1
       RETURNING *;
-    `, [userId])
+    `, [userId, password])
 
     return user
   } catch (error) {

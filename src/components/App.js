@@ -68,12 +68,13 @@ const App = () => {
     // fetchAndSetCart()
   }, [token])
 
-  if(user && user.resetPassword) {
-    history.push('/account/resetpassword')
+  if(user && user.passwordReset) {
+    alert("You must reset your password")
   }
  
   return ( 
     <Router>
+      <div className="header-container">
       <img id="logo" src="/Beta_Bots_Music_Shop_Logo.png"></img>
       <header>
           <Link to="/">Home</Link>
@@ -81,16 +82,21 @@ const App = () => {
           {token ? <Link to="/cart">Cart</Link> : ''}
           {!token ? <Link to="/account/login">Login</Link> : 
             <>
-              <Link to="/admin">Admin</Link>
+              { user && user.isAdmin ? <Link to="/admin">Admin</Link> : null }
               <Link to="/account">Account</Link>
               <Link to="/" onClick={handleLogout}>Logout</Link>
             </>
           }
           <hr />
           {
-                user && user.username ? <p className="welcome">Logged in as {user.username}</p> : null
+                user && user.username ? 
+                <div className="welcome">
+                  <p className="message">Logged in as {user.username}</p>
+                  <img src={user.imageURL} alt={user.username}></img>
+                </div> : null
           }
       </header>
+      </div>
         <Switch>
             <Route exact path="/">
             <div className="App">
@@ -178,7 +184,7 @@ const App = () => {
               <CreateUser token={token} admin={user}/>
             </Route>
             <Route exact path="/users/:userId">
-              <SingleUser token={token}/>
+              <SingleUser token={token} admin={user}/>
             </Route>
             <Route exact path="/account/register">
               <AccountForm setToken={setToken} register={true}/>
@@ -187,7 +193,7 @@ const App = () => {
               <AccountForm setToken={setToken} register={false}/>
             </Route>
             <Route exact path="/account/resetpassword">
-              <ResetPassword token={token} user={user}/>
+              <ResetPassword token={token} user={user} setUser={setUser}/>
             </Route>
         </Switch>
     </Router>  

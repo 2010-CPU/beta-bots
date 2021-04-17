@@ -41,9 +41,11 @@ const AccountForm = (props) => {
                 localStorage.setItem('grace-token', response.token)
                 setToken(response.token)
                 history.push("/")
+            } else {
+                alert(response.message)
             }
         } catch (error) {
-            console.log(error)
+            alert(error)
         }
     }
 
