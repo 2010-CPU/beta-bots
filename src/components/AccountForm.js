@@ -25,6 +25,7 @@ const AccountForm = (props) => {
 
     const handleLogin = async (ev) => {
         ev.preventDefault()
+        console.log("Reached")
         try {
             if(isDefault) {
                 setImageURL("")
@@ -37,17 +38,15 @@ const AccountForm = (props) => {
                 lastName,
                 image
             })
-            console.log("message?", response)
             if(response && response.token) {
                 localStorage.setItem('grace-token', response.token)
                 setToken(response.token)
                 history.push("/")
             } else {
-                console.log(response)
                 alert(response.message)
             }
         } catch (error) {
-            alert(error.message)
+            alert(error)
         }
     }
 

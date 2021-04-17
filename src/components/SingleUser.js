@@ -58,9 +58,12 @@ const EditUser = (props) => {
                 setAdmin(!updateAdmin)
             }}></input>  
             </label>
-            <button>Edit User</button>
+            <button className="form-edit-button">Edit User</button>
             </form>         
-        </div> : <button onClick={() => {
+            <button className="cancel-button" onClick={() => {
+                setEditForm(false)
+            }}>Cancel</button>
+        </div> : <button className="show-edit-button" onClick={() => {
             setEditForm(!showEditForm)
         }}>Edit</button>
     )
@@ -89,18 +92,22 @@ const fetchAndSetUser = async () => {
     }
 
     return (
-        <div className="single-user">
-            <p>Id: {user.id}</p>
-            <p>Name: {user.firstName} {user.lastName}</p>
-            <p>Username: {user.username}</p>
-            <p>Email: {user.email}</p>
-            <label>Admin: 
-            <input type="checkbox" readOnly checked={user.isAdmin}></input>
-            </label>
-            {
-                user && user.id ? <EditUser token={token} user={user} admin={admin} fetchAndSetUser={fetchAndSetUser}/> : ''
-            }
+        <div className="single-user-page">
+            <img src="/divider.png"></img>
+            <div className="single-user">
+                <h3>{user.firstName} {user.lastName}</h3>
+                <img src={user.imageURL} alt={user.username}></img>
+                <p>Id: {user.id}</p>
+                <p>Username: {user.username}</p>
+                <p>Email: {user.email}</p>
+                <label>Admin: 
+                <input type="checkbox" readOnly checked={user.isAdmin} value={user.isAdmin}></input>
+                </label>
+                {
+                    user && user.id ? <EditUser token={token} user={user} admin={admin} fetchAndSetUser={fetchAndSetUser}/> : ''
+                }
 
+            </div>
         </div>
     )
 

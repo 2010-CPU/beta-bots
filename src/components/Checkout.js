@@ -56,7 +56,7 @@ const Checkout = (props) => {
         }
     }, [token])
 
-    if(user && user.resetPassword) {
+    if(user && user.passwordReset) {
         history.push('/account/resetpassword')
     }
 

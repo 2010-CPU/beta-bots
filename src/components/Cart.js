@@ -15,6 +15,7 @@ const UpdateCart = (props) => {
                 price: updatedTotal,
                 quantity: updateQuantity
             })
+            alert("Updated quantity to cart.")
             fetchAndSetCart()
         } catch (error) {
             console.log(error)
@@ -37,7 +38,8 @@ const RemoveFromCart = (props) => {
     const handleDelete = async () => {
         try {
             const deletedProduct = await deleteProductFromOrder(orderProductId, token)
-            fetchAndSetCart()
+            alert("Removed item from cart.")
+            fetchAndSetCart()            
         } catch (error) {
             console.log(error)
         }
@@ -73,9 +75,19 @@ const Cart = (props) => {
         }
     }, [token])
 
-    if(user && user.resetPassword) {
+    if(user && user.passwordReset) {
         history.push('/account/resetpassword')
     }
+
+    if(!order || order.products && order.products.length === 0) {
+        return (
+            <div className="empty-cart">
+                Your cart is empty!
+            </div>
+        )
+    }
+
+    console.log(order && order.product && order.product.length === 0)
 
     return (
         <div className="cart">

@@ -139,3 +139,24 @@ footer p {
 #connect-with-us {
     color:  #A38A61;
 }
+
+.welcome > img {
+    height: 30px;
+    border-radius: 50px;
+}
+
+.header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.welcome {
+    margin: 25px;
+    display: flex;
+    align-items: center;
+}
+
+.message {
+    padding-right: 5px;
+}
