@@ -89,7 +89,6 @@ const Product = (props) => {
                 <img className="product-image" src={`${product.imageURL} ? ${product.id}`} alt={product.name}/>      
                 <div className="product-description">{product.description}</div>
             </div>
-            <div className="product-divider"></div>
             <div className="product-info-container">
                 <div className="product-name">{product.name}</div>
                 <div className="product-price">${product.price}</div>
