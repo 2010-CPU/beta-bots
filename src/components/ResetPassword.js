@@ -2,7 +2,7 @@ import React, {useState} from 'react'
 
 import {useHistory} from 'react-router-dom'
 
-import {confirmPasswordReset} from '../api'
+import {confirmPasswordReset, fetchUser} from '../api'
 
 const ResetPassword = (props) => {
 
