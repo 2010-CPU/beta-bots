@@ -123,3 +123,7 @@ form .opposite-link {
         100% { background-position: 0 0; }
     }
 
+.title {
+        text-align: center;
+        color: #A38A61;
+}
