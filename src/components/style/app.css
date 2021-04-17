@@ -1,5 +1,6 @@
 * {
     background-color: black;
+    color: white;
 }
 
 header {
@@ -159,4 +160,9 @@ footer p {
 
 .message {
     padding-right: 5px;
+}
+
+.review {
+    text-align: center;
+    color: #A38A61;
 }
