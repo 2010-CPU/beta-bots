@@ -63,15 +63,14 @@ const Product = (props) => {
                 } else {
                     const addProduct = await addProductToOrder(cart.id, product.id, product.price, token) 
                     fetchAndSetCart()
+                    history.push("/cart")
                     alert("Added item to cart.")
                 }
             } else {
-                //Create order
                 const order = await createOrder(user.id, token)
                 const addProduct = await addProductToOrder(order.id, product.id, product.price, token)
                 await fetchAndSetCart()
                 history.push("/cart")
-                console.log('Added to cart as well')
             }
         } catch (error) {
             console.log(error)
@@ -84,7 +83,6 @@ const Product = (props) => {
 
  return ( 
     <div className="product-container">
-        {/* <div><img className="divider-image" src="/divider.png"></img></div> */}
         <div className='product' key={product.id}>
             <div className="product-image-container">
                 <img className="product-image" src={`${product.imageURL} ? ${product.id}`} alt={product.name}/>      

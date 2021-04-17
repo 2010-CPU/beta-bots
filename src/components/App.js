@@ -77,7 +77,6 @@ const App = () => {
       <div className="header-container">
       <img id="logo" src="/Beta_Bots_Music_Shop_Logo.png"></img>
       <header>
-      {/* <img id="logo" src="/Beta_Bots_Music_Shop_Logo.png"></img> */}
           <Link to="/">Home</Link>
           <Link to="/products">Products</Link>
           {token ? <Link to="/cart">Cart</Link> : ''}

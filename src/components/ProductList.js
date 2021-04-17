@@ -7,10 +7,9 @@ const Products = ({product}) => {
     const {imageURL, name, price, category, id} = product
 
     return (
-    <div className="product-box">
-        <div className="productlist-outer-container">
+    <div className="products-container">
+        <div className="products-card">
             <img id="productlist-image" src={`${imageURL} ? ${id}`} alt={name}/>  
-            {/* <img id="productlist-image" ></img> */}
             <div className="product-list-text">
                 <a href ={`products/${id}`} id="product-link">
                     <div className="product-list-name">{name}</div>
