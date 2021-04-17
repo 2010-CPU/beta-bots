@@ -7,13 +7,18 @@ const Products = ({product}) => {
     const {imageURL, name, price, category, id} = product
 
     return (
-    <div className='product'>
-        <a href ={`products/${id}`}>
-        <img className="product-image" src={`${imageURL} ? ${id}`} alt={name}/>      
-        <p>{name}</p>
-        </a>
-        <p>${price}</p>
-        <p>{category}</p>
+    <div className="product-box">
+        <div className="productlist-outer-container">
+            <img id="productlist-image" src={`${imageURL} ? ${id}`} alt={name}/>  
+            {/* <img id="productlist-image" ></img> */}
+            <div className="product-list-text">
+                <a href ={`products/${id}`} id="product-link">
+                    <div className="product-list-name">{name}</div>
+                </a> 
+                    <div className="product-list-price">${price}</div>
+                    <div className="product-list-category">{category}</div>
+            </div>
+        </div>
     </div>
     )
 }

@@ -103,7 +103,7 @@ const populateProducts = async () => {
       name: "Fender Vintera ‘60s Jazz Bass", 
       description:"The Fender Standard Jazz Bass has the classic offset, contoured alder body with standard pickups and controls for definitive J Bass sound. The maple neck has a modern C profile, comfortable gloss finish, maple fretboard, and 20 medium jumbo frets. Chrome-plated hardware.", 
       price: 1049, 
-      imageURL:`https://cdn.shopify.com/s/files/1/0404/6032/0934/products/DSC_2177_fde5a29a-6bc0-490d-bd1c-b83f5c2ac318_800x.jpg?v=1597862308`, 
+      imageURL:`https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTKk9OoWjhBnDOyrI9HxecsxBnBY15lxncXZw&usqp=CAU`, 
       inStock: true, 
       category: 'Bass guitars'
     },
@@ -111,7 +111,7 @@ const populateProducts = async () => {
       id: 2,
       name:"Squier Vintage Modified ’70s Jazz Bass",
       description:"Bass '70s takes cosmetic details from a classic period of the J-Bass and rolls them up with modern electronics and playability. From funk to punk, the Vintage Modified Jazz Bass '70s provides exemplary tone and nods to its vintage roots with bound maple neck, striking block inlays and a pair of Fender-designed single coil pickups for a wealth of tonal possibilities. Great for the beginner bassist or the guitar player looking to add some low-end to their arsenal, the Vintage Modified Jazz Bass '70s represents an awesome value.",
-      imageURL:`https://cdn.shopify.com/s/files/1/0916/0836/products/39640_2508040506_2_383x@3x.progressive.jpg?v=1571460528`,
+      imageURL:`https://cdn.shopify.com/s/files/1/0254/4071/products/bass-guitars-squier-vintage-modified-jazz-v-5-string-1_2048x.jpg?v=1590217973`,
       price: 280,
       inStock: true,
       category: "Bass guitars"

@@ -1,17 +1,26 @@
-*{
-    color: white;
-}
-.products-container {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    grid-template-rows: repeat(4, 1fr);
-}
 
-.product {
-    text-align: center;
+.products-container {
+    margin-top: 6rem;
 }
-.product-image {
-    height: 15rem;
-    width: 15rem;
-    padding: 2rem;
+.product-box {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    border: 1px solid yellow;
 }
+#productlist-image {
+    height: 20rem;
+    width: 20rem;
+}
+.productlist-container {
+    /* flex: 0 32%;
+    height: 100px;
+    margin-bottom: 2%; /* (100-32*3)/2 */
+    /* border: 5px solid purple; */
+  }
+
+
+
+
+
+

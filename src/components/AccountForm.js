@@ -85,7 +85,7 @@ const AccountForm = (props) => {
                     </> : ""
             }
             <button className="glow-on-hover">Submit</button>
-        <Link className="opposite-link" to={`${oppositeLink}`}>Click me to {oppositeLink}</Link>
+        <Link id="login-register-link" to={`${oppositeLink}`}>Click me to {oppositeLink}</Link>
         </form>
     </div>
     </div>

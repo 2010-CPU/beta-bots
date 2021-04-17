@@ -41,7 +41,7 @@ const UsersList = (props) => {
                 hasUserList ? users.map(user => {
                     return (
 
-                        <div className="user" key={user.Id}>
+                        <div className="user" key={user.id}> 
                             <h3 className="user-name">{user.firstName} {user.lastName}</h3>
                             <p>Id: {user.id}</p>
                             <p>Username: <a href={`users/${user.id}`}>{user.username}</a></p>

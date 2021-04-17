@@ -2,9 +2,9 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom'
 import {useHistory} from 'react-router-dom'
 import {fetchProductById, addProductToOrder, fetchCart, updateOrderProduct, createOrder} from '../api';
-
 import {DeleteProduct} from './'
-   
+import './style/product.css'   
+
 const Product = (props) => {
     const {token, user} = props
     const { productId } = useParams()
@@ -54,9 +54,11 @@ const Product = (props) => {
                     const {orderProductId, price, total, quantity} = productInCart
                     const updatedTotal = Number(total + price).toFixed(2)
                     await updateOrderProduct(token, orderProductId, {price: updatedTotal, quantity: quantity + 1})
+                    alert("Your cart has been updated!")
                 } else {
                     const addProduct = await addProductToOrder(cart.id, product.id, product.price, token) 
                     fetchAndSetCart()
+                    history.push("/cart")
                 }
             } else {
                 //Create order
@@ -64,6 +66,7 @@ const Product = (props) => {
                 await fetchAndSetCart()
                 const addProduct = await addProductToOrder(cart.id, product.id, product.price, token)
                 await fetchAndSetCart()
+                history.push("/cart")
                 console.log('Added to cart as well')
             }
         } catch (error) {
@@ -76,16 +79,24 @@ const Product = (props) => {
     }
 
  return ( 
-    <div className='product' key={product.id}>
-        <img src={`${product.imageURL} ? ${product.id}`} alt={product.name}/>      
-        <p>{product.name}</p>
-        <p>{product.description}</p>
-        <p>${product.price}</p>
-        <p>{product.category}</p>
-        <button onClick={handleAdd}>Add to Cart</button>
-        {
-            user && user.isAdmin ? <DeleteProduct token={token} user={user} product={product}/> : null
-        }
+    <div className="product-container">
+        {/* <div><img className="divider-image" src="/divider.png"></img></div> */}
+        <div className='product' key={product.id}>
+            <div className="product-image-container">
+                <img className="product-image" src={`${product.imageURL} ? ${product.id}`} alt={product.name}/>      
+                <div className="product-description">{product.description}</div>
+            </div>
+            <div className="product-divider"></div>
+            <div className="product-info-container">
+                <div className="product-name">{product.name}</div>
+                <div className="product-price">${product.price}</div>
+                <div className="product-category">{product.category}</div>
+                <button className="glow-on-product" onClick={handleAdd}>Add to Cart</button>
+                {
+                    user && user.isAdmin ? <DeleteProduct token={token} user={user} product={product}/> : null
+                } 
+            </div>
+        </div>
     </div>
     )
  }
