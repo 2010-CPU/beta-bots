@@ -28,7 +28,7 @@ const UpdateCart = (props) => {
                 setUpdateQuantity(ev.target.value)
             }}></input>
             </label>
-            <button className="update-cart">Update Quantity</button>
+            <button id="update-quantity" className="update-cart">Update Quantity</button>
         </form>
     )
 }
@@ -82,14 +82,14 @@ const Cart = (props) => {
     if(!order || order.products && order.products.length === 0) {
         return (
             <div className="empty-cart">
-                Your cart is empty!
+                Your cart is empty! :&#40;
             </div>
         )
     }
 
     return (
         <div className="cart">
-            <h1 className="my-cart">My Cart</h1>
+            <img id="your-cart-logo" src="your-cart.png"></img>
             {
                 order.products.map((product) => {
                 return (
@@ -101,7 +101,7 @@ const Cart = (props) => {
                         <p className="total">Total: ${product.total}</p>
                         <p className="in-stock">In Stock: {product.inStock? 'Yes' : 'Out of Stock'}</p>
                          <p className="status">Status: {order.status}</p>
-                         <p className="userid">UserId: {order.userId}</p>
+                         <p className="userid">User Id: {order.userId}</p>
                          <UpdateCart product={product} token={token} fetchAndSetCart={fetchAndSetCart}/>
                          <RemoveFromCart token={token} product={product} fetchAndSetCart={fetchAndSetCart}/>
                         </div>
@@ -109,7 +109,9 @@ const Cart = (props) => {
                 })
             }
             {order && order.status ? <p className="created">Created: {order.datePlaced}</p> : null}
-            <button onClick={handleCheckout} disabled={!order.products.length > 0 } className="cart-checkout">Checkout</button>
+            <div id="checkout-button-div"><button onClick={handleCheckout} disabled={!order.products.length > 0 } className="cart-checkout">Checkout</button></div>
+            <img id="music-notes" src="/music-notes.jpeg"></img>
+        
         </div>
     )
  }

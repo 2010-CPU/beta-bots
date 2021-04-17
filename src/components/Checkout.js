@@ -67,7 +67,7 @@ const Checkout = (props) => {
     return (
 
         <div className="checkout-container">
-
+            <h2 id="checkout-header">CHECKOUT</h2>
             {
                 cart.products.map((product) => {
                     return (
@@ -82,16 +82,19 @@ const Checkout = (props) => {
                 })
             }
             <div class="stripe-container">
+            <div><img id="dividerer" src="/divider.png"></img></div>
             <h2 id="your-cart">{user.firstName}'s CART <img id="shopping-cart" src="/shopping-cart.png"></img></h2>
-            <p id="cart-info">Cart info: Order Id: {cart.id} | Status: {cart.status} | Date: {cart.datePlaced}</p>
+            <p id="order-number">Order #: {cart.id}</p>
+            <p id="order-status">Status: {cart.status}</p>
+            <p id="order-date">Date: {cart.datePlaced}</p>
             <h2 id="total-price"><u>Total: ${cart.orderTotal}</u></h2>
             <StripeCheckout
                 token = {handleComplete}
                 stripeKey = {stripeKey}
-                name = "beta-bots"
-                description = "shop"
+                name = "Beta Bots"
+                description = "Music Shop"
                 ComponentClass = "div"
-                panelLabel = "give us yo money"
+                panelLabel = "Pay"
                 amount = {cart.orderTotal * 100}
                 currency = "USD"
                 locale = "en"
@@ -99,6 +102,7 @@ const Checkout = (props) => {
                 zipCode = {false} > <button id="stripe-button">Pay With Card</button> 
             </StripeCheckout>
             <button id="cancel-button" onClick={handleCancel}>Cancel Order</button>
+            <div><img id="dividerer" src="/divider.png"></img></div>
             </div>
         </div>
     )

@@ -140,7 +140,6 @@ const App = () => {
               <li><a href="">Terms &#38; Conditions </a></li>
               <li><a href="">Return and Exchange</a></li>
               <li><a href="">Shipping and Delivery</a></li>
-              <li><a href="">Store Policy</a></li>
               </ul>
               </div>
               <div className="footer-links-2">
@@ -148,7 +147,6 @@ const App = () => {
               <li><a href="">Careers</a></li>
               <li><a href="">Product Support</a></li>
               <li><a href="">Product Registration</a></li>
-              <li><a href="">News</a></li>
                 </ul>
               </div>
               <div className="darker-logo">
