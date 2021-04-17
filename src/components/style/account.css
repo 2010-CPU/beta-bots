@@ -28,9 +28,10 @@ li, ol {
     text-transform: uppercase;
 }
 
-h2 {
+.background-image > h2 {
     padding-bottom: 50px;
     color: #A38A61;
+    text-align: center;
 }
 
 .order > hr {

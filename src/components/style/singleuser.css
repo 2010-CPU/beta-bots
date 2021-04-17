@@ -81,4 +81,5 @@ form > input {
 h3 {
     padding: 20px;
     color: #A18961;
+    text-transform: uppercase;
 }
