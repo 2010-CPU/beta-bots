@@ -3,6 +3,8 @@ import {useHistory} from 'react-router-dom';
 
 import {createProduct} from '../api'
 
+import './style/createproduct.css'
+
 
 const CreateProduct = (props) => {
 
@@ -46,31 +48,44 @@ const CreateProduct = (props) => {
 
     return (
         <div className="create-product">
-            <h2>Create Product</h2>
+            {/* <h2 className="create-product-header">Create Product</h2> */}
+            <img id="create-product-image" src="/create_product.png"></img>
             <form onSubmit={handleSubmit}>
                 <input type="text" value={name} required={true} placeholder="Product Name:" onChange={(ev) => {
                     setName(ev.target.value)
                 }}></input>
-                <input type="text" value={price} required={true} placeholder="Product Price:" onChange={(ev) => {
+                <input id="price-input" type="text" value={price} required={true} placeholder="Product Price:" onChange={(ev) => {
                     setPrice(ev.target.value)
                 }}></input>
-                <textarea type="text" value={description} required={true} placeholder="Description:" onChange={(ev) => {
+                <br />
+                <textarea id="description-textarea" type="text" value={description} required={true} placeholder="Description:" onChange={(ev) => {
                     setDescription(ev.target.value)
                 }}></textarea>
-                <label>In Stock? 
+                <br />
+                {/* <label>In Stock?
                 <input type="checkbox" checked={inStock} value={inStock} onChange={(ev) => {
                     setInStock(ev.target.value)
                 }}></input>
-                </label>
-                <input type="text" value={category} required={true} placeholder="Category:" onChange={(ev) => {
+                </label> */}
+                <br />
+                <input id="category-input" type="text" value={category} required={true} placeholder="Category:" onChange={(ev) => {
                     setCategory(ev.target.value)
                 }}></input>
-                <input type="text" value={imageURL} required={true} placeholder="Image URL:" onChange={(ev) => {
+                
+                <input id="image-input" type="text" value={imageURL} required={true} placeholder="Image URL:" onChange={(ev) => {
                     setImageURL(ev.target.value)
                 }}></input>
-                <button>Submit Product</button>
+                   <br />
+                   <label id="cb-label">In Stock?</label>
+                <input id="in-stock-cb" type="checkbox" checked={inStock} value={inStock} onChange={(ev) => {
+                    setInStock(!inStock)
+                }}></input>
+                {/* </label> */}
+                <br />
+                <button id="create-product-button">Submit Product</button>
             </form>
-        </div>
+            <img id="dark-bg" src="/dark-bg-for-cp.jpeg"></img>
+            </div>
     )
 
 }

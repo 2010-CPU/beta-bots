@@ -19,7 +19,7 @@ const AccountForm = (props) => {
     const [image, setImageURL] = useState("")
 
     const [isDefault, setDefault] = useState(true)
-
+    const title = register ? "Register" : "Login";
     const oppositeLink = register ? "login" : "register"
     const route = register ? "register" : "login"
 
@@ -41,15 +41,21 @@ const AccountForm = (props) => {
                 localStorage.setItem('grace-token', response.token)
                 setToken(response.token)
                 history.push("/")
+            } else {
+                alert(response.message)
             }
         } catch (error) {
-            console.log(error)
+            alert(error)
         }
     }
 
     return (
-    <div className="account-form">
-        <form onSubmit={handleLogin}>
+        <>
+      
+     <div className="account-form-container">
+        <div className="account-form">
+        <form className="submit-form" onSubmit={handleLogin}>
+        <h2 className="title">{title}</h2>
             <input type="text" placeholder="username" className="input" value={username} onChange={(ev) => {
                 setUsername(ev.target.value)
             }}></input>
@@ -68,22 +74,25 @@ const AccountForm = (props) => {
                         <input type="text" placeholder="email" className="input" value={email} onChange={(ev) => {
                             setEmail(ev.target.value)
                         }}></input> 
-                        <label>Default Picture? 
-                        <input type="checkbox" value={isDefault} checked={isDefault} onChange={() => {
+                        <label className="default">Default Picture? 
+                        <input type="checkbox" className="checkbox" value={isDefault} checked={isDefault} onChange={() => {
                             setDefault(!isDefault)
                         }}></input>
                         </label>
                         {!isDefault ? 
-                            <input type="text" placeholder="image url" value={image} onChange={(ev) => {
+                            <input type="text" className="input" placeholder="image url" value={image} onChange={(ev) => {
                                 setImageURL(ev.target.value)
                             }}></input>
                         : ""}
                     </> : ""
             }
-            <button className="account-btn">Submit</button>
+            <button className="glow-on-hover">Submit</button>
+        <Link id="login-register-link" to={`${oppositeLink}`}>Click me to {oppositeLink}</Link>
         </form>
-        <Link to={`${oppositeLink}`}>Click me to {oppositeLink}</Link>
-    </div>)
+    </div>
+    </div>
+    </>
+    )
 }
 
 export default AccountForm;

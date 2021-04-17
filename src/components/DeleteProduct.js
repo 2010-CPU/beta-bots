@@ -23,7 +23,7 @@ const DeleteProduct = (props) => {
         }
     }
 
-    return <button onClick={handleDelete}>Delete</button>;
+    return <button className="delete-btn" onClick={handleDelete}>Delete</button>;
 }
 
 export default DeleteProduct;

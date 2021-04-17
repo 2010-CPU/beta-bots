@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {useHistory, useParams} from 'react-router-dom'
 import { fetchCart, deleteProductFromOrder, updateOrderProduct } from '../api';
+import './style/cart.css';
 
 const UpdateCart = (props) => {
     const {fetchAndSetCart, product, token} = props
@@ -14,19 +15,20 @@ const UpdateCart = (props) => {
                 price: updatedTotal,
                 quantity: updateQuantity
             })
+            alert("Updated quantity to cart.")
             fetchAndSetCart()
         } catch (error) {
             console.log(error)
         }
     }
     return (
-        <form onSubmit={handleUpdate}>
+        <form className="quantity-form" onSubmit={handleUpdate}>
             <label>Quantity
-            <input type="number" placeholder="amount" min="1" max="5" value={updateQuantity} onChange={(ev) => {
+            <input className="quantity-box" type="number" placeholder="amount" min="1" max="5" value={updateQuantity} onChange={(ev) => {
                 setUpdateQuantity(ev.target.value)
             }}></input>
             </label>
-            <button>Update Quantity</button>
+            <button className="update-cart">Update Quantity</button>
         </form>
     )
 }
@@ -36,13 +38,14 @@ const RemoveFromCart = (props) => {
     const handleDelete = async () => {
         try {
             const deletedProduct = await deleteProductFromOrder(orderProductId, token)
-            fetchAndSetCart()
+            alert("Removed item from cart.")
+            fetchAndSetCart()            
         } catch (error) {
             console.log(error)
         }
     }
     return (
-    <button onClick={handleDelete}>Remove from Cart</button>
+    <button onClick={handleDelete} className="remove-from-cart">Remove from Cart</button>
     )
 }
 const Cart = (props) => {
@@ -72,33 +75,41 @@ const Cart = (props) => {
         }
     }, [token])
 
-    if(user && user.resetPassword) {
+    if(user && user.passwordReset) {
         history.push('/account/resetpassword')
+    }
+
+    if(!order || order.products && order.products.length === 0) {
+        return (
+            <div className="empty-cart">
+                Your cart is empty!
+            </div>
+        )
     }
 
     return (
         <div className="cart">
-            <h1>My Cart</h1>
+            <h1 className="my-cart">My Cart</h1>
             {
                 order.products.map((product) => {
                 return (
                     <div className="order-product" key={product.id}>
-                        <img src={`${product.imageURL} ? ${product.id}`} alt={product.name}/>   
-                        <p>Product: {product.name}</p>
-                        <p>Price: ${product.price}</p>
-                        <p>Quantity: {product.quantity}</p>
-                        <p>Total: ${product.total}</p>
-                        <p>In Stock: {product.inStock? 'Yes' : 'Out of Stock'}</p>
-                         <p>Status: {order.status}</p>
-                         <p>UserId: {order.userId}</p>
-                         <p>Created: {order.datePlaced}</p>
-                         <UpdateCart product={product} token={token} fetchAndSetCart={fetchAndSetCart} />
+                        <h3 className="product-name"> {product.name}</h3>
+                        <img src={`${product.imageURL} ? ${product.id}`} alt={product.name}/>                       
+                        <p className="price">Price: ${product.price}</p>
+                        <p className="quantity">Quantity: {product.quantity}</p>
+                        <p className="total">Total: ${product.total}</p>
+                        <p className="in-stock">In Stock: {product.inStock? 'Yes' : 'Out of Stock'}</p>
+                         <p className="status">Status: {order.status}</p>
+                         <p className="userid">UserId: {order.userId}</p>
+                         <UpdateCart product={product} token={token} fetchAndSetCart={fetchAndSetCart}/>
                          <RemoveFromCart token={token} product={product} fetchAndSetCart={fetchAndSetCart}/>
                         </div>
                     )
                 })
             }
-            <button onClick={handleCheckout} disabled={!order.products.length > 0 }>Checkout</button>
+            {order && order.status ? <p className="created">Created: {order.datePlaced}</p> : null}
+            <button onClick={handleCheckout} disabled={!order.products.length > 0 } className="cart-checkout">Checkout</button>
         </div>
     )
  }

@@ -12,7 +12,6 @@ const {
   destroyProduct
   // other db methods 
 } = require('./index');
-// const { getAllProducts } = require('./products');
 
 async function buildTables() {
   try {
@@ -45,7 +44,7 @@ async function buildTables() {
         "firstName" VARCHAR(255) NOT NULL,
         "lastName" VARCHAR(255) NOT NULL,
         email VARCHAR(255) UNIQUE NOT NULL,
-        "imageURL" VARCHAR(255) DEFAULT 'https://placeimg.com/100/100/people',
+        "imageURL" VARCHAR(255) DEFAULT 'https://placeimg.com/250/250/people',
         username VARCHAR(255) UNIQUE NOT NULL,
         password VARCHAR(255) UNIQUE NOT NULL,
         "isAdmin" BOOLEAN NOT NULL DEFAULT false,
@@ -104,7 +103,7 @@ const populateProducts = async () => {
       name: "Fender Vintera ‘60s Jazz Bass", 
       description:"The Fender Standard Jazz Bass has the classic offset, contoured alder body with standard pickups and controls for definitive J Bass sound. The maple neck has a modern C profile, comfortable gloss finish, maple fretboard, and 20 medium jumbo frets. Chrome-plated hardware.", 
       price: 1049, 
-      imageURL:`https://cdn.shopify.com/s/files/1/0404/6032/0934/products/DSC_2177_fde5a29a-6bc0-490d-bd1c-b83f5c2ac318_800x.jpg?v=1597862308`, 
+      imageURL:`https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTKk9OoWjhBnDOyrI9HxecsxBnBY15lxncXZw&usqp=CAU`, 
       inStock: true, 
       category: 'Bass guitars'
     },
@@ -112,7 +111,7 @@ const populateProducts = async () => {
       id: 2,
       name:"Squier Vintage Modified ’70s Jazz Bass",
       description:"Bass '70s takes cosmetic details from a classic period of the J-Bass and rolls them up with modern electronics and playability. From funk to punk, the Vintage Modified Jazz Bass '70s provides exemplary tone and nods to its vintage roots with bound maple neck, striking block inlays and a pair of Fender-designed single coil pickups for a wealth of tonal possibilities. Great for the beginner bassist or the guitar player looking to add some low-end to their arsenal, the Vintage Modified Jazz Bass '70s represents an awesome value.",
-      imageURL:`https://cdn.shopify.com/s/files/1/0916/0836/products/39640_2508040506_2_383x@3x.progressive.jpg?v=1571460528`,
+      imageURL:`https://cdn.shopify.com/s/files/1/0254/4071/products/bass-guitars-squier-vintage-modified-jazz-v-5-string-1_2048x.jpg?v=1590217973`,
       price: 280,
       inStock: true,
       category: "Bass guitars"
@@ -265,28 +264,6 @@ const populateOrders = async () => {
 const populateOrderProducts = async () => {
   try {
     console.log("Creating products to order...")
-    const order_product = {
-      orderId: 1,
-      productId: 3,
-      price: 1000.55,
-      quantity: 1
-    }
-    const order_product2 = {
-      orderId: 1,
-      productId: 2,
-      price: 1501.5,
-      quantity: 3
-    }
-    // const order_product3 = {
-    //   orderId: 2,
-    //   productId: 5,
-    //   price: 1500.0,
-    //   quantity: 3
-    // }
-
-    await addProductToOrder(order_product)
-    await addProductToOrder(order_product2)
-    // await addProductToOrder(order_product3)
     console.log("Finished products to order!")
   } catch (error) {
     throw error;
@@ -297,15 +274,13 @@ const seedAdminUsers = async () => {
     firstName: 'sal',
     lastName: 'guerrero',
     email: 'sal@gmail.com',
-    imageURL: 'https://placeimg.com/100/100/people',
     username: 'lol',
     password: 'lol',
     isAdmin: true
   }
   try {
     const admin = await createUser(sal)
-    const order = await createOrder({userId: admin.id})
-    console.log(admin, order)
+    console.log(admin)
   } catch (error) {
     throw error
   }

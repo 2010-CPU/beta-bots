@@ -3,8 +3,46 @@ li, ol {
 }
 
 .account-container {
-    padding-top: 200px;
-    display: flex;
-    flex-direction: column;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    margin-left: 12%;
+}
+
+.order-history-header, h4 {
+    color: #A38A61;
+}
+
+.profile > img {
+    height: 250px;
+    border-radius: 80%;
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+.profile {
     text-align: center;
+    padding-top: 20px;
+}
+
+.profile > p {
+    text-transform: uppercase;
+}
+
+.background-image > h2 {
+    padding-bottom: 50px;
+    color: #A38A61;
+    text-align: center;
+}
+
+.order > hr {
+   width: 400px;
+}
+
+.order {
+    padding-bottom: 10px;
+    padding-top: 10px;
+}
+
+.order > p, h4 {
+    padding-bottom: 5px;
 }

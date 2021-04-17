@@ -1,6 +1,26 @@
 import React, { useState, useEffect } from 'react';
 import {useHistory} from 'react-router-dom'
-import { fetchAllUsers } from '../api';
+import { fetchAllUsers, triggerPassReset } from '../api';
+import './style/userslist.css'
+
+const TriggerPassResetButton = (props) => {
+    
+    const {user, token} = props
+    const {id} = user
+
+    const triggerPasswordReset = async () => {
+        try {
+            const response = await triggerPassReset(id, token)
+            alert("You have triggered a password reset.")
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    return (
+        <button className="trigger" onClick={triggerPasswordReset}>Trigger Password Reset</button>
+    )
+}
 
 const UsersList = (props) => {
     const {token, user} = props
@@ -32,27 +52,27 @@ const UsersList = (props) => {
     const hasUserList = users && users.length > 0
 
     return (
+        <div className="user-container">
+            <div><img className="admin-image" src="/ADMIN.png"></img></div>
+            <div className="create-user-button-container"><button onClick={sendToCreateUser}>Create User</button></div>
         <div>
-            <button onClick={sendToCreateUser}>Create User</button>
             {
                 hasUserList ? users.map(user => {
                     return (
-
-                        <div key={user.id}>
+                        <div className="user" key={user.id}>
+                            <h3 className="user-name">{user.firstName} {user.lastName}</h3>
                             <p>Id: {user.id}</p>
-                            <p>Name: {user.firstName} {user.lastName}</p>
                             <p>Username: <a href={`users/${user.id}`}>{user.username}</a></p>
-                            <p>Email: {user.email}</p>
-                            <button>Trigger Password Reset</button>
-                            <hr />
-
+                            <p id="email-input">Email: {user.email}</p>
+                            { user && !user.isAdmin ? <TriggerPassResetButton token={token} user={user}/> : null}
                         </div>
-
                     )
                 }) : null
             }
-            {/* <Link to="/users/add">Add User</Link> */}
+            </div>
+            
         </div>
+
     )
 
 }

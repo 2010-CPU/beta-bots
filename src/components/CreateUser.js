@@ -4,6 +4,8 @@ import {useHistory} from 'react-router-dom'
 
 import {adminCreateUser} from '../api'
 
+import './style/createuser.css'
+
 const CreateUser = (props) => {
 
     const {token, admin} = props
@@ -50,34 +52,40 @@ const CreateUser = (props) => {
 
     return (
         <div className="create-user-container">
-            <h2>Create User</h2>
+            <img id="create-user-image" src="/create_user.png"></img>
             <form onSubmit={handleSubmit}>
                 <input value={firstName} type="text" required={true} placeholder="First Name" onChange={(ev) => {
                     setFirstName(ev.target.value)
                 }}></input>
                 <input value={lastName} type="text" required={true} placeholder="Last Name" onChange={(ev) => {
                     setLastName(ev.target.value)
-                }}></input>
+                }}></input> <br />
                 <input value={username} type="text" required={true} placeholder="Username" onChange={(ev) => {
                     setUsername(ev.target.value)
                 }}></input>
                 <input value={password} required={true} type="password" placeholder="Password" onChange={(ev) => {
                     setPassword(ev.target.value)
-                }}></input>
+                }}></input> <br />
                 <input value={email} required={true} type="text" placeholder="Email" onChange={(ev) => {
                     setEmail(ev.target.value)
                 }}></input>
                 <input value={imageURL} type="text" placeholder="Image URL" onChange={(ev) => {
                     setImageURL(ev.target.value)
                 }}></input>
-                <label>Set Admin:
-                <input checked={isAdmin} type="checkbox" onChange={() => {
+                <br />
+                <label id="set-admin-label">Set Admin:
+                <input checked={isAdmin} id="admin-checkbox" type="checkbox" onChange={() => {
                     setIsAdmin(!isAdmin)
                 }}></input>
                 </label>
-                <button>Create User</button>
+                <br />
+                <button id="create-user-button">Create User</button>
             </form>
+        <div>
+            <img id="man-with-guitar" src="/background.jpeg"></img>
         </div>
+        </div>
+        
     )
 }
 
