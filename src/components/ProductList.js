@@ -10,10 +10,11 @@ const Products = ({product}) => {
     <div className="products-container">
         <a href ={`products/${id}`} id="product-link">
             <div className="products-card">
+            <div className="product-list-name">{name}</div>
             <img id="productlist-image" src={`${imageURL} ? ${id}`} alt={name}/>  
-                <div className="product-list-name">{name}</div>
                 <div className="product-list-price">${price}</div>
-                <div className="product-list-category">{category}</div>
+                <div className="product-list-category">Category: {category}</div>
+                <hr id="horizontal" />
             </div>
         </a> 
     </div>
@@ -49,7 +50,7 @@ const ProductList = ({token, user}) => {
 
     return(
         <> 
-        {user && user.isAdmin ? <button onClick={sendToCreateProduct}>Create Product</button> : null}
+        {user && user.isAdmin ? <button id="create-product" onClick={sendToCreateProduct}>Create Product</button> : null}
         <div className="products-container">
             {
                 products.map(product => {

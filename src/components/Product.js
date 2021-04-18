@@ -85,8 +85,9 @@ const Product = (props) => {
 
  return ( 
     <div className="product-container">
+        <img id="item-divider" src="/divider.png"></img>
         <div className='product' key={product.id}>
-        <img className="product-img" src="https://images.unsplash.com/photo-1528645602411-bbeb0d69a6de?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1650&q=80"></img>
+        <img className="product-img" src="/black.jpeg"></img>
             <div className="product-image-container">
                 <div className="product-description-container">
                 <img className="product-image" src={`${product.imageURL} ? ${product.id}`} alt={product.name}/>      
@@ -95,13 +96,14 @@ const Product = (props) => {
             </div>
             <div className="product-info-container">
                 <div className="product-name">{product.name}</div>
-                <div className="product-price">${product.price}</div>
-                <div className="product-category">{product.category}</div>
+                <div className="product-price">Price: ${product.price}</div>
+                <div className="product-category">Category: {product.category}</div>
                 <button className="glow-on-product" onClick={handleAdd}>Add to Cart</button>
                 {
                     user && user.isAdmin ? <DeleteProduct token={token} user={user} product={product}/> : null
                 } 
             </div>
+            <img id="speaker" src="/speaker.jpeg"></img>
         </div>
     </div>
     )
