@@ -1,8 +1,7 @@
 .account-form-container {
-        background-image: url('https://images.unsplash.com/photo-1495651779359-881fde1808a6?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80');
+        background-image: url('/login-background.png');
         display: flex;
         justify-content: center;
-        font-family: 'Special Elite', cursive; 
         background-position: center;
         background-repeat: no-repeat;
         position: relative;
@@ -17,8 +16,8 @@
         justify-content: center;
         margin-top: 1rem;
         margin-bottom: 1rem;
-        opacity: 0.8;
-        border-radius: 15%;
+        opacity: 0.9;
+        border-radius: 5px;
 }
 
 .submit-form{
@@ -96,36 +95,37 @@
 }
 
 .glow-on-hover:active {
-color: #000
+        color: #000
 }
 
 .glow-on-hover:active:after {
-background: transparent;
+        background: transparent;
 }
 
 .glow-on-hover:hover:before {
-opacity: 1;
+        opacity: 1;
 }
 
 .glow-on-hover:after {
-z-index: -1;
-content: '';
-position: absolute;
-width: 100%;
-height: 100%;
-background: #111;
-left: 0;
-top: 0;
-border-radius: 10px;
+        z-index: -1;
+        content: '';
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        background: #111;
+        left: 0;
+        top: 0;
+        border-radius: 10px;
 }
 
 @keyframes glowing {
-0% { background-position: 0 0; }
-50% { background-position: 400% 0; }
-100% { background-position: 0 0; }
+        0% { background-position: 0 0; }
+        50% { background-position: 400% 0; }
+        100% { background-position: 0 0; }
 }
 
 .title {
         text-align: center;
         color: #A38A61;
+        text-transform: uppercase;
 }
