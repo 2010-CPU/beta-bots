@@ -8,16 +8,14 @@ const Products = ({product}) => {
 
     return (
     <div className="products-container">
-        <div className="products-card">
+        <a href ={`products/${id}`} id="product-link">
+            <div className="products-card">
             <img id="productlist-image" src={`${imageURL} ? ${id}`} alt={name}/>  
-            <div className="product-list-text">
-                <a href ={`products/${id}`} id="product-link">
-                    <div className="product-list-name">{name}</div>
-                </a> 
-                    <div className="product-list-price">${price}</div>
-                    <div className="product-list-category">{category}</div>
+                <div className="product-list-name">{name}</div>
+                <div className="product-list-price">${price}</div>
+                <div className="product-list-category">{category}</div>
             </div>
-        </div>
+        </a> 
     </div>
     )
 }

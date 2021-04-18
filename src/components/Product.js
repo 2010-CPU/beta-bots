@@ -4,6 +4,7 @@ import {useHistory} from 'react-router-dom'
 import {fetchProductById, addProductToOrder, fetchCart, updateOrderProduct, createOrder} from '../api';
 import {DeleteProduct} from './'
 import './style/product.css'   
+ 
 
 const Product = (props) => {
     const {token, user} = props
@@ -85,11 +86,13 @@ const Product = (props) => {
  return ( 
     <div className="product-container">
         <div className='product' key={product.id}>
+        <img className="product-img" src="https://images.unsplash.com/photo-1528645602411-bbeb0d69a6de?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1650&q=80"></img>
             <div className="product-image-container">
+                <div className="product-description-container">
                 <img className="product-image" src={`${product.imageURL} ? ${product.id}`} alt={product.name}/>      
+                </div>
                 <div className="product-description">{product.description}</div>
             </div>
-            <div className="product-divider"></div>
             <div className="product-info-container">
                 <div className="product-name">{product.name}</div>
                 <div className="product-price">${product.price}</div>
