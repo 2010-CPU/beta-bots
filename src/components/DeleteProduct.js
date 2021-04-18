@@ -2,7 +2,7 @@ import React from 'react';
 import {useHistory} from 'react-router-dom';
 
 import {destroyProduct} from '../api';
-
+  
 const DeleteProduct = (props) => {
 
     const {product, token} = props
