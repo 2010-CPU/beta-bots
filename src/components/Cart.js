@@ -100,8 +100,6 @@ const Cart = (props) => {
                         <p className="quantity">Quantity: {product.quantity}</p>
                         <p className="total">Total: ${product.total}</p>
                         <p className="in-stock">In Stock: {product.inStock? 'Yes' : 'Out of Stock'}</p>
-                         <p className="status">Status: {order.status}</p>
-                         <p className="userid">User Id: {order.userId}</p>
                          <UpdateCart product={product} token={token} fetchAndSetCart={fetchAndSetCart}/>
                          <RemoveFromCart token={token} product={product} fetchAndSetCart={fetchAndSetCart}/>
                         </div>
@@ -110,7 +108,6 @@ const Cart = (props) => {
             }
             {order && order.status ? <p className="created">Created: {order.datePlaced}</p> : null}
             <div id="checkout-button-div"><button onClick={handleCheckout} disabled={!order.products.length > 0 } className="cart-checkout">Checkout</button></div>
-            <img id="music-notes" src="/music-notes.jpeg"></img>
         
         </div>
     )

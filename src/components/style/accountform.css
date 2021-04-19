@@ -1,5 +1,6 @@
 .account-form-container {
-        background-image: url('/login-background.png');
+        /*if this doesn't break for someone uncomment it, it's breaking for me - Sal*/
+        /*background-image: url('/login-background.png');*/
         display: flex;
         justify-content: center;
         background-position: center;
