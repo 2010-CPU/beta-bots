@@ -56,22 +56,22 @@ const AccountForm = (props) => {
         <div className="account-form">
         <form className="submit-form" onSubmit={handleLogin}>
         <h2 className="title">{title}</h2>
-            <input type="text" placeholder="username" className="input" value={username} onChange={(ev) => {
+            <input type="text" placeholder="username" required={true} className="input" value={username} onChange={(ev) => {
                 setUsername(ev.target.value)
             }}></input>
-            <input type="password" placeholder="password" className="input" value={password} onChange={(ev) => {
+            <input type="password" placeholder="password" required={true} className="input" value={password} onChange={(ev) => {
                 setPassword(ev.target.value)
             }}></input>
             {
                 register ? 
                     <>
-                        <input type="text" placeholder="first name" className="input" value={firstName} onChange={(ev) => {
+                        <input type="text" placeholder="first name" required={true} className="input" value={firstName} onChange={(ev) => {
                             setFirstName(ev.target.value)
                         }}></input>
-                        <input type="text" placeholder="last name" className="input" value={lastName} onChange={(ev) => {
+                        <input type="text" placeholder="last name" required={true} className="input" value={lastName} onChange={(ev) => {
                             setLastName(ev.target.value)
                         }}></input>
-                        <input type="text" placeholder="email" className="input" value={email} onChange={(ev) => {
+                        <input type="text" placeholder="email" required={true} className="input" value={email} onChange={(ev) => {
                             setEmail(ev.target.value)
                         }}></input> 
                         <label className="default">Default Picture? 

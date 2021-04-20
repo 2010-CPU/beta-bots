@@ -23,6 +23,7 @@ const handleAccountForm = async (formType, fields) => {
                 'Content-type': 'application/json'
             }
         })
+        console.log(response.status)
         const {data} = response
         return data
     } catch (error) {
