@@ -47,7 +47,7 @@ const ResetPassword = (props) => {
             <input type="password" minLength={8} required={true} value={confirmPassword} placeholder={"Confirm Password"} onChange={(ev) => {
                 setConfirmPassword(ev.target.value)
             }}></input>
-            <button>Reset Passowrd</button>
+            <button>Reset Password</button>
         </form>
     )
 }
