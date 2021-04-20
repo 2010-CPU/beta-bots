@@ -135,7 +135,17 @@
 
 
 #checkout-button-div{
-    display: flex;
-    justify-content: flex-end;
-    align-items: center; 
+    position: fixed;
+    width: auto;
+    height: auto;
+    right: 26%;
+    top: 90%;
+    z-index: 1;
+}
+
+#checkout-button-div > button {
+    padding-left: 30px;
+    padding-right: 30px;
+    padding-top: 10px;
+    padding-bottom: 10px;
 }

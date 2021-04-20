@@ -47,6 +47,9 @@ const Product = (props) => {
 
     const handleAdd = async () => {
         try {
+            if(!product.inStock) {
+                return alert("This product is out of stock, check back next time!")
+            }
             if(cart.id){
                 const productInCart = cart.products.find(cartProduct => {
                     return cartProduct.id === product.id
@@ -65,14 +68,16 @@ const Product = (props) => {
                     const addProduct = await addProductToOrder(cart.id, product.id, product.price, token) 
                     fetchAndSetCart()
                     history.push("/cart")
-                    alert("Added item to cart.")
                 }
             } else {
-                const order = await createOrder(user.id, token)
-                const addProduct = await addProductToOrder(order.id, product.id, product.price, token)
-                await fetchAndSetCart()
-                history.push("/cart")
-                alert("Added item to cart.")
+                if(token) {
+                    const order = await createOrder(user.id, token)
+                    const addProduct = await addProductToOrder(order.id, product.id, product.price, token)
+                    await fetchAndSetCart()
+                    history.push("/cart")
+                } else {
+                    alert("You must be logged in to use the cart.")
+                }
             }
         } catch (error) {
             console.log(error)
